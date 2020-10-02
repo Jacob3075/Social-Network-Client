@@ -52,7 +52,12 @@ export default function InfiniteScrollList() {
 				{hasMoreItems ? (
 					""
 				) : (
-					<div className="text-center">no data anymore ...</div>
+					<div
+						className="tex
+					t-center"
+					>
+						no data anymore ...
+					</div>
 				)}
 			</div>
 		</div>

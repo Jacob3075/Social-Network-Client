@@ -4,7 +4,7 @@ export default {
 	getList: async function (page) {
 		try {
 			let url;
-			if ((page != null) && (page > 1)) {
+			if (page != null && page > 1) {
 				url = "https://reqres.in/api/users?per_page=2&page=" + page;
 			} else {
 				url = "https://reqres.in/api/users?per_page=2";
