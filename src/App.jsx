@@ -7,35 +7,36 @@ import SignInSide from "./components/samples/SignInSide";
 import Post from "./components/Post";
 
 const SampleApp = () => (
-  <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>
-        Edit
-        <code> src/App.js </code>
-        and save to reload.
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
-    </header>
-  </div>
+	<div className="App">
+		<header className="App-header">
+			<img src={logo} className="App-logo" alt="logo" />
+			<p>
+				Edit
+				<code> src/App.js </code>
+				and save to reload.
+			</p>
+			<a
+				className="App-link"
+				href="https://reactjs.org"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				Learn React
+			</a>
+		</header>
+	</div>
 );
 
 const App = () => (
-  <BrowserRouter>
-    <Switch>
-      <Route exact path="/" component={SampleApp} />
-      <Route path="/login" component={LoginPage} />
-      <Route path="/sign-in" component={SignInSide} />
-      <Route path="/post" component={Post} />
-    </Switch>
-  </BrowserRouter>
+	<BrowserRouter>
+		<Switch>
+			<Route exact path="/" component={SampleApp} />
+			<Route path="/login" component={LoginPage} />
+			<Route path="/sign-in" component={SignInSide} />
+			<Route path="/post" component={Post} />
+			<Route path="/home" component={<div>Main Page {"{ TODO }"}</div>} />
+		</Switch>
+	</BrowserRouter>
 );
 
 export default App;
