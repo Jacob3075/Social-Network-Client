@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const signInSideStyles = makeStyles((theme) => ({
 	root: {
 		height: "100vh",
 	},
@@ -33,4 +33,4 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default useStyles;
+export default signInSideStyles;

@@ -2,9 +2,10 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./styles/App.css";
 import logo from "./res/logo.svg";
-import LoginPage from "./components/LoginPage";
-import SignInSide from "./components/samples/SignInSide";
+import LoginPage from "./components/pages/LoginPage";
+import SignInPage from "./components/pages/SignInPage";
 import Post from "./components/Post";
+import HomePage from "./components/pages/HomePage";
 
 const SampleApp = () => (
 	<div className="App">
@@ -32,9 +33,9 @@ const App = () => (
 		<Switch>
 			<Route exact path="/" component={SampleApp} />
 			<Route path="/login" component={LoginPage} />
-			<Route path="/sign-in" component={SignInSide} />
+			<Route path="/sign-in" component={SignInPage} />
 			<Route path="/post" component={Post} />
-			<Route path="/home" component={<div>Main Page {"{ TODO }"}</div>} />
+			<Route path="/home" component={HomePage} />
 		</Switch>
 	</BrowserRouter>
 );

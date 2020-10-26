@@ -26,7 +26,7 @@ function Copyright() {
 	);
 }
 
-export default function SignInSide() {
+export default function SignInPage() {
 	const classes = signInSideStyles();
 
 	return (

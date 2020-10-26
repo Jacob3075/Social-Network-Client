@@ -13,7 +13,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import postStyles from "../styles/PostStyle";
+import postStyles from "../styles/PostStyles";
 
 const Post = () => {
 	const classes = postStyles();

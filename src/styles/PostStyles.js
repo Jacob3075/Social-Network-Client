@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { red } from "@material-ui/core/colors";
 
-const useStyles = makeStyles((theme) => ({
+const postStyles = makeStyles((theme) => ({
 	root: {
 		maxWidth: "85vw",
 		margin: "auto",
@@ -25,4 +25,4 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default useStyles;
+export default postStyles;
