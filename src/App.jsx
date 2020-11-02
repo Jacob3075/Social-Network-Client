@@ -36,6 +36,8 @@ const App = () => (
 			<Route path="/sign-in" component={SignInPage} />
 			<Route path="/post" component={Post} />
 			<Route path="/home" component={HomePage} />
+			{/*<Route path="/topics" component={HomePage} />*/}
+			{/*<Route path="/topic" component={HomePage} />*/}
 		</Switch>
 	</BrowserRouter>
 );

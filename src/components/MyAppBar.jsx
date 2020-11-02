@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
 const MyAppBar = ({ title = "Title" }) => {
 	const classes = useStyles();
 
-	const [searchQuery, setSearchQuery] = useState("");
+	const [ searchQuery, setSearchQuery ] = useState("");
 
 	const handleChange = (event) => {
 		setSearchQuery(event.target.value);
@@ -48,7 +48,7 @@ const MyAppBar = ({ title = "Title" }) => {
 					className={classes.search}
 					size="small"
 					id="outlined-basic"
-					label="Outlined"
+					label="Search"
 					variant="outlined"
 					InputProps={{
 						startAdornment: (
