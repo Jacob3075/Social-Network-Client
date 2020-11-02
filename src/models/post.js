@@ -7,3 +7,5 @@ class Post {
 		this.imageUrl = imageUrl;
 	}
 }
+
+export default Post
