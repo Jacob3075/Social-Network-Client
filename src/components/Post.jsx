@@ -28,7 +28,7 @@ const Post = ({ id, author, body, date, imageUrl, topicId, commentId }) => {
 			<CardHeader
 				title={author}
 				subheader={topic}
-				subheaderTypographyProps={{ variant: "subtitle2"}}
+				subheaderTypographyProps={{ variant: "subtitle2" }}
 			/>
 			<CardMedia className={classes.media} image={imageUrl} />
 			<CardContent>
