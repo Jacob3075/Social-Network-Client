@@ -5,6 +5,10 @@ const postStyles = makeStyles((theme) => ({
 	root: {
 		maxWidth: "85vw",
 		margin: "auto",
+		textAlign: "left",
+	},
+	postHeader: {
+		fontSize: "5",
 	},
 	media: {
 		height: 0,
