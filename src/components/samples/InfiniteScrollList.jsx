@@ -24,7 +24,7 @@ const InfiniteScrollList = () => {
 	// 		});
 	// };
 
-	const loadPostList = (pageNumber) => {
+	const loadMoreData = (pageNumber) => {
 		const newPosts = PostService.mockGetPosts(pageNumber);
 		const updatedPostsList = postList.concat(newPosts);
 		setPostList(updatedPostsList);
@@ -34,52 +34,15 @@ const InfiniteScrollList = () => {
 		}
 	};
 
-	let posts = postList.map(post => <Post key={post.id} {...post} />);
+	let posts = postList.map((post, index) => <Post key={index} {...post} />);
 
 	return (
-		// <>
-		// 	<div className="section">
-		// 		<InfiniteScroll
-		// 			threshold={0}
-		// 			pageStart={0}
-		// 			loadMore={loadUserList}
-		// 			hasMore={hasMoreItems}
-		// 			loader={<div className="text-center">loading data ...</div>}
-		// 		>
-		// 			{userList.map((user, i) => (
-		// 				<div className="box m-3 user" key={i}>
-		// 					<img src={user.avatar} alt={user.first_name} />
-		// 					<div className="user-details">
-		// 						<strong>Email</strong>: {user.email}
-		// 						<br />
-		// 						<strong>First Name</strong>: {user.first_name}
-		// 						<br />
-		// 						<strong>Last Name</strong>: {user.last_name}
-		// 						<br />
-		// 					</div>
-		// 				</div>
-		// 			))}
-		// 		</InfiniteScroll>
-		// 		{hasMoreItems ? (
-		// 			""
-		// 		) : (
-		// 			<div
-		// 				className="tex
-		// 			t-center"
-		// 			>
-		// 				no data anymore ...
-		// 			</div>
-		// 		)}
-		// 	</div>
-		// </>
-
 		<>
 			<InfiniteScroll
-				threshold={0}
 				pageStart={0}
-				loadMore={loadPostList}
+				loadMore={loadMoreData}
 				hasMore={hasMoreItems}
-				loader={<>LOADING</>}
+				loader={<div key={0}>LOADING</div>}
 			>
 				{posts}
 			</InfiniteScroll>

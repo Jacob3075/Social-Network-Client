@@ -1,4 +1,4 @@
-import PropTypes, { number, string } from "prop-types";
+import PropTypes from "prop-types";
 import React from "react";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -11,6 +11,8 @@ import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import postStyles from "../styles/PostStyles";
 import Button from "@material-ui/core/Button";
+import CommentService from "../services/CommentService";
+import TopicService from "../services/TopicService";
 
 const Post = ({ id, author, body, date, imageUrl, topicId, commentId }) => {
 	const classes = postStyles();
@@ -20,23 +22,25 @@ const Post = ({ id, author, body, date, imageUrl, topicId, commentId }) => {
 		setExpanded(!expanded);
 	};
 
-	let comments = commentId; // CommentService.getCommentsById(commentId);
-	let topic = "Posted to Topic " + topicId + " on " + date; // TopicService.getTopicById(topicId);
+	const comments = CommentService.mockGetCommentsById(commentId);
+	const topic = TopicService.mockGetTopicById(topicId);
+	const postHeaderTopicMessage =
+		"Posted to Topic " + topic.name + " on " + date;
 
 	return (
 		<Card className={classes.root}>
 			<CardHeader
 				title={author}
-				subheader={topic}
+				subheader={postHeaderTopicMessage}
 				subheaderTypographyProps={{ variant: "subtitle2" }}
 			/>
 			<CardMedia className={classes.media} image={imageUrl} />
 			<CardContent>
-				<Typography variant="body3" component="p">
+				<Typography variant="body2" component="p">
 					{body}
 				</Typography>
 			</CardContent>
-			<CardActions disableSpacing>
+			<CardActions>
 				<IconButton>
 					<FavoriteIcon />
 				</IconButton>
@@ -54,11 +58,11 @@ const Post = ({ id, author, body, date, imageUrl, topicId, commentId }) => {
 Post.propTypes = {
 	author: PropTypes.string.isRequired,
 	body: PropTypes.string.isRequired,
-	commentId: PropTypes.oneOf([number, string]).isRequired,
-	date: PropTypes.instanceOf(Date).isRequired,
+	commentId: PropTypes.number.isRequired,
+	date: PropTypes.any.isRequired,
 	id: PropTypes.number.isRequired,
 	imageUrl: PropTypes.string.isRequired,
-	topicId: PropTypes.oneOf([number, string]).isRequired,
+	topicId: PropTypes.number.isRequired,
 };
 
 export default Post;
