@@ -34,7 +34,9 @@ const InfiniteScrollList = () => {
 		}
 	};
 
-	let posts = postList.map((post, index) => <Post key={index} {...post} />);
+	let postComponents = postList.map((post, index) => (
+		<Post key={index} {...post} />
+	));
 
 	return (
 		<>
@@ -44,7 +46,7 @@ const InfiniteScrollList = () => {
 				hasMore={hasMoreItems}
 				loader={<div key={0}>LOADING</div>}
 			>
-				{posts}
+				{postComponents}
 			</InfiniteScroll>
 		</>
 	);
