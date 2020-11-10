@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -26,7 +27,7 @@ const useStyles = makeStyles(() => ({
 const MyAppBar = ({ title = "Title" }) => {
 	const classes = useStyles();
 
-	const [ searchQuery, setSearchQuery ] = useState("");
+	const [searchQuery, setSearchQuery] = useState("");
 
 	const handleChange = (event) => {
 		setSearchQuery(event.target.value);
@@ -66,3 +67,7 @@ const MyAppBar = ({ title = "Title" }) => {
 };
 
 export default MyAppBar;
+
+MyAppBar.propTypes = {
+	title: PropTypes.string.isRequired,
+};

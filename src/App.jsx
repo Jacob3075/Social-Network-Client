@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import CssBaseline from '@material-ui/core/CssBaseline';
 import "./styles/App.css";
 import logo from "./res/logo.svg";
 import LoginPage from "./components/pages/LoginPage";
@@ -29,17 +30,20 @@ const SampleApp = () => (
 );
 
 const App = () => (
-	<BrowserRouter>
-		<Switch>
-			<Route exact path="/" component={SampleApp} />
-			<Route path="/login" component={LoginPage} />
-			<Route path="/sign-in" component={SignInPage} />
-			<Route path="/post" component={Post} />
-			<Route path="/home" component={HomePage} />
-			{/*<Route path="/topics" component={HomePage} />*/}
-			{/*<Route path="/topic" component={HomePage} />*/}
-		</Switch>
-	</BrowserRouter>
+	<>
+		<CssBaseline />
+		<BrowserRouter>
+			<Switch>
+				<Route exact path="/" component={SampleApp} />
+				<Route path="/login" component={LoginPage} />
+				<Route path="/sign-in" component={SignInPage} />
+				<Route path="/post" component={Post} />
+				<Route path="/home" component={HomePage} />
+				{/*<Route path="/topics" component={HomePage} />*/}
+				{/*<Route path="/topic" component={HomePage} />*/}
+			</Switch>
+		</BrowserRouter>
+	</>
 );
 
 export default App;

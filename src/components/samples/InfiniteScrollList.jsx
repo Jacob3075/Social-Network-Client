@@ -1,65 +1,55 @@
 import React, { useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
-import UserService from "../../services/UserService";
+import PostService from "../../services/PostService";
+import Post from "../Post";
 
-export default function InfiniteScrollList() {
-	const [userList, setUserList] = useState([]);
+const InfiniteScrollList = () => {
+	const [postList, setPostList] = useState([]);
 	const [hasMoreItems, setHasMoreItems] = useState(true);
 
-	const loadUserList = (page) => {
-		setTimeout(() => {
-			UserService.getList(page)
-				.then((res) => {
-					const newList = userList.concat(res.data);
-					setUserList(newList);
+	// const loadPostList = (page) => {
+	// 	PostService.getList(page)
+	// 		.then((res) => {
+	// 			const newList = postList.concat(res.data);
+	// 			setPostList(newList);
+	//
+	// 			if (res.data.length === 0) {
+	// 				setHasMoreItems(false);
+	// 			} else {
+	// 				setHasMoreItems(true);
+	// 			}
+	// 		})
+	// 		.catch((err) => {
+	// 			console.log(err);
+	// 		});
+	// };
 
-					if (res.data.length === 0) {
-						setHasMoreItems(false);
-					} else {
-						setHasMoreItems(true);
-					}
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-		}, 1500);
+	const loadMoreData = (pageNumber) => {
+		const newPosts = PostService.mockGetPosts(pageNumber);
+		const updatedPostsList = postList.concat(newPosts);
+		setPostList(updatedPostsList);
+
+		if (newPosts.length === 0) {
+			setHasMoreItems(false);
+		}
 	};
 
+	let postComponents = postList.map((post, index) => (
+		<Post key={index} {...post} />
+	));
+
 	return (
-		<div>
-			<div className="section">
-				<InfiniteScroll
-					threshold={0}
-					pageStart={0}
-					loadMore={loadUserList}
-					hasMore={hasMoreItems}
-					loader={<div className="text-center">loading data ...</div>}
-				>
-					{userList.map((user, i) => (
-						<div className="box m-3 user" key={i}>
-							<img src={user.avatar} alt={user.first_name} />
-							<div className="user-details">
-								<strong>Email</strong>: {user.email}
-								<br />
-								<strong>First Name</strong>: {user.first_name}
-								<br />
-								<strong>Last Name</strong>: {user.last_name}
-								<br />
-							</div>
-						</div>
-					))}
-				</InfiniteScroll>
-				{hasMoreItems ? (
-					""
-				) : (
-					<div
-						className="tex
-					t-center"
-					>
-						no data anymore ...
-					</div>
-				)}
-			</div>
-		</div>
+		<>
+			<InfiniteScroll
+				pageStart={0}
+				loadMore={loadMoreData}
+				hasMore={hasMoreItems}
+				loader={<div key={0}>LOADING</div>}
+			>
+				{postComponents}
+			</InfiniteScroll>
+		</>
 	);
-}
+};
+
+export default InfiniteScrollList;

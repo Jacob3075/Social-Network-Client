@@ -1,9 +1,13 @@
 class Post {
-	constructor(id, title, body, date, imageUrl) {
+	constructor(id, author, body, date, imageUrl, topicId, commentId) {
 		this.id = id;
-		this.title = title;
+		this.author = author;
 		this.body = body;
 		this.date = date;
 		this.imageUrl = imageUrl;
+		this.topicId = topicId;
+		this.commentId = commentId;
 	}
 }
+
+export default Post;

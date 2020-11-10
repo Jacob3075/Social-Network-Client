@@ -3,8 +3,14 @@ import { red } from "@material-ui/core/colors";
 
 const postStyles = makeStyles((theme) => ({
 	root: {
-		maxWidth: "85vw",
-		margin: "auto",
+		maxWidth: "55vw",
+		textAlign: "left",
+		marginTop: "3em",
+		marginBottom: "3em",
+		borderRadius: 15,
+	},
+	postHeader: {
+		fontSize: "5",
 	},
 	media: {
 		height: 0,
