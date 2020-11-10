@@ -6,6 +6,7 @@ import LoginPage from "./components/pages/LoginPage";
 import SignInPage from "./components/pages/SignInPage";
 import Post from "./components/Post";
 import HomePage from "./components/pages/HomePage";
+import TopicPage from "./components/pages/TopicPage";
 
 const SampleApp = () => (
 	<div className="App">
@@ -36,8 +37,7 @@ const App = () => (
 			<Route path="/sign-in" component={SignInPage} />
 			<Route path="/post" component={Post} />
 			<Route path="/home" component={HomePage} />
-			{/*<Route path="/topics" component={HomePage} />*/}
-			{/*<Route path="/topic" component={HomePage} />*/}
+			{/*<Route path="/topics" component={TopicPage} />*/}
 		</Switch>
 	</BrowserRouter>
 );
