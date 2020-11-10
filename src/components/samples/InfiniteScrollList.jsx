@@ -3,7 +3,7 @@ import InfiniteScroll from "react-infinite-scroller";
 import PostService from "../../services/PostService";
 import Post from "../Post";
 
-const InfiniteScrollList = () => {
+const InfiniteScrollList = ({ userId }) => {
 	const [postList, setPostList] = useState([]);
 	const [hasMoreItems, setHasMoreItems] = useState(true);
 
@@ -35,7 +35,7 @@ const InfiniteScrollList = () => {
 	};
 
 	let postComponents = postList.map((post, index) => (
-		<Post key={index} {...post} />
+		<Post key={index} {...post} userId={userId} />
 	));
 
 	return (

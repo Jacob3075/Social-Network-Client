@@ -24,7 +24,7 @@ const RightSideBar = ({ userId }) => {
 	const events = EventService.mockGetEventsById(userId);
 
 	const eventCards = events.map((event, index) => (
-		<EventCard key={index} {...event}></EventCard>
+		<EventCard key={index} {...event} userId={userId}/>
 	));
 
 	return (

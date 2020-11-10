@@ -1,12 +1,12 @@
 import React from "react";
-import makeStyles from "@material-ui/core/styles/makeStyles";
+// import makeStyles from "@material-ui/core/styles/makeStyles";
 import InfiniteScrollList from "./samples/InfiniteScrollList";
 
-const useStyles = makeStyles(() => {});
+// const useStyles = makeStyles(() => {});
 
-const MainFeed = (props) => (
+const MainFeed = ({ userId }) => (
 	<>
-		<InfiniteScrollList />
+		<InfiniteScrollList userId={userId} />
 	</>
 );
 

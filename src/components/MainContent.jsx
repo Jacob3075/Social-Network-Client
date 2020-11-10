@@ -6,13 +6,13 @@ import RightSideBar from "./RightSideBar";
 
 // const useStyles = makeStyles(() => ({}));
 
-const MainContent = (props) => (
+const MainContent = ({ userId }) => (
 	<Grid container spacing={2} justify="center">
 		<Grid item xs={8} align="center">
-			<MainFeed />
+			<MainFeed userId={userId} />
 		</Grid>
 		<Grid item xs={4}>
-			<RightSideBar />
+			<RightSideBar userId={userId} />
 		</Grid>
 	</Grid>
 );
