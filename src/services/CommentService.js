@@ -29,4 +29,6 @@ export default {
 		new Comment(9, 9, "Comment 9", [2, 8, 4]),
 		new Comment(10, 10, "Comment 10", [1, 3]),
 	],
+
+	commentedOnPost: (postId, userId, commentBody) => {},
 };
