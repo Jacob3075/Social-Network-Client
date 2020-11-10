@@ -1,5 +1,5 @@
 import axios from "axios";
-import Post from "../models/post";
+import Post from "../models/Post";
 
 export default {
 	getList: async (page) => {
@@ -25,7 +25,8 @@ export default {
 			new Date(),
 			"https://source.unsplash.com/random",
 			1,
-			1
+			1,
+			50
 		),
 		new Post(
 			2,
@@ -34,7 +35,8 @@ export default {
 			new Date(),
 			"https://source.unsplash.com/random",
 			2,
-			2
+			2,
+			30
 		),
 		new Post(
 			3,
@@ -43,7 +45,8 @@ export default {
 			new Date(),
 			"https://source.unsplash.com/random",
 			3,
-			3
+			3,
+			42
 		),
 		new Post(
 			4,
@@ -52,7 +55,8 @@ export default {
 			new Date(),
 			"https://source.unsplash.com/random",
 			4,
-			4
+			4,
+			0
 		),
 		new Post(
 			5,
@@ -61,7 +65,8 @@ export default {
 			new Date(),
 			"https://source.unsplash.com/random",
 			5,
-			5
+			5,
+			13
 		),
 		new Post(
 			6,
@@ -70,7 +75,8 @@ export default {
 			new Date().getDate(),
 			"https://source.unsplash.com/random",
 			6,
-			6
+			6,
+			43
 		),
 		new Post(
 			7,
@@ -79,7 +85,8 @@ export default {
 			new Date(),
 			"https://source.unsplash.com/random",
 			7,
-			7
+			7,
+			52
 		),
 		new Post(
 			8,
@@ -88,7 +95,8 @@ export default {
 			new Date(),
 			"https://source.unsplash.com/random",
 			8,
-			8
+			8,
+			67
 		),
 		new Post(
 			9,
@@ -97,7 +105,8 @@ export default {
 			new Date(),
 			"https://source.unsplash.com/random",
 			9,
-			9
+			9,
+			23
 		),
 		new Post(
 			10,
@@ -106,7 +115,10 @@ export default {
 			new Date(),
 			"https://source.unsplash.com/random",
 			10,
-			10
+			10,
+			1
 		),
 	],
+
+	likedPost: (postId) => {},
 };
