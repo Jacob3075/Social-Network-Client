@@ -1,13 +1,12 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import CssBaseline from '@material-ui/core/CssBaseline';
+import CssBaseline from "@material-ui/core/CssBaseline";
 import "./styles/App.css";
 import logo from "./res/logo.svg";
 import LoginPage from "./components/pages/LoginPage";
 import SignInPage from "./components/pages/SignInPage";
 import Post from "./components/Post";
 import HomePage from "./components/pages/HomePage";
-import TopicPage from "./components/pages/TopicPage";
 
 const SampleApp = () => (
 	<div className="App">
