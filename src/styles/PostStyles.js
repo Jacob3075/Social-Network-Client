@@ -29,6 +29,10 @@ const postStyles = makeStyles((theme) => ({
 	avatar: {
 		backgroundColor: red[500],
 	},
+	textField: {
+		paddingLeft: "1em",
+		paddingBottom: "1em",
+	},
 }));
 
 export default postStyles;
