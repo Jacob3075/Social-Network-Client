@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import CssBaseline from '@material-ui/core/CssBaseline';
+import CssBaseline from "@material-ui/core/CssBaseline";
 import "./styles/App.css";
 import logo from "./res/logo.svg";
 import LoginPage from "./components/pages/LoginPage";
@@ -39,8 +39,7 @@ const App = () => (
 				<Route path="/sign-in" component={SignInPage} />
 				<Route path="/post" component={Post} />
 				<Route path="/home" component={HomePage} />
-				{/*<Route path="/topics" component={HomePage} />*/}
-				{/*<Route path="/topic" component={HomePage} />*/}
+				{/*<Route path="/topics" component={TopicPage} />*/}
 			</Switch>
 		</BrowserRouter>
 	</>

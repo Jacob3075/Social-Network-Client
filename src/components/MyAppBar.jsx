@@ -7,6 +7,12 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import TopicFollowList from "./TopicFollowList";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
 	appBar: {
@@ -17,7 +23,7 @@ const useStyles = makeStyles(() => ({
 	},
 	form: {
 		marginRight: "2em",
-		width: "30%",
+		width: "30%", //search box width
 	},
 	search: {
 		width: "100%",
@@ -44,6 +50,9 @@ const MyAppBar = ({ title = "Title" }) => {
 			<Toolbar>
 				<Typography variant="h5">{title}</Typography>
 			</Toolbar>
+			<Button>
+				<TopicFollowList />
+			</Button>
 			<form onSubmit={handleSubmit} className={classes.form}>
 				<TextField
 					className={classes.search}
