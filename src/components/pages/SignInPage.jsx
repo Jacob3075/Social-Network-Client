@@ -17,8 +17,8 @@ function Copyright() {
 	return (
 		<Typography variant="body2" color="textSecondary" align="center">
 			{"Copyright © "}
-			<Link color="inherit" href="https://material-ui.com/">
-				Your Website
+			<Link color="inherit">
+				JVL
 			</Link>{" "}
 			{new Date().getFullYear()}
 			{"."}
@@ -47,7 +47,7 @@ export default function SignInPage() {
 						<LockOutlinedIcon />
 					</Avatar>
 					<Typography component="h1" variant="h5">
-						Sign in
+						Sign Up
 					</Typography>
 					<form className={classes.form} noValidate>
 						<TextField
@@ -55,10 +55,10 @@ export default function SignInPage() {
 							margin="normal"
 							required
 							fullWidth
-							id="email"
-							label="Email Address"
-							name="email"
-							autoComplete="email"
+							id="username"
+							label="Username"
+							name="username"
+							autoComplete="username"
 							autoFocus
 						/>
 						<TextField
@@ -70,13 +70,18 @@ export default function SignInPage() {
 							label="Password"
 							type="password"
 							id="password"
-							autoComplete="current-password"
+							autoComplete="password"
 						/>
-						<FormControlLabel
-							control={
-								<Checkbox value="remember" color="primary" />
-							}
-							label="Remember me"
+						<TextField
+							variant="outlined"
+							margin="normal"
+							required
+							fullWidth
+							name="confirm-password"
+							label="Confirm Password"
+							type="password"
+							id="confirm-password"
+							autoComplete="confirm-password"
 						/>
 						<Button
 							type="submit"
@@ -84,18 +89,14 @@ export default function SignInPage() {
 							variant="contained"
 							color="primary"
 							className={classes.submit}
+							//href="/home"
 						>
-							Sign In
+							Sign Up
 						</Button>
 						<Grid container>
-							<Grid item xs>
-								<Link href="#" variant="body2">
-									Forgot password?
-								</Link>
-							</Grid>
 							<Grid item>
-								<Link href="#" variant="body2">
-									{"Don't have an account? Sign Up"}
+								<Link href="/login" variant="body2">
+									{"Already have an account? Log in!"}
 								</Link>
 							</Grid>
 						</Grid>
@@ -108,3 +109,4 @@ export default function SignInPage() {
 		</Grid>
 	);
 }
+
