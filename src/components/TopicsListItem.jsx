@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -5,7 +6,12 @@ import { Button } from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
 import UnfollowTopicConfirmation from "./UnfollowTopicConfirmation";
 
-const TopicsListItem = ({ primary}) => {
+const TopicsListItem = ({
+	id,
+	name,
+	creatorId,
+	description,
+}) => {
 	const [open, setOpen] = React.useState(false);
 
 	const handleClickOpen = () => {
@@ -18,7 +24,7 @@ const TopicsListItem = ({ primary}) => {
 
 	return (
 		<ListItem button>
-			<ListItemText primary={primary} />
+			<ListItemText primary={name} />
 			<Button
 				variant="contained"
 				style={{
@@ -36,5 +42,12 @@ const TopicsListItem = ({ primary}) => {
 		</ListItem>
 	);
 };
+
+TopicsListItem.propTypes = {
+  creatorId: PropTypes.any,
+  description: PropTypes.any,
+  id: PropTypes.any.isRequired,
+  name: PropTypes.any.isRequired,
+}
 
 export default TopicsListItem;

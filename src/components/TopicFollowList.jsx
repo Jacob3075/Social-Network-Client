@@ -10,6 +10,7 @@ import List from "@material-ui/core/List";
 import PaperComponent from "./PaperComponent";
 import CreateTopicButton from "./CreateTopicButton";
 import TopicsListItem from "./TopicsListItem";
+import TopicService from "../services/TopicService";
 
 const useStyles = makeStyles((theme) => ({
 	text: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const TopicFollowList = () => {
+const TopicFollowList = ({userId}) => {
 	const [open, setOpen] = React.useState(false);
 
 	const handleClickOpen = () => {
@@ -34,28 +35,13 @@ const TopicFollowList = () => {
 		setOpen(false);
 	};
 
-	const messages = [
-		{
-			id: 1,
-			primary: "Matt Steffanina",
-		},
-		{
-			id: 2,
-			primary: "Erika Klein",
-		},
-		{
-			id: 3,
-			primary: "Sportsssssss",
-		},
-		{
-			id: 4,
-			primary: "CookCook",
-			person: "/static/images/avatar/2.jpg",
-		},
-	];
-
 	const classes = useStyles();
 
+	const topicList = TopicService.mockGetTopics(userId);
+
+	const topicListItemComponents = topicList.map((topic, index) => (
+		<TopicsListItem key={topic.id} {...topic} />
+	));
 	return (
 		<>
 			<Button
@@ -84,12 +70,7 @@ const TopicFollowList = () => {
 									Topics
 								</Typography>
 								<List className={classes.list}>
-									{messages.map(({ id, primary }) => (
-										<TopicsListItem
-											key={id}
-											primary={primary}
-										/>
-									))}
+									{topicListItemComponents}
 								</List>
 							</Paper>
 							<CreateTopicButton />

@@ -17,7 +17,7 @@ export default {
 		}
 	},
 
-	mockGetTopics: () => [
+	mockGetTopics: (userId) => [
 		new Topic(1, "Topic 1", 1, [], [], [], "Topic 1"),
 		new Topic(2, "Topic 2", 2, [], [], [], "Topic 2"),
 		new Topic(3, "Topic 3", 3, [], [], [], "Topic 3"),
@@ -30,5 +30,5 @@ export default {
 		new Topic(10, "Topic 10", 10, [], [], [], "Topic 10"),
 	],
 
-	mockGetTopicById: (id) => new Topic(1, 1, [], [], [], "Topic 1"),
+	mockGetTopicById: (topicId) => new Topic(1, 1, [], [], [], "Topic 1"),
 };

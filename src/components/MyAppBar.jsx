@@ -7,10 +7,6 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import IconButton from "@material-ui/core/IconButton";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import TopicFollowList from "./TopicFollowList";
 import { Button } from "@material-ui/core";
 
@@ -23,14 +19,14 @@ const useStyles = makeStyles(() => ({
 	},
 	form: {
 		marginRight: "2em",
-		width: "30%", //search box width
+		width: "30%",
 	},
 	search: {
 		width: "100%",
 	},
 }));
 
-const MyAppBar = ({ title = "Title" }) => {
+const MyAppBar = ({ title = "Title", userId }) => {
 	const classes = useStyles();
 
 	const [searchQuery, setSearchQuery] = useState("");
@@ -51,7 +47,7 @@ const MyAppBar = ({ title = "Title" }) => {
 				<Typography variant="h5">{title}</Typography>
 			</Toolbar>
 			<Button>
-				<TopicFollowList />
+				<TopicFollowList userId={userId} />
 			</Button>
 			<form onSubmit={handleSubmit} className={classes.form}>
 				<TextField
