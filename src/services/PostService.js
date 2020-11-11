@@ -17,7 +17,7 @@ export default {
 		}
 	},
 
-	mockGetPosts: (page) => [
+	mockGetPosts: (userId) => [
 		new Post(
 			1,
 			"Author 1",
@@ -119,6 +119,8 @@ export default {
 			1
 		),
 	],
+
+	createNewPost: (userId, post) => {},
 
 	likedPost: (postId) => {},
 };

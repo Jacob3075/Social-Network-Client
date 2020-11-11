@@ -3,18 +3,16 @@ class Topic {
 		id,
 		name,
 		creatorId,
-		memberIds,
-		postIds,
-		eventIds,
-		description
+		postId,
+		eventId,
+		description,
 	) {
 		this.id = id;
-		this.name = name;
 		this.creatorId = creatorId;
-		this.memberIds = memberIds;
-		this.postIds = postIds;
-		this.eventIds = eventIds;
-		this.description = description;
+		this.postIds = postId;
+		this.eventIds = eventId;
+		this.name = name; //*
+		this.description = description; //*
 	}
 }
 
