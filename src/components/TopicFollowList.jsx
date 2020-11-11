@@ -24,6 +24,11 @@ const useStyles = makeStyles((theme) => ({
 		height: "50vh",
 		overflowY: "scroll",
 	},
+	button: {
+		color: "white",
+		marginLeft: "2em",
+		marginTop: "0.5em",
+	},
 }));
 
 const TopicFollowList = ({ userId }) => {
@@ -41,17 +46,12 @@ const TopicFollowList = ({ userId }) => {
 
 	const topicList = TopicService.mockGetTopics(userId);
 
-	const topicListItemComponents = topicList.map((topic, index) => (
+	const topicListItemComponents = topicList.map((topic) => (
 		<TopicsListItem key={topic.id} {...topic} />
 	));
 	return (
 		<>
-			<Button
-				variant="contained"
-				color="primary"
-				style={{ float: "right", width: "3.7cm" }}
-				onClick={handleClickOpen}
-			>
+			<Button variant="text" className={classes.button} onClick={handleClickOpen}>
 				Topics
 			</Button>
 			<Dialog
@@ -62,7 +62,6 @@ const TopicFollowList = ({ userId }) => {
 			>
 				<DialogContent>
 					<DialogContentText>
-						<>
 							<Paper square className={classes.paper}>
 								<Typography className={classes.text} variant="h5" gutterBottom>
 									Topics
@@ -70,7 +69,6 @@ const TopicFollowList = ({ userId }) => {
 								<List className={classes.list}>{topicListItemComponents}</List>
 							</Paper>
 							<CreateTopicButton />
-						</>
 					</DialogContentText>
 				</DialogContent>
 			</Dialog>

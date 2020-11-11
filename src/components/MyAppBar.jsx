@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TopicFollowList from "./TopicFollowList";
-import { Button } from "@material-ui/core";
+import HomePageButton from "./HomePageButton";
 
 const useStyles = makeStyles(() => ({
 	appBar: {
@@ -45,10 +45,10 @@ const MyAppBar = ({ title = "Title", userId }) => {
 		<AppBar className={classes.appBar} position="sticky">
 			<Toolbar>
 				<Typography variant="h5">{title}</Typography>
-			</Toolbar>
-			<Button>
+				<HomePageButton />
 				<TopicFollowList userId={userId} />
-			</Button>
+				{/*<SignOutButton />*/}
+			</Toolbar>
 			<form onSubmit={handleSubmit} className={classes.form}>
 				<TextField
 					className={classes.search}
