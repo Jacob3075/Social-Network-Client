@@ -5,7 +5,7 @@ import MainContent from "../MainContent";
 const HomePage = () => {
 	return (
 		<>
-			<MyAppBar title="Social Networking Site" />
+			<MyAppBar title="PESLink" />
 			<MainContent />
 		</>
 	);
