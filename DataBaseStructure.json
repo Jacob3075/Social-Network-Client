@@ -1,0 +1,100 @@
+[
+  [
+    {
+      "_id": "1",
+      "name": "Topic1",
+      "posts": "postsId1",
+      "events": "eventsId1"
+    },
+    {
+      "_id": "2",
+      "name": "Topic2",
+      "posts": "postsId2",
+      "events": "eventsId2"
+    }
+  ],
+  [
+    {
+      "_id": "postsId1",
+      "posts": [
+        {
+          "_id": "1",
+          "commentIds": "commentsId1"
+        },
+        {
+          "_id": "2",
+          "commentIds": "commentsId2"
+        }
+      ]
+    },
+    {
+      "_id": "postsId2",
+      "posts": [
+        {
+          "_id": "3",
+          "commentIds": "commentsId3"
+        },
+        {
+          "_id": "4",
+          "commentIds": "commentsId4"
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "_id": "eventsId1",
+      "events": [
+        {
+          "_id": "1",
+          "name": "Event1"
+        },
+        {
+          "_id": "2",
+          "name": "Event2"
+        }
+      ]
+    },
+    {
+      "_id": "eventsId2",
+      "events": [
+        {
+          "_id": "3",
+          "name": "Event3"
+        },
+        {
+          "_id": "4",
+          "name": "Event4"
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "_id": "commentsId1",
+      "comments": [
+        {
+          "_id": 1,
+          "authorId": 1
+        },
+        {
+          "_id": 2,
+          "authorId": 2
+        }
+      ]
+    },
+    {
+      "_id": "commentsId1",
+      "comments": [
+        {
+          "_id": 3,
+          "authorId": 3
+        },
+        {
+          "_id": 4,
+          "authorId": 4
+        }
+      ]
+    }
+  ]
+]
