@@ -1,30 +1,34 @@
 import React from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import { Paper, Typography } from "@material-ui/core";
+import { List, Paper, Typography } from "@material-ui/core";
 import EventCard from "./EventCard";
 import EventService from "../services/EventService";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
 	container: {
 		height: "75vh",
 		marginLeft: "3em",
 		marginRight: "3em",
 		marginTop: "3em",
 		borderRadius: 15,
-		overflowY: "scroll",
 	},
 	header: {
 		padding: "0.5em",
 	},
+	list: {
+		marginBottom: theme.spacing(2),
+		height: "67vh",
+		overflowY: "scroll",
+	},
 }));
 
-const RightSideBar = ({ userId }) => {
+const EventsFeed = ({ userId }) => {
 	const styles = useStyles();
 
 	const events = EventService.mockGetEventsById(userId);
 
 	const eventCards = events.map((event, index) => (
-		<EventCard key={index} {...event} userId={userId}/>
+		<EventCard key={index} {...event} userId={userId} />
 	));
 
 	return (
@@ -33,10 +37,10 @@ const RightSideBar = ({ userId }) => {
 				<Typography className={styles.header} variant="h4">
 					Events:
 				</Typography>
-				{eventCards}
+				<List className={styles.list}>{eventCards}</List>
 			</Paper>
 		</>
 	);
 };
 
-export default RightSideBar;
+export default EventsFeed;
