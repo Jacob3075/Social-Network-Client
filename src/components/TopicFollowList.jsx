@@ -21,10 +21,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 	list: {
 		marginBottom: theme.spacing(2),
+		height: "50vh",
+		overflowY: "scroll",
 	},
 }));
 
-const TopicFollowList = ({userId}) => {
+const TopicFollowList = ({ userId }) => {
 	const [open, setOpen] = React.useState(false);
 
 	const handleClickOpen = () => {
@@ -62,16 +64,10 @@ const TopicFollowList = ({userId}) => {
 					<DialogContentText>
 						<>
 							<Paper square className={classes.paper}>
-								<Typography
-									className={classes.text}
-									variant="h5"
-									gutterBottom
-								>
+								<Typography className={classes.text} variant="h5" gutterBottom>
 									Topics
 								</Typography>
-								<List className={classes.list}>
-									{topicListItemComponents}
-								</List>
+								<List className={classes.list}>{topicListItemComponents}</List>
 							</Paper>
 							<CreateTopicButton />
 						</>
