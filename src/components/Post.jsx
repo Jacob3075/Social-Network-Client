@@ -17,17 +17,7 @@ import { InputAdornment, TextField } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 import PostService from "../services/PostService";
 
-const Post = ({
-	id,
-	author,
-	body,
-	date,
-	imageUrl,
-	topicId,
-	commentId,
-	likes,
-	userId,
-}) => {
+const Post = ({ id, author, body, date, imageUrl, topicId, commentId, likes, userId }) => {
 	const classes = postStyles();
 	const [expanded, setExpanded] = React.useState(false);
 	const [newComment, setNewComment] = React.useState("");
@@ -56,8 +46,7 @@ const Post = ({
 	const topic = TopicService.mockGetTopicById(topicId);
 
 	// TODO: FORMATE DATE
-	const postHeaderTopicMessage =
-		"Posted to Topic " + topic.name + " on " + date;
+	const postHeaderTopicMessage = "Posted on " + date;
 
 	const commentComponents = comments.map((comment, index) => (
 		<div key={index}>{comment.commentMessage}</div>
@@ -66,7 +55,7 @@ const Post = ({
 	return (
 		<Card className={classes.root} raised>
 			<CardHeader
-				title={author}
+				title={topic.name + " . " + author}
 				subheader={postHeaderTopicMessage}
 				subheaderTypographyProps={{ variant: "subtitle2" }}
 			/>
@@ -80,15 +69,10 @@ const Post = ({
 				<IconButton onClick={handleLikedPost}>
 					<FavoriteIcon color={likeIconColor} />
 				</IconButton>
-				<Button onClick={handleExpandComments} size={"small"}>
-					<Typography>Show Comments</Typography>
-				</Button>
-			</CardActions>
-			<Collapse in={expanded} timeout="auto" unmountOnExit>
-				<CardContent>{commentComponents}</CardContent>
 				<form onSubmit={handlePostNewComment} className={classes.form}>
 					<TextField
 						className={classes.textField}
+						size={"small"}
 						id="outlined-basic"
 						label="New Comment"
 						variant="outlined"
@@ -103,6 +87,12 @@ const Post = ({
 						onChange={handleTypeNewComment}
 					/>
 				</form>
+				<Button onClick={handleExpandComments} size={"small"}>
+					<Typography>Show Comments</Typography>
+				</Button>
+			</CardActions>
+			<Collapse in={expanded} timeout="auto" unmountOnExit>
+				<CardContent>{commentComponents}</CardContent>
 			</Collapse>
 		</Card>
 	);

@@ -66,11 +66,11 @@ const ImageUpload = (props) => {
 				onChange={(event) => setCaption(event.target.value)}
 			/>
 			<br />
-			<input
-				type="file"
-				onChange={handleChange}
-				className={classes.input2}
-			/>
+			{/*<input*/}
+			{/*	type="file"*/}
+			{/*	onChange={handleChange}*/}
+			{/*	className={classes.input2}*/}
+			{/*/>*/}
 			<Button onClick={handleUpload} className={classes.input3}>
 				Upload
 			</Button>

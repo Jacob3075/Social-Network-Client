@@ -10,6 +10,7 @@ import List from "@material-ui/core/List";
 import PaperComponent from "./PaperComponent";
 import CreateTopicButton from "./CreateTopicButton";
 import TopicsListItem from "./TopicsListItem";
+import TopicService from "../services/TopicService";
 
 const useStyles = makeStyles((theme) => ({
 	text: {
@@ -20,10 +21,17 @@ const useStyles = makeStyles((theme) => ({
 	},
 	list: {
 		marginBottom: theme.spacing(2),
+		height: "50vh",
+		overflowY: "scroll",
+	},
+	button: {
+		color: "white",
+		marginLeft: "2em",
+		marginTop: "0.5em",
 	},
 }));
 
-const TopicFollowList = () => {
+const TopicFollowList = ({ userId }) => {
 	const [open, setOpen] = React.useState(false);
 
 	const handleClickOpen = () => {
@@ -34,36 +42,16 @@ const TopicFollowList = () => {
 		setOpen(false);
 	};
 
-	const messages = [
-		{
-			id: 1,
-			primary: "Matt Steffanina",
-		},
-		{
-			id: 2,
-			primary: "Erika Klein",
-		},
-		{
-			id: 3,
-			primary: "Sportsssssss",
-		},
-		{
-			id: 4,
-			primary: "CookCook",
-			person: "/static/images/avatar/2.jpg",
-		},
-	];
-
 	const classes = useStyles();
 
+	const topicList = TopicService.mockGetTopics(userId);
+
+	const topicListItemComponents = topicList.map((topic) => (
+		<TopicsListItem key={topic.id} {...topic} />
+	));
 	return (
 		<>
-			<Button
-				variant="contained"
-				color="primary"
-				style={{ float: "right", width: "3.7cm" }}
-				onClick={handleClickOpen}
-			>
+			<Button variant="text" className={classes.button} onClick={handleClickOpen}>
 				Topics
 			</Button>
 			<Dialog
@@ -74,26 +62,13 @@ const TopicFollowList = () => {
 			>
 				<DialogContent>
 					<DialogContentText>
-						<>
 							<Paper square className={classes.paper}>
-								<Typography
-									className={classes.text}
-									variant="h5"
-									gutterBottom
-								>
+								<Typography className={classes.text} variant="h5" gutterBottom>
 									Topics
 								</Typography>
-								<List className={classes.list}>
-									{messages.map(({ id, primary }) => (
-										<TopicsListItem
-											key={id}
-											primary={primary}
-										/>
-									))}
-								</List>
+								<List className={classes.list}>{topicListItemComponents}</List>
 							</Paper>
 							<CreateTopicButton />
-						</>
 					</DialogContentText>
 				</DialogContent>
 			</Dialog>

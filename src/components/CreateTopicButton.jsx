@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(() => ({
 	fabButton: {
 		position: "absolute",
-		top: "83%",
+		top: "88%",
 		left: 0,
 		right: 0,
 		margin: "0 auto",
