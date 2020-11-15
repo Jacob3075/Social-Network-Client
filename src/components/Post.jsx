@@ -12,6 +12,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import postStyles from "../styles/PostStyles";
 import Button from "@material-ui/core/Button";
 import CommentService from "../services/CommentService";
+import CommentCard from "./CommentCard";
 import TopicService from "../services/TopicService";
 import { InputAdornment, TextField } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
@@ -49,7 +50,7 @@ const Post = ({ id, author, body, date, imageUrl, topicId, commentId, likes, use
 	const postHeaderTopicMessage = "Posted on " + date;
 
 	const commentComponents = comments.map((comment, index) => (
-		<div key={index}>{comment.commentMessage}</div>
+		<CommentCard key={index}>{comment.commentMessage}</CommentCard>
 	));
 
 	return (
