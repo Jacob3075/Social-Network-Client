@@ -47,8 +47,6 @@ const ImageUpload = (props) => {
 
 	const [caption, setCaption] = useState("");
 	const [image, setImage] = useState(null);
-	const [url, setUrl] = useState("");
-	const [progress, setProgress] = useState(0);
 
 	const handleChange = (event) => {
 		if (event.target.files[0]) {
@@ -76,7 +74,6 @@ const ImageUpload = (props) => {
 			</Button>
 			<Button
 				onClick={props.handleClose3}
-				open={props.open3}
 				className={classes.input4}
 			>
 				Cancel
