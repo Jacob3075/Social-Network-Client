@@ -67,7 +67,7 @@ const LoginPage = () => {
 						</Button>
 						<Grid container>
 							<Grid item>
-								<Link to="/sign-in">
+								<Link to="/sign-in" style={{ textDecoration: 'none', color: 'white' }}>
 									{"Don't have an account? Sign Up!"}
 								</Link>
 							</Grid>
