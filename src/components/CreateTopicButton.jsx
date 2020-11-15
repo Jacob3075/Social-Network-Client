@@ -4,6 +4,8 @@ import Dialog from "@material-ui/core/Dialog";
 import ImageUpload from "./ImageUpload";
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import TopicTabCreate from "./TopicTabCreate";
+
 
 const useStyles = makeStyles(() => ({
 	fabButton: {
@@ -41,10 +43,10 @@ const CreateTopicButton = () => {
 				fullWidth={true}
 				style={{ overflow: "hidden" }}
 			>
-				<ImageUpload
+				{/*<ImageUpload
 					handleClose3={handleClose}
-					open3={open}
-				/>
+				/>*/}
+				<TopicTabCreate />
 			</Dialog>
 		</Fab>
 	);
