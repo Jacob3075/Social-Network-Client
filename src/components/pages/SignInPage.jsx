@@ -77,7 +77,7 @@ const SignInPage = () => {
 						>
 							Sign Up
 						</Button>
-						<Link to={"/login"}>
+						<Link to={"/login"} style={{ textDecoration: 'none', color: 'white' }}>
 							Already have an account? Log in!
 						</Link>
 					</form>
