@@ -1,24 +1,40 @@
 import axios from "axios";
 
+const url = "http://localhost:8080/users/";
+
 export default {
-	getList: async function (page) {
-		// try {
-		// 	let url;
-		// 	if (page != null && page > 1) {
-		// 		url = "https://reqres.in/api/users?per_page=2&page=" + page;
-		// 	} else {
-		// 		url = "https://reqres.in/api/users?per_page=2";
-		// 	}
-		// 	const response = await axios.get(url);
-		// 	return response.data;
-		// } catch (error) {
-		// 	console.log(error);
-		// }
-		const url = "http://localhost:8080/users";
-		await axios
+	getAllUsers: async () => {
+		return await axios
 			.get(url)
-			.then((response) => response.data)
+			.then((response) => response)
 			.catch((error) => console.log(error));
 	},
+
+	signUp: async (userName, password) => {
+		return await axios
+			.post(url + "sign-up", {
+				userName,
+				password,
+			})
+			.then((response) => response)
+			.catch((error) => console.log(error));
+	},
+
+	login: async (userName, password) => {
+		const result = await axios
+			.post(url + "sign-in", {
+				userName,
+				password,
+			})
+			.then((response) => response)
+			.catch((error) => console.log(error));
+
+		if (!result) {
+			return false;
+		} else {
+			return result.status === 200;
+		}
+	},
+
 	mockGetList: [{ id: 1 }],
 };
