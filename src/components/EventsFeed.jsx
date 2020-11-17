@@ -6,7 +6,9 @@ import EventService from "../services/EventService";
 
 const useStyles = makeStyles((theme) => ({
 	container: {
-		height: "85vh",
+		position: "fixed",
+		height: "75vh",
+		width: "55vh",
 		marginLeft: "3em",
 		marginRight: "3em",
 		marginTop: "3em",
@@ -17,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	list: {
 		marginBottom: theme.spacing(2),
-		height: "67vh",
+		height: "60vh",
 		overflowY: "scroll",
 	},
 }));
