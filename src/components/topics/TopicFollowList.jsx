@@ -7,10 +7,9 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
-import PaperComponent from "./PaperComponent";
 import CreateTopicButton from "./CreateTopicButton";
 import TopicsListItem from "./TopicsListItem";
-import TopicService from "../services/TopicService";
+import TopicService from "../../services/TopicService";
 
 const useStyles = makeStyles((theme) => ({
 	text: {
@@ -58,7 +57,6 @@ const TopicFollowList = ({ userId }) => {
 				open={open}
 				fullWidth={true}
 				onClose={handleClose}
-				PaperComponent={PaperComponent}
 			>
 				<DialogContent>
 					<DialogContentText>

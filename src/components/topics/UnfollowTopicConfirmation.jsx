@@ -8,8 +8,7 @@ const UnfollowTopicConfirmation = (props) => (
 	<>
 		<DialogContent>
 			<DialogContentText>
-				By unfollowing this topic, you won't receive any updates in
-				future from this Topic.
+				By unfollowing this topic, you won't receive any updates in future from this Topic.
 			</DialogContentText>
 		</DialogContent>
 		<DialogActions>

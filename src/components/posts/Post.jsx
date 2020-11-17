@@ -9,14 +9,14 @@ import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import postStyles from "../styles/PostStyles";
+import postStyles from "../../styles/PostStyles";
 import Button from "@material-ui/core/Button";
-import CommentService from "../services/CommentService";
+import CommentService from "../../services/CommentService";
 import CommentCard from "./CommentCard";
-import TopicService from "../services/TopicService";
+import TopicService from "../../services/TopicService";
 import { InputAdornment, TextField } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
-import PostService from "../services/PostService";
+import PostService from "../../services/PostService";
 
 const Post = ({ id, author, body, date, imageUrl, topicId, commentId, likes, userId }) => {
 	const classes = postStyles();

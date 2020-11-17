@@ -2,7 +2,7 @@ import React from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { List, Paper, Typography } from "@material-ui/core";
 import EventCard from "./EventCard";
-import EventService from "../services/EventService";
+import EventService from "../../services/EventService";
 
 const useStyles = makeStyles((theme) => ({
 	container: {
