@@ -3,7 +3,7 @@ import AddIcon from "@material-ui/icons/Add";
 import Dialog from "@material-ui/core/Dialog";
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import TopicTabCreate from "./CreateTopicsTab";
+import TopicTabCreate from "../create-button/CreateTopicsTab";
 
 const useStyles = makeStyles(() => ({
 	fabButton: {

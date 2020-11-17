@@ -7,9 +7,9 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import TopicFollowList from "./TopicFollowList";
+import TopicFollowList from "./topics/TopicFollowList";
 import HomePageButton from "./HomePageButton";
-import CreateButton from "./CreateButton";
+import CreateButton from "./create-button/CreateButton";
 import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({

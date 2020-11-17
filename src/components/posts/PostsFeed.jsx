@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
-import PostService from "../services/PostService";
+import PostService from "../../services/PostService";
 import Post from "./Post";
 
 const PostsFeed = ({ userId }) => {
