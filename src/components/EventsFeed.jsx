@@ -6,7 +6,7 @@ import EventService from "../services/EventService";
 
 const useStyles = makeStyles((theme) => ({
 	container: {
-		height: "75vh",
+		height: "85vh",
 		marginLeft: "3em",
 		marginRight: "3em",
 		marginTop: "3em",
