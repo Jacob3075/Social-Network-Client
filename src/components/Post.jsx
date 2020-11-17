@@ -46,8 +46,9 @@ const Post = ({ id, author, body, date, imageUrl, topicId, commentId, likes, use
 	const comments = CommentService.mockGetCommentsById(commentId);
 	const topic = TopicService.mockGetTopicById(topicId);
 
-	// TODO: FORMATE DATE
-	const postHeaderTopicMessage = "Posted on " + date;
+	// TODO: FORMAT DATE
+
+	const postHeaderTopicMessage = "" + date;
 
 	const commentComponents = comments.map((comment, index) => (
 		<CommentCard key={index}>{comment.commentMessage}</CommentCard>
@@ -56,7 +57,7 @@ const Post = ({ id, author, body, date, imageUrl, topicId, commentId, likes, use
 	return (
 		<Card className={classes.root} raised>
 			<CardHeader
-				title={topic.name + " . " + author}
+				title={topic.name + " • " + author}
 				subheader={postHeaderTopicMessage}
 				subheaderTypographyProps={{ variant: "subtitle2" }}
 			/>
