@@ -1,11 +1,9 @@
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import Dialog from "@material-ui/core/Dialog";
-import ImageUpload from "./ImageUpload";
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import TopicTabCreate from "./TopicTabCreate";
-
+import TopicTabCreate from "./CreateTopicsTab";
 
 const useStyles = makeStyles(() => ({
 	fabButton: {
@@ -31,11 +29,7 @@ const CreateTopicButton = () => {
 	const classes = useStyles();
 
 	return (
-		<Fab
-			color="secondary"
-			className={classes.fabButton}
-			onClick={handleClickOpen}
-		>
+		<Fab color="secondary" className={classes.fabButton} onClick={handleClickOpen}>
 			<AddIcon />
 			<Dialog
 				onClose={handleClose}
@@ -43,9 +37,6 @@ const CreateTopicButton = () => {
 				fullWidth={true}
 				style={{ overflow: "hidden" }}
 			>
-				{/*<ImageUpload
-					handleClose3={handleClose}
-				/>*/}
 				<TopicTabCreate />
 			</Dialog>
 		</Fab>
