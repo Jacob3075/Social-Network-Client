@@ -9,7 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import signInSideStyles from "../../styles/SignInSideStyles";
-import UserService from "../../services/UserService";
+import { userService } from "../../services/UserService";
 
 const LoginPage = () => {
 	const classes = signInSideStyles();
@@ -19,13 +19,20 @@ const LoginPage = () => {
 
 	const handleLoginSubmit = async (event) => {
 		event.preventDefault();
-		UserService.login(userName, password)
-			.then((result) => {
-				if (result) {
+		userService
+			.login(userName, password)
+			.then((statusCode) => {
+				if (statusCode === 200) {
 					alert("Login Success");
 					history.push("/");
+				} else if (statusCode === 404) {
+					alert("Login Failed, User not found");
+					setUserName("");
+					setPassword("");
 				} else {
-					alert("Login Failed");
+					alert("Login Failed, Code: " + statusCode);
+					setUserName("");
+					setPassword("");
 				}
 			})
 			.catch((error) => console.error(error));
