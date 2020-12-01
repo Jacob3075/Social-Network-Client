@@ -7,7 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import TopicFollowList from "./topics/TopicFollowList";
+import FollowedTopicsList from "./topics/FollowedTopicsList";
 import HomePageButton from "./HomePageButton";
 import CreateButton from "./create-button/CreateButton";
 import { Button } from "@material-ui/core";
@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const MyAppBar = ({ title = "Title", userId }) => {
+const MyAppBar = ({ title = "Title"}) => {
 	const classes = useStyles();
 
 	const [searchQuery, setSearchQuery] = useState("");
@@ -68,7 +68,7 @@ const MyAppBar = ({ title = "Title", userId }) => {
 				</form>
 				<CreateButton />
 				<HomePageButton />
-				<TopicFollowList userId={userId} />
+				<FollowedTopicsList />
 				<Button
 					variant="text"
 					style={{ color: "white", marginLeft: "2em", marginTop: "0.5em" }}
