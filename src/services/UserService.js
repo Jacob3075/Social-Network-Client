@@ -21,13 +21,6 @@ const UserService = () => {
 
 		getHeaderData: () => headerData,
 
-		getAllUsers: async () => {
-			return await axios
-				.get(url)
-				.then((response) => response)
-				.catch((error) => console.log(error));
-		},
-
 		signUp: async (userName, password) => {
 			return await axios
 				.post(url + "sign-up", {
@@ -96,5 +89,19 @@ const UserService = () => {
 		}
 	};
 };
+
+export const getAllUsers = async () => {
+	return await axios
+		.get(url)
+		.then((response) => response)
+		.catch((error) => console.log(error));
+};
+
+export const getUserById = async (userId) => {
+	return await axios.get(url + "id/" + userId)
+		.then((response) => response.data)
+		.catch((error) => error.response.status);
+};
+
 
 export const userService = UserService();
