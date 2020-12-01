@@ -1,5 +1,4 @@
-import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -20,10 +19,22 @@ import PostService from "../../services/PostService";
 import { getUserById } from "../../services/UserService";
 
 const Post = ({ id, userId, topicId, description, time, likedUsers, comments, image }) => {
+
 	const classes = postStyles();
-	const [expanded, setExpanded] = React.useState(false);
-	const [newComment, setNewComment] = React.useState("");
-	const [likeIconColor, setLikeIconColor] = React.useState("");
+	const [expanded, setExpanded] = useState(false);
+	const [newComment, setNewComment] = useState("");
+	const [likeIconColor, setLikeIconColor] = useState("");
+	const [userName, setUserName] = useState("");
+
+	useEffect(() => {
+		getUserById(userId)
+			.then((response) => {
+				setUserName(response.userName);
+			})
+			.catch((error) => {
+			});
+
+	}, []);
 
 	const handleExpandComments = () => {
 		setExpanded(!expanded);
@@ -44,23 +55,20 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 		PostService.likedPost(id);
 	};
 
-	comments = CommentService.mockGetCommentsById();
+	// comments = CommentService.mockGetCommentsById();
 	const topic = mockGetTopicById(topicId);
 
 	// TODO: FORMAT DATE
 	const postHeaderTopicMessage = "Posted on " + time;
 
 	const commentComponents = comments.map((comment, index) => (
-		<CommentCard key={index}>{comment}</CommentCard>
+		<CommentCard key={index} {...comment} />
 	));
-
-	//TODO
-	const userById = getUserById(userId);
 
 	return (
 		<Card className={classes.root} raised>
 			<CardHeader
-				title={topic.name + " . " + userById}
+				title={topic.name + " . userById.userName"}
 				subheader={postHeaderTopicMessage}
 				subheaderTypographyProps={{ variant: "subtitle2" }}
 			/>
@@ -101,16 +109,6 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 			</Collapse>
 		</Card>
 	);
-};
-
-Post.propTypes = {
-	author: PropTypes.string.isRequired,
-	body: PropTypes.string.isRequired,
-	commentId: PropTypes.number.isRequired,
-	date: PropTypes.any.isRequired,
-	id: PropTypes.number.isRequired,
-	imageUrl: PropTypes.string.isRequired,
-	topicId: PropTypes.number.isRequired
 };
 
 export default Post;

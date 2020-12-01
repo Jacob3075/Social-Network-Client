@@ -41,11 +41,4 @@ const TopicsListItem = ({ id, topicName, createdUserId, description }) => {
 	);
 };
 
-TopicsListItem.propTypes = {
-	creatorId: PropTypes.any,
-	description: PropTypes.any,
-	id: PropTypes.any.isRequired,
-	name: PropTypes.any.isRequired
-};
-
 export default TopicsListItem;

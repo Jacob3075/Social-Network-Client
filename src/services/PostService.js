@@ -1,5 +1,6 @@
 import axios from "axios";
 import Post from "../models/Post";
+import Comment from "../models/Comment";
 
 export default {
 	getList: async (page) => {
@@ -17,110 +18,22 @@ export default {
 		}
 	},
 
-	mockGetPosts: (userId) => [
-		new Post(
-			1,
-			"Author 1",
-			"Body 1",
-			new Date(),
-			"https://source.unsplash.com/random",
-			1,
-			1,
-			50
-		),
-		new Post(
-			2,
-			"Author 2",
-			"Body 2",
-			new Date(),
-			"https://source.unsplash.com/random",
-			2,
-			2,
-			30
-		),
-		new Post(
-			3,
-			"Author 3",
-			"Body 3",
-			new Date(),
-			"https://source.unsplash.com/random",
-			3,
-			3,
-			42
-		),
-		new Post(
-			4,
-			"Author 4",
-			"Body 4",
-			new Date(),
-			"https://source.unsplash.com/random",
-			4,
-			4,
-			0
-		),
-		new Post(
-			5,
-			"Author 5",
-			"Body 5",
-			new Date(),
-			"https://source.unsplash.com/random",
-			5,
-			5,
-			13
-		),
-		new Post(
-			6,
-			"Author 6",
-			"Body 6",
-			new Date().getDate(),
-			"https://source.unsplash.com/random",
-			6,
-			6,
-			43
-		),
-		new Post(
-			7,
-			"Author 7",
-			"Body 7",
-			new Date(),
-			"https://source.unsplash.com/random",
-			7,
-			7,
-			52
-		),
-		new Post(
-			8,
-			"Author 8",
-			"Body 8",
-			new Date(),
-			"https://source.unsplash.com/random",
-			8,
-			8,
-			67
-		),
-		new Post(
-			9,
-			"Author 9",
-			"Body 9",
-			new Date(),
-			"https://source.unsplash.com/random",
-			9,
-			9,
-			23
-		),
-		new Post(
-			10,
-			"Author 10",
-			"Body 10",
-			new Date(),
-			"https://source.unsplash.com/random",
-			10,
-			10,
-			1
-		),
+	mockGetPosts: () => [
+		new Post("1", "1", "1", "Description", "Time", 10, [new Comment("1", "1", "1", "Comment 1", "Time")], "https://source.unsplash.com/random"),
+		new Post("2", "2", "2", "Description", "Time", 25, [new Comment("2", "2", "2", "Comment 2", "Time")], "https://source.unsplash.com/random"),
+		new Post("3", "3", "3", "Description", "Time", 32, [new Comment("3", "3", "3", "Comment 3", "Time")], "https://source.unsplash.com/random"),
+		new Post("4", "4", "4", "Description", "Time", 10, [new Comment("4", "4", "4", "Comment 4", "Time")], "https://source.unsplash.com/random"),
+		new Post("5", "5", "5", "Description", "Time", 13, [new Comment("5", "5", "5", "Comment 5", "Time")], "https://source.unsplash.com/random"),
+		new Post("6", "6", "6", "Description", "Time", 11, [new Comment("6", "6", "6", "Comment 6", "Time")], "https://source.unsplash.com/random"),
+		new Post("7", "7", "7", "Description", "Time", 12, [new Comment("7", "7", "7", "Comment 7", "Time")], "https://source.unsplash.com/random"),
+		new Post("8", "8", "8", "Description", "Time", 15, [new Comment("8", "8", "8", "Comment 8", "Time")], "https://source.unsplash.com/random"),
+		new Post("9", "9", "9", "Description", "Time", 18, [new Comment("9", "9", "9", "Comment 9", "Time")], "https://source.unsplash.com/random"),
+		new Post("10", "10", "10", "Description", "Time", 10, [new Comment("10", "10", "10", "Comment 10", "Time")], "https://source.unsplash.com/random")
 	],
 
-	createNewPost: (userId, post) => {},
+	createNewPost: (userId, post) => {
+	},
 
-	likedPost: (postId) => {},
+	likedPost: (postId) => {
+	}
 };

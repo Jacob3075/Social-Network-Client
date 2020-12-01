@@ -33,6 +33,7 @@ export const getTopicFollowedByUser = async () => {
 			userService.getHeaderData()
 		)
 		.then((response) => response.data)
+		.then((responseTopics) => responseTopics.map((topic) => new Topic(topic._id, topic.topicName, topic.createdUserId, topic.description)))
 		.catch((error) => error.response.status);
 };
 
@@ -60,7 +61,7 @@ export const mockGetTopics = (userId) => [
 	new Topic(10, "Topic 10", 10, 10, 10, "Topic 10")
 ];
 
-export const mockGetTopicById = (topicId) => new Topic(1, "Topic1", 1, 1, 1, "Topic 1");
+export const mockGetTopicById = (topicId) => new Topic(1, "Topic1", 1, "Description");
 
 /*
 

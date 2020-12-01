@@ -1,4 +1,5 @@
 import axios from "axios";
+import User from "../models/User";
 
 const url = "http://localhost:8080/users/";
 
@@ -100,6 +101,7 @@ export const getAllUsers = async () => {
 export const getUserById = async (userId) => {
 	return await axios.get(url + "id/" + userId)
 		.then((response) => response.data)
+		.then((user) => new User(user._id, user.userName, user.followedTopics, user.registeredEvents))
 		.catch((error) => error.response.status);
 };
 

@@ -17,16 +17,16 @@ const useStyles = makeStyles(() => ({
 	description: {}
 }));
 
-const CommentCard = async ({ userId, comment }) => {
+const CommentCard = ({ userId, comment }) => {
 	const styles = useStyles();
 
-	//TODO
-	const userById = await getUserById(userId);
+	// TODO
+	// const userById = await getUserById(userId);
 
 	return (
 		<>
 			<Paper className={styles.root} elevation={2}>
-				<Typography variant="subtitle1">{userById}</Typography>
+				<Typography variant="subtitle1">{"userById.userName"}</Typography>
 				<Grid container>
 					<Grid item xs={6}>
 						<Typography variant="body1">{comment}</Typography>

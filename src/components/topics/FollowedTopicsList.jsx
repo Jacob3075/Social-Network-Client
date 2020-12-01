@@ -40,7 +40,6 @@ const FollowedTopicsList = () => {
 			.then((response) => {
 				setTopicListItemComponents(
 					response
-						.map((topic) => new Topic(topic._id, topic.topicName, topic.createdUserId, topic.description))
 						.map((topic) => (
 							<TopicsListItem key={topic.id} {...topic} />
 						)));
