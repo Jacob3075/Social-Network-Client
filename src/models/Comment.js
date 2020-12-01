@@ -1,9 +1,10 @@
 class Comment {
-	constructor(id, authorId, postId, commentMessage) {
+	constructor(id, userId, postId, comment, time) {
 		this.id = id;
-		this.authorId = authorId;
+		this.userId = userId;
 		this.postId = postId;
-		this.commentMessage = commentMessage;
+		this.comment = comment;
+		this.time = time;
 	}
 }
 
