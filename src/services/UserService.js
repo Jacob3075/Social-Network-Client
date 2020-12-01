@@ -7,8 +7,20 @@ const UserService = () => {
 	let userId = "";
 	let followedTopics = [];
 	let registeredEvents = [];
+	let headerData = {};
+	let isLoggedIn = false;
 
 	return {
+		isLoggedIn: () => isLoggedIn,
+
+		getFollowedTopics: () => followedTopics,
+
+		getRegisteredEvents: () => registeredEvents,
+
+		getUserId: () => userId,
+
+		getHeaderData: () => headerData,
+
 		getAllUsers: async () => {
 			return await axios
 				.get(url)
@@ -20,7 +32,7 @@ const UserService = () => {
 			return await axios
 				.post(url + "sign-up", {
 					userName,
-					password,
+					password
 				})
 				.then((response) => response)
 				.catch((error) => console.log(error));
@@ -30,7 +42,7 @@ const UserService = () => {
 			return await axios
 				.post(url + "sign-in", {
 					userName,
-					password,
+					password
 				})
 				.then((response) => {
 					if (response.status === 200) {
@@ -38,8 +50,14 @@ const UserService = () => {
 						userId = response.data.user.id;
 						followedTopics = response.data.user.followedTopics;
 						registeredEvents = response.data.user.registeredEvents;
+						isLoggedIn = true;
+						headerData = {
+							headers: {
+								Authorization: `Basic ${jwtToken}`
+							}
+						};
+						return response.status;
 					}
-					return response.status;
 				})
 				.catch((error) => error.response.status);
 		},
@@ -56,11 +74,7 @@ const UserService = () => {
 				.post(
 					url + "follow-topic",
 					{ topicId },
-					{
-						headers: {
-							Authorization: `Basic ${jwtToken}`,
-						},
-					}
+					headerData
 				)
 				.then((response) => {
 					return response.status === 200;
@@ -73,17 +87,13 @@ const UserService = () => {
 				.post(
 					url + "register-event",
 					{ eventId },
-					{
-						headers: {
-							Authorization: `Basic ${jwtToken}`,
-						},
-					}
+					headerData
 				)
 				.then((response) => {
 					return response.status === 200;
 				})
 				.catch((error) => error.response.status);
-		},
+		}
 	};
 };
 
