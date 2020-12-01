@@ -29,7 +29,7 @@ const EventsFeed = ({ userId }) => {
 	const events = EventService.mockGetEventsById(userId);
 
 	const eventCards = events.map((event, index) => (
-		<EventCard key={index} {...event} userId={userId} />
+		<EventCard key={index} {...event} />
 	));
 
 	return (
