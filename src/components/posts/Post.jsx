@@ -13,12 +13,13 @@ import postStyles from "../../styles/PostStyles";
 import Button from "@material-ui/core/Button";
 import CommentService from "../../services/CommentService";
 import CommentCard from "./CommentCard";
-import TopicService from "../../services/TopicService";
+import { mockGetTopicById } from "../../services/TopicService";
 import { InputAdornment, TextField } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 import PostService from "../../services/PostService";
+import { getUserById } from "../../services/UserService";
 
-const Post = ({ id, author, body, date, imageUrl, topicId, commentId, likes, userId }) => {
+const Post = ({ id, userId, topicId, description, time, likedUsers, comments, image }) => {
 	const classes = postStyles();
 	const [expanded, setExpanded] = React.useState(false);
 	const [newComment, setNewComment] = React.useState("");
@@ -43,27 +44,30 @@ const Post = ({ id, author, body, date, imageUrl, topicId, commentId, likes, use
 		PostService.likedPost(id);
 	};
 
-	const comments = CommentService.mockGetCommentsById(commentId);
-	const topic = TopicService.mockGetTopicById(topicId);
+	comments = CommentService.mockGetCommentsById();
+	const topic = mockGetTopicById(topicId);
 
-	// TODO: FORMATE DATE
-	const postHeaderTopicMessage = "Posted on " + date;
+	// TODO: FORMAT DATE
+	const postHeaderTopicMessage = "Posted on " + time;
 
 	const commentComponents = comments.map((comment, index) => (
-		<CommentCard key={index}>{comment.commentMessage}</CommentCard>
+		<CommentCard key={index}>{comment}</CommentCard>
 	));
+
+	//TODO
+	const userById = getUserById(userId);
 
 	return (
 		<Card className={classes.root} raised>
 			<CardHeader
-				title={topic.name + " . " + author}
+				title={topic.name + " . " + userById}
 				subheader={postHeaderTopicMessage}
 				subheaderTypographyProps={{ variant: "subtitle2" }}
 			/>
-			<CardMedia className={classes.media} image={imageUrl} />
+			<CardMedia className={classes.media} image={image} />
 			<CardContent>
 				<Typography variant="body2" component="p">
-					{body}
+					{description}
 				</Typography>
 			</CardContent>
 			<CardActions>
@@ -82,7 +86,7 @@ const Post = ({ id, author, body, date, imageUrl, topicId, commentId, likes, use
 								<InputAdornment position="end">
 									<SendIcon />
 								</InputAdornment>
-							),
+							)
 						}}
 						value={newComment}
 						onChange={handleTypeNewComment}
@@ -106,7 +110,7 @@ Post.propTypes = {
 	date: PropTypes.any.isRequired,
 	id: PropTypes.number.isRequired,
 	imageUrl: PropTypes.string.isRequired,
-	topicId: PropTypes.number.isRequired,
+	topicId: PropTypes.number.isRequired
 };
 
 export default Post;

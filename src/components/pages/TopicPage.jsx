@@ -8,10 +8,7 @@ const TopicPage = () => {
 	const history = useHistory();
 
 	useEffect(() => {
-		if (!userService.isLoggedIn()) {
-			console.log("REDIRECTED");
-			history.push("/login");
-		}
+		if (!userService.isLoggedIn()) history.push("/login");
 	}, []);
 
 	return (
