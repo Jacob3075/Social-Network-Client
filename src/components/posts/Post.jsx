@@ -68,7 +68,7 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 	return (
 		<Card className={classes.root} raised>
 			<CardHeader
-				title={topic.name + " . userById.userName"}
+				title={topic.topicName + " . userById.userName"}
 				subheader={postHeaderTopicMessage}
 				subheaderTypographyProps={{ variant: "subtitle2" }}
 			/>

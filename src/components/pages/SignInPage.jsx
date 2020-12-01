@@ -8,11 +8,11 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import signInSideStyles from "../../styles/SignInSideStyles";
+import signInPageStyles from "../../styles/SignInPageStyles";
 import { userService } from "../../services/UserService";
 
 const SignInPage = () => {
-	const classes = signInSideStyles();
+	const classes = signInPageStyles();
 	const [userName, setUserName] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
@@ -33,7 +33,6 @@ const SignInPage = () => {
 				.login(userName, password)
 				.then((statusCode) => {
 					if (statusCode === 200) {
-						alert("Login Success");
 						history.push("/");
 					} else {
 						alert("Login Failed, Code: " + statusCode);
