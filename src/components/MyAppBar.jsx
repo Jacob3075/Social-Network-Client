@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
 		width: "30%",
 	},
 	search: {
-		width: "100%",
+		width: "120%",
 	},
 	logoimage: {
 		width: '46px',
@@ -62,11 +62,7 @@ const MyAppBar = ({ title = "Title"}) => {
 
 	return (
 		<AppBar className={classes.appBar} position="sticky" color="inherit">
-			<a class="navbar-brand" href="/">
-				<div className={classes.logoimage}>
-					<img src="https://images.newindianexpress.com/uploads/user/imagelibrary/2019/3/7/w600X390/Take_in_the_Scenery.jpg" alt="PESLink" class="img-fluid" />
-				</div>
-			</a>
+			<img src='https://github.com/Jacob3075/Social-Network-Client/blob/master/public/PESLink%20logo.png?raw=true' style={{width:200}}/>
 			<Toolbar>
 				<Typography variant="h5">{title}</Typography>
 				<form onSubmit={handleSubmit} className={classes.form}>

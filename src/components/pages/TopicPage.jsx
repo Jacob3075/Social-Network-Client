@@ -13,7 +13,7 @@ const TopicPage = () => {
 
 	return (
 		<>
-			<MyAppBar title={"PESLink • Topic Name"} />
+			<MyAppBar title={""} />
 			<MainContent />
 		</>
 	);

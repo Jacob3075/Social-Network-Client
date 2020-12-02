@@ -62,7 +62,6 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 		setNewComment("");
 	};
 
-	//TODO
 	const handleLikedPost = () => {
 		if (likedPost) setNumberOfLikes(numberOfLikes - 1);
 		else setNumberOfLikes(numberOfLikes + 1);
@@ -83,7 +82,7 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 	return (
 		<Card className={classes.root} raised>
 			<CardHeader
-				title={topicName + "." + userName}
+				title={topicName + " • userById.userName"}
 				subheader={postHeaderTopicMessage}
 				subheaderTypographyProps={{ variant: "subtitle2" }}
 			/>
