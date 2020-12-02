@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MyAppBar from "../MyAppBar";
 import MainContent from "../MainContent";
-let imageSource = "/public/logo.png";
 import { userService } from "../../services/UserService";
 import { useHistory } from "react-router-dom";
 

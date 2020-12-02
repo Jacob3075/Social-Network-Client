@@ -28,8 +28,8 @@ const UserService = () => {
 					userName,
 					password
 				})
-				.then((response) => response)
-				.catch((error) => console.log(error));
+				.then((response) => response.status)
+				.catch((error) => error.response.status);
 		},
 
 		login: async (userName, password) => {
