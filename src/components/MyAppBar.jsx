@@ -13,6 +13,7 @@ import CreateButton from "./create-button/CreateButton";
 import { Button } from "@material-ui/core";
 import { userService } from "../services/UserService";
 import { useHistory } from "react-router-dom";
+import { getAllTopics } from "../services/TopicService";
 
 const useStyles = makeStyles(() => ({
 	appBar: {
@@ -43,6 +44,13 @@ const MyAppBar = ({ title = "Title"}) => {
 	const history = useHistory();
 
 	const [searchQuery, setSearchQuery] = useState("");
+	const [topics, setTopics] = useState([]);
+
+	useEffect(() => {
+		getAllTopics()
+			.then((response => setTopics(response)))
+			.catch((error) => console.error(error));
+	}, []);
 
 	const handleChange = (event) => {
 		setSearchQuery(event.target.value);
@@ -62,7 +70,8 @@ const MyAppBar = ({ title = "Title"}) => {
 
 	return (
 		<AppBar className={classes.appBar} position="sticky" color="inherit">
-			<img src='https://github.com/Jacob3075/Social-Network-Client/blob/master/public/PESLink%20logo.png?raw=true' style={{width:200}}/>
+			<img src='https://github.com/Jacob3075/Social-Network-Client/blob/master/public/PESLink%20logo.png?raw=true'
+			     style={{ width: 200 }} alt="" />
 			<Toolbar>
 				<Typography variant="h5">{title}</Typography>
 				<form onSubmit={handleSubmit} className={classes.form}>

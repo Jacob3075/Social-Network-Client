@@ -10,14 +10,13 @@ import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import postStyles from "../../styles/PostStyles";
 import Button from "@material-ui/core/Button";
-import CommentService from "../../services/CommentService";
 import CommentCard from "./CommentCard";
 import { InputAdornment, TextField } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 import { getTopicById } from "../../services/TopicService";
 import { getUserById, userService } from "../../services/UserService";
 import { arrayBufferToBase64 } from "../../Utils";
-import { likePost } from "../../services/PostService";
+import { addComment, likePost } from "../../services/PostService";
 
 const Post = ({ id, userId, topicId, description, time, likedUsers, comments, image }) => {
 
@@ -58,7 +57,9 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 
 	const handlePostNewComment = (event) => {
 		event.preventDefault();
-		CommentService.commentedOnPost(id, userId, newComment);
+		addComment(id, newComment)
+			.then((response) => console.log(response))
+			.catch((error) => console.log(error));
 		setNewComment("");
 	};
 
@@ -82,7 +83,7 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 	return (
 		<Card className={classes.root} raised>
 			<CardHeader
-				title={topicName + " • userById.userName"}
+				title={topicName + " • " + userName}
 				subheader={postHeaderTopicMessage}
 				subheaderTypographyProps={{ variant: "subtitle2" }}
 			/>

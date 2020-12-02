@@ -54,3 +54,14 @@ export const likePost = async (postId, unLike) => {
 		.then(response => response)
 		.catch((error) => console.log(error));
 };
+
+export const addComment = async (postId, comment) => {
+	return await axios.post(
+		url + "comments/",
+		{ comment, postId, userId: userService.getUserId() },
+		userService.getHeaderData()
+	)
+		.then(response => response.data)
+		.then(response => console.log(response))
+		.catch((error) => console.log(error));
+};
