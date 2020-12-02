@@ -28,6 +28,14 @@ const useStyles = makeStyles(() => ({
 	search: {
 		width: "100%",
 	},
+	logoimage: {
+		width: '46px',
+		height: '46px',
+		borderradius: '50%',
+		overflow: 'hidden',
+		marginTop: '-6px',
+		marginLeft: '15px',
+	}
 }));
 
 const MyAppBar = ({ title = "Title"}) => {
@@ -54,6 +62,11 @@ const MyAppBar = ({ title = "Title"}) => {
 
 	return (
 		<AppBar className={classes.appBar} position="sticky" color="inherit">
+			<a class="navbar-brand" href="/">
+				<div className={classes.logoimage}>
+					<img src="https://images.newindianexpress.com/uploads/user/imagelibrary/2019/3/7/w600X390/Take_in_the_Scenery.jpg" alt="PESLink" class="img-fluid" />
+				</div>
+			</a>
 			<Toolbar>
 				<Typography variant="h5">{title}</Typography>
 				<form onSubmit={handleSubmit} className={classes.form}>
