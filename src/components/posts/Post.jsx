@@ -15,18 +15,20 @@ import CommentCard from "./CommentCard";
 import { InputAdornment, TextField } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 import { getTopicById } from "../../services/TopicService";
-import { getUserById } from "../../services/UserService";
+import { getUserById, userService } from "../../services/UserService";
 import { arrayBufferToBase64 } from "../../Utils";
+import { likePost } from "../../services/PostService";
 
 const Post = ({ id, userId, topicId, description, time, likedUsers, comments, image }) => {
 
 	const classes = postStyles();
 	const [expanded, setExpanded] = useState(false);
 	const [newComment, setNewComment] = useState("");
-	const [likeIconColor, setLikeIconColor] = useState("");
+	const [likedPost, setLikedPost] = useState(likedUsers.includes(userService.getUserId()));
 	const [userName, setUserName] = useState("");
 	const [topicName, setTopicName] = useState("");
 	const [processedImageString, setProcessedImageString] = useState(image);
+	const [numberOfLikes, setNumberOfLikes] = useState(likedUsers.length);
 
 	useEffect(() => {
 		getUserById(userId)
@@ -44,7 +46,7 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 		const base64Flag = `data:${image.contentType};base64,`;
 		const imageStr = arrayBufferToBase64(image.data.data);
 		setProcessedImageString(base64Flag + imageStr);
-	}, []);
+	}, [likedPost]);
 
 	const handleExpandComments = () => {
 		setExpanded(!expanded);
@@ -62,7 +64,12 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 
 	//TODO
 	const handleLikedPost = () => {
-		setLikeIconColor("error");
+		if (likedPost) setNumberOfLikes(numberOfLikes - 1);
+		else setNumberOfLikes(numberOfLikes + 1);
+
+		likePost(id, likedPost)
+			.then(r => setLikedPost(!likedPost))
+			.catch((error) => console.log(error));
 	};
 
 	// TODO: FORMAT DATE
@@ -87,9 +94,9 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 			</CardContent>
 			<CardActions>
 				<IconButton onClick={handleLikedPost}>
-					<FavoriteIcon color={likeIconColor} />
+					<FavoriteIcon color={likedPost ? "error" : ""} />
 				</IconButton>
-				{likedUsers.length}
+				{numberOfLikes}
 				<form onSubmit={handlePostNewComment} className={classes.form}>
 					<TextField
 						className={classes.textField}

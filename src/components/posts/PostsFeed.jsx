@@ -16,8 +16,8 @@ const PostsFeed = ({ userId }) => {
 
 		getPostsFromFollowedTopics(pageNumber, 10)
 			.then((response) => {
-				if (response.data.length > 0) {
-					const newPosts = response.data;
+				if (response.length > 0) {
+					const newPosts = response;
 					setPostList(postList.concat(newPosts));
 					if (newPosts.length === 0) {
 						setHasMoreItems(false);
