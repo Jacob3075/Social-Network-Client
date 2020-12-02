@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import LoginPage from "./components/pages/LoginPage";
-import SignInPage from "./components/pages/SignInPage";
+import SignUpPage from "./components/pages/SignUpPage";
 import HomePage from "./components/pages/HomePage";
 import TopicPage from "./components/pages/TopicPage";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
@@ -17,7 +17,7 @@ const App = () => {
 			<BrowserRouter>
 				<Route exact path="/" component={HomePage} />
 				<Route path="/login" component={LoginPage} />
-				<Route path="/sign-in" component={SignInPage} />
+				<Route path="/sign-in" component={SignUpPage} />
 				<Route path="/topic/:topicId" component={TopicPage} />
 			</BrowserRouter>
 		</ThemeProvider>

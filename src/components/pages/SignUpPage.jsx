@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import signInPageStyles from "../../styles/SignInPageStyles";
 import { userService } from "../../services/UserService";
 
-const SignInPage = () => {
+const SignUpPage = () => {
 	const classes = signInPageStyles();
 	const [userName, setUserName] = useState("");
 	const [password, setPassword] = useState("");
@@ -115,4 +115,4 @@ const SignInPage = () => {
 	);
 };
 
-export default SignInPage;
+export default SignUpPage;

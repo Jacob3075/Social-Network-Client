@@ -1,41 +1,34 @@
 import React, { useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
-import PostService from "../../services/PostService";
 import Post from "./Post";
+import { getPostsFromFollowedTopics } from "../../services/PostService";
+import { userService } from "../../services/UserService";
 
 const PostsFeed = ({ userId }) => {
 	const [postList, setPostList] = useState([]);
 	const [hasMoreItems, setHasMoreItems] = useState(true);
 
-	// const loadPostList = (page) => {
-	// 	PostService.getList(page)
-	// 		.then((res) => {
-	// 			const newList = postList.concat(res.data);
-	// 			setPostList(newList);
-	//
-	// 			if (res.data.length === 0) {
-	// 				setHasMoreItems(false);
-	// 			} else {
-	// 				setHasMoreItems(true);
-	// 			}
-	// 		})
-	// 		.catch((err) => {
-	// 			console.log(err);
-	// 		});
-	// };
-
 	const loadMoreData = (pageNumber) => {
-		const newPosts = PostService.mockGetPosts(pageNumber);
-		const updatedPostsList = postList.concat(newPosts);
-		setPostList(updatedPostsList);
-
-		if (newPosts.length === 0) {
+		if (!userService.isLoggedIn()) {
 			setHasMoreItems(false);
+			return;
 		}
+
+		getPostsFromFollowedTopics(pageNumber, 10)
+			.then((response) => {
+				if (response.data.length > 0) {
+					const newPosts = response.data;
+					setPostList(postList.concat(newPosts));
+					if (newPosts.length === 0) {
+						setHasMoreItems(false);
+					}
+				} else setHasMoreItems(false);
+			})
+			.catch((error) => console.log(error));
 	};
 
 	let postComponents = postList.map((post, index) => (
-		<Post key={index} {...post} userId={userId} />
+		<Post key={index} {...post} />
 	));
 
 	return (

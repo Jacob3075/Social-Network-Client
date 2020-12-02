@@ -13,7 +13,7 @@ export const getAllTopics = async () => {
 
 export const getTopicById = async (topicId) => {
 	return await axios
-		.get(url + topicId)
+		.get(url + "id/" + topicId)
 		.then((response) => response.data)
 		.catch((error) => error.response.status);
 };
@@ -62,26 +62,3 @@ export const mockGetTopics = (userId) => [
 ];
 
 export const mockGetTopicById = (topicId) => new Topic(1, "Topic1", 1, "Description");
-
-/*
-
-export default {
-	getCommentsById: async (page) => {
-		try {
-			let url;
-			if (page != null && page > 1) {
-				url = "https://reqres.in/api/users?per_page=2&page=" + page;
-			} else {
-				url = "https://reqres.in/api/users?per_page=2";
-			}
-			const response = await axios.get(url);
-			return response.data;
-		} catch (error) {
-			console.log(error);
-		}
-	},
-
-
-	createNewTopic: (userId, topic) => {},
-};
-*/

@@ -12,11 +12,11 @@ import postStyles from "../../styles/PostStyles";
 import Button from "@material-ui/core/Button";
 import CommentService from "../../services/CommentService";
 import CommentCard from "./CommentCard";
-import { mockGetTopicById } from "../../services/TopicService";
 import { InputAdornment, TextField } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
-import PostService from "../../services/PostService";
+import { getTopicById } from "../../services/TopicService";
 import { getUserById } from "../../services/UserService";
+import { arrayBufferToBase64 } from "../../Utils";
 
 const Post = ({ id, userId, topicId, description, time, likedUsers, comments, image }) => {
 
@@ -25,15 +25,25 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 	const [newComment, setNewComment] = useState("");
 	const [likeIconColor, setLikeIconColor] = useState("");
 	const [userName, setUserName] = useState("");
+	const [topicName, setTopicName] = useState("");
+	const [processedImageString, setProcessedImageString] = useState(image);
 
 	useEffect(() => {
 		getUserById(userId)
 			.then((response) => {
 				setUserName(response.userName);
 			})
-			.catch((error) => {
-			});
+			.catch((error) => console.log(error));
 
+		getTopicById(topicId)
+			.then((response) => {
+				setTopicName(response.topicName);
+			})
+			.catch(error => console.log(error));
+
+		const base64Flag = `data:${image.contentType};base64,`;
+		const imageStr = arrayBufferToBase64(image.data.data);
+		setProcessedImageString(base64Flag + imageStr);
 	}, []);
 
 	const handleExpandComments = () => {
@@ -50,13 +60,10 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 		setNewComment("");
 	};
 
+	//TODO
 	const handleLikedPost = () => {
 		setLikeIconColor("error");
-		PostService.likedPost(id);
 	};
-
-	// comments = CommentService.mockGetCommentsById();
-	const topic = mockGetTopicById(topicId);
 
 	// TODO: FORMAT DATE
 	const postHeaderTopicMessage = "Posted on " + time;
@@ -68,11 +75,11 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 	return (
 		<Card className={classes.root} raised>
 			<CardHeader
-				title={topic.topicName + " . userById.userName"}
+				title={topicName + "." + userName}
 				subheader={postHeaderTopicMessage}
 				subheaderTypographyProps={{ variant: "subtitle2" }}
 			/>
-			<CardMedia className={classes.media} image={image} />
+			<CardMedia className={classes.media} image={processedImageString} />
 			<CardContent>
 				<Typography variant="body2" component="p">
 					{description}
@@ -82,6 +89,7 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 				<IconButton onClick={handleLikedPost}>
 					<FavoriteIcon color={likeIconColor} />
 				</IconButton>
+				{likedUsers.length}
 				<form onSubmit={handlePostNewComment} className={classes.form}>
 					<TextField
 						className={classes.textField}
