@@ -13,7 +13,7 @@ const UpperCasingTextField = (props) => {
 	return <MuiTextField {...fieldToTextField(props)} />;
 };
 
-const CreateEventsTab = ({ handleClose }) => {
+const CreateEventsTab = ({ handleClose, followedTopics }) => {
 	const [image, setImage] = useState("");
 
 	const handleFileSelect = (event) => {
@@ -65,16 +65,19 @@ const CreateEventsTab = ({ handleClose }) => {
 		return errors;
 	};
 
+	const options = followedTopics.map((topic) => (
+		<option key={topic.id}>{topic.topicName}</option>
+	));
+
 	return (
 		<>
 			<Formik
 				initialValues={{
-					topic: "",
 					eventName: "",
 					venue: "",
 					date: "",
 					time: "",
-					description: "",
+					description: ""
 				}}
 				validate={formValidation}
 				onSubmit={submitForm}
@@ -84,11 +87,11 @@ const CreateEventsTab = ({ handleClose }) => {
 						<Form>
 							<Box margin={1}>
 								<Field
-									component={UpperCasingTextField}
 									name="topic"
-									type="text"
-									label="Topic"
-								/>
+									as="select"
+									label="Topic">
+									{options}
+								</Field>
 							</Box>
 							<Box margin={1}>
 								<Field

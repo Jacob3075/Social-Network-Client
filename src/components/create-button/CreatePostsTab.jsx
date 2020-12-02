@@ -1,18 +1,12 @@
 import React, { useState } from "react";
 import { Field, Form, Formik } from "formik";
 import { Button, LinearProgress } from "@material-ui/core";
-import MuiTextField from "@material-ui/core/TextField";
-import { fieldToTextField } from "formik-material-ui";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import Box from "@material-ui/core/Box";
 import UploadImage from "./UploadImage";
 
-const UpperCasingTextField = (props) => {
-	return <MuiTextField {...fieldToTextField(props)} />;
-};
-
-const CreatePostsTab = ({ handleClose }) => {
+const CreatePostsTab = ({ handleClose, followedTopics }) => {
 	const [image, setImage] = useState("");
 
 	const submitForm = (values, { setSubmitting }) => {
@@ -52,12 +46,15 @@ const CreatePostsTab = ({ handleClose }) => {
 		}
 	};
 
+	const options = followedTopics.map((topic) => (
+		<option key={topic.id}>{topic.topicName}</option>
+	));
+
 	return (
 		<>
 			<Formik
 				initialValues={{
-					topic: "",
-					description: "",
+					description: ""
 				}}
 				validate={formValidation}
 				onSubmit={submitForm}
@@ -67,11 +64,11 @@ const CreatePostsTab = ({ handleClose }) => {
 						<Form>
 							<Box margin={1}>
 								<Field
-									component={UpperCasingTextField}
 									name="topic"
-									type="text"
-									label="Topic"
-								/>
+									as="select"
+									label="Topic">
+									{options}
+								</Field>
 							</Box>
 							<Box margin={1}>
 								Description:

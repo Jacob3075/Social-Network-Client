@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
 const CommentCard = ({ userId, comment }) => {
 	const styles = useStyles();
 	const [userName, setUserName] = useState("");
-	// TODO
+
 	getUserById(userId)
 		.then((response) => setUserName(response.userName))
 		.catch((error) => console.log(error));

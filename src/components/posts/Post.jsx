@@ -73,7 +73,6 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 	};
 
 	// TODO: FORMAT DATE
-
 	const postHeaderTopicMessage = "" + time;
 
 	const commentComponents = comments.map((comment, index) => (
