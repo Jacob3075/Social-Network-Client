@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import PostService from "../../services/PostService";
-import Post from "../Post";
+import Post from "./Post";
 
-const InfiniteScrollList = ({ userId }) => {
+const PostsFeed = ({ userId }) => {
 	const [postList, setPostList] = useState([]);
 	const [hasMoreItems, setHasMoreItems] = useState(true);
 
@@ -52,4 +52,4 @@ const InfiniteScrollList = ({ userId }) => {
 	);
 };
 
-export default InfiniteScrollList;
+export default PostsFeed;
