@@ -5,7 +5,7 @@ import MainContent from "../MainContent";
 const TopicPage = () => {
 	return (
 		<>
-			<MyAppBar title={"PESLink • Topic Name"} />
+			<MyAppBar title={""} />
 			<MainContent />
 		</>
 	);

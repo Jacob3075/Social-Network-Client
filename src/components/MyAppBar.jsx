@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
 		width: "30%",
 	},
 	search: {
-		width: "100%",
+		width: "120%",
 	},
 }));
 
@@ -44,7 +44,9 @@ const MyAppBar = ({ title = "Title", userId }) => {
 	};
 
 	return (
+		
 		<AppBar className={classes.appBar} position="sticky" color="inherit">
+			<img src='https://github.com/Jacob3075/Social-Network-Client/blob/master/public/PESLink%20logo.png?raw=true' style={{width:200}}/>
 			<Toolbar>
 				<Typography variant="h5">{title}</Typography>
 				<form onSubmit={handleSubmit} className={classes.form}>
