@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
@@ -9,29 +9,44 @@ import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import CreateTopicButton from "./CreateTopicButton";
 import TopicsListItem from "./TopicsListItem";
-import TopicService from "../../services/TopicService";
+import { getTopicFollowedByUser } from "../../services/TopicService";
+import Topic from "../../models/Topic";
 
 const useStyles = makeStyles((theme) => ({
 	text: {
-		padding: theme.spacing(2, 2, 0),
+		padding: theme.spacing(2, 2, 0)
 	},
 	paper: {
-		paddingBottom: 50,
+		paddingBottom: 50
 	},
 	list: {
 		marginBottom: theme.spacing(2),
 		height: "50vh",
-		overflowY: "scroll",
+		overflowY: "scroll"
 	},
 	button: {
 		color: "white",
 		marginLeft: "2em",
-		marginTop: "0.5em",
-	},
+		marginTop: "0.5em"
+	}
 }));
 
-const TopicFollowList = ({ userId }) => {
-	const [open, setOpen] = React.useState(false);
+const FollowedTopicsList = () => {
+	const [open, setOpen] = useState(false);
+	const [topicListItemComponents, setTopicListItemComponents] = useState([]);
+
+	useEffect(() => {
+		getTopicFollowedByUser()
+			.then((response) => {
+				setTopicListItemComponents(
+					response
+						.map((topic) => (
+							<TopicsListItem key={topic.id} {...topic} />
+						)));
+			})
+			.catch((error) => console.log(error));
+	}, []);
+
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -43,30 +58,21 @@ const TopicFollowList = ({ userId }) => {
 
 	const classes = useStyles();
 
-	const topicList = TopicService.mockGetTopics(userId);
-
-	const topicListItemComponents = topicList.map((topic) => (
-		<TopicsListItem key={topic.id} {...topic} />
-	));
 	return (
 		<>
 			<Button variant="text" className={classes.button} onClick={handleClickOpen}>
 				Topics
 			</Button>
-			<Dialog
-				open={open}
-				fullWidth={true}
-				onClose={handleClose}
-			>
+			<Dialog open={open} fullWidth={true} onClose={handleClose}>
 				<DialogContent>
 					<DialogContentText>
-							<Paper square className={classes.paper}>
-								<Typography className={classes.text} variant="h5" gutterBottom>
-									Topics
-								</Typography>
-								<List className={classes.list}>{topicListItemComponents}</List>
-							</Paper>
-							<CreateTopicButton />
+						<Paper square className={classes.paper}>
+							<Typography className={classes.text} variant="h5" gutterBottom>
+								Topics
+							</Typography>
+							<List className={classes.list}>{topicListItemComponents}</List>
+						</Paper>
+						<CreateTopicButton />
 					</DialogContentText>
 				</DialogContent>
 			</Dialog>
@@ -74,4 +80,4 @@ const TopicFollowList = ({ userId }) => {
 	);
 };
 
-export default TopicFollowList;
+export default FollowedTopicsList;

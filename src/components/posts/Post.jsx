@@ -1,5 +1,4 @@
-import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -13,16 +12,29 @@ import postStyles from "../../styles/PostStyles";
 import Button from "@material-ui/core/Button";
 import CommentService from "../../services/CommentService";
 import CommentCard from "./CommentCard";
-import TopicService from "../../services/TopicService";
+import { mockGetTopicById } from "../../services/TopicService";
 import { InputAdornment, TextField } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 import PostService from "../../services/PostService";
+import { getUserById } from "../../services/UserService";
 
-const Post = ({ id, author, body, date, imageUrl, topicId, commentId, likes, userId }) => {
+const Post = ({ id, userId, topicId, description, time, likedUsers, comments, image }) => {
+
 	const classes = postStyles();
-	const [expanded, setExpanded] = React.useState(false);
-	const [newComment, setNewComment] = React.useState("");
-	const [likeIconColor, setLikeIconColor] = React.useState("");
+	const [expanded, setExpanded] = useState(false);
+	const [newComment, setNewComment] = useState("");
+	const [likeIconColor, setLikeIconColor] = useState("");
+	const [userName, setUserName] = useState("");
+
+	useEffect(() => {
+		getUserById(userId)
+			.then((response) => {
+				setUserName(response.userName);
+			})
+			.catch((error) => {
+			});
+
+	}, []);
 
 	const handleExpandComments = () => {
 		setExpanded(!expanded);
@@ -43,28 +55,28 @@ const Post = ({ id, author, body, date, imageUrl, topicId, commentId, likes, use
 		PostService.likedPost(id);
 	};
 
-	const comments = CommentService.mockGetCommentsById(commentId);
-	const topic = TopicService.mockGetTopicById(topicId);
+	// comments = CommentService.mockGetCommentsById();
+	const topic = mockGetTopicById(topicId);
 
 	// TODO: FORMAT DATE
 
 	const postHeaderTopicMessage = "" + date;
 
 	const commentComponents = comments.map((comment, index) => (
-		<CommentCard key={index}>{comment.commentMessage}</CommentCard>
+		<CommentCard key={index} {...comment} />
 	));
 
 	return (
 		<Card className={classes.root} raised>
 			<CardHeader
-				title={topic.name + " • " + author}
+				title={topic.topicName + " • userById.userName"}
 				subheader={postHeaderTopicMessage}
 				subheaderTypographyProps={{ variant: "subtitle2" }}
 			/>
-			<CardMedia className={classes.media} image={imageUrl} />
+			<CardMedia className={classes.media} image={image} />
 			<CardContent>
 				<Typography variant="body2" component="p">
-					{body}
+					{description}
 				</Typography>
 			</CardContent>
 			<CardActions>
@@ -83,7 +95,7 @@ const Post = ({ id, author, body, date, imageUrl, topicId, commentId, likes, use
 								<InputAdornment position="end">
 									<SendIcon />
 								</InputAdornment>
-							),
+							)
 						}}
 						value={newComment}
 						onChange={handleTypeNewComment}
@@ -98,16 +110,6 @@ const Post = ({ id, author, body, date, imageUrl, topicId, commentId, likes, use
 			</Collapse>
 		</Card>
 	);
-};
-
-Post.propTypes = {
-	author: PropTypes.string.isRequired,
-	body: PropTypes.string.isRequired,
-	commentId: PropTypes.number.isRequired,
-	date: PropTypes.any.isRequired,
-	id: PropTypes.number.isRequired,
-	imageUrl: PropTypes.string.isRequired,
-	topicId: PropTypes.number.isRequired,
 };
 
 export default Post;

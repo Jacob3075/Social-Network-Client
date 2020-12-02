@@ -1,13 +1,14 @@
 class Event {
-	constructor(id, hostId, name, place, time, description, topicId, imageUrl) {
+	constructor(id, userId, topicId, time, name, description, location, registered, image) {
 		this.id = id;
-		this.hostId = hostId;
+		this.userId = userId;
 		this.topicId = topicId;
-		this.name = name; //*
-		this.place = place; //*
-		this.time = time; //*
-		this.description = description; // atleast one
-		this.imageUrl = imageUrl; // atleast one
+		this.time = time;
+		this.name = name;
+		this.description = description;
+		this.location = location;
+		this.registered = registered;
+		this.image = image;
 	}
 }
 

@@ -7,24 +7,19 @@ const useStyles = makeStyles(() => ({
 		padding: "0.5em",
 		margin: "0.5em",
 		textAlign: "left",
-		borderRadius: 15,
+		borderRadius: 15
 	},
 	content: {
 		boxSizing: "border-box",
-		padding: "0.8em",
+		padding: "0.8em"
 	},
 	title: {},
 	place: {},
 	time: {},
-	description: {},
+	description: {}
 }));
 
-const EventCard = ({
-	name = "name",
-	place = "place",
-	time = "time",
-	description = "description",
-}) => {
+const EventCard = ({ time, name, description, location }) => {
 	const styles = useStyles();
 
 	return (
@@ -33,7 +28,7 @@ const EventCard = ({
 				<Typography variant="subtitle1">{name}</Typography>
 				<Grid container>
 					<Grid item className={styles.content} xs={6}>
-						<Typography variant="body2">{place}</Typography>
+						<Typography variant="body2">{location}</Typography>
 						<Typography variant="caption">@{time}</Typography>
 					</Grid>
 					<Grid item xs={6}>
