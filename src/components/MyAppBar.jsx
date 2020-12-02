@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import AppBar from "@material-ui/core/AppBar";
@@ -7,10 +7,12 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import TopicFollowList from "./topics/TopicFollowList";
+import FollowedTopicsList from "./topics/FollowedTopicsList";
 import HomePageButton from "./HomePageButton";
 import CreateButton from "./create-button/CreateButton";
 import { Button } from "@material-ui/core";
+import { userService } from "../services/UserService";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
 	appBar: {
@@ -36,8 +38,9 @@ const useStyles = makeStyles(() => ({
 	}
 }));
 
-const MyAppBar = ({ title = "Title", userId }) => {
+const MyAppBar = ({ title = "Title"}) => {
 	const classes = useStyles();
+	const history = useHistory();
 
 	const [searchQuery, setSearchQuery] = useState("");
 
@@ -50,6 +53,12 @@ const MyAppBar = ({ title = "Title", userId }) => {
 		console.log(searchQuery);
 		setSearchQuery("");
 	};
+
+	const handleLogOut = () => {
+		userService.logout();
+
+			 history.push("/login");
+	}
 
 	return (
 		<AppBar className={classes.appBar} position="sticky" color="inherit">
@@ -81,14 +90,14 @@ const MyAppBar = ({ title = "Title", userId }) => {
 				</form>
 				<CreateButton />
 				<HomePageButton />
-				<TopicFollowList userId={userId} />
+				<FollowedTopicsList />
 				<Button
 					variant="text"
+					onClick={handleLogOut}
 					style={{ color: "white", marginLeft: "2em", marginTop: "0.5em" }}
 				>
 					SignOut
 				</Button>
-				{/*<SignOutButton />*/}
 			</Toolbar>
 		</AppBar>
 	);

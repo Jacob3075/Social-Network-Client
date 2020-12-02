@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const signInSideStyles = makeStyles((theme) => ({
+const signInPageStyles = makeStyles((theme) => ({
 	root: {
 		height: "100vh",
 	},
@@ -33,4 +33,4 @@ const signInSideStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default signInSideStyles;
+export default signInPageStyles;

@@ -7,7 +7,7 @@ import Dialog from "@material-ui/core/Dialog";
 import UnfollowTopicConfirmation from "./UnfollowTopicConfirmation";
 import Paper from "@material-ui/core/Paper";
 
-const TopicsListItem = ({ id, name, creatorId, description }) => {
+const TopicsListItem = ({ id, topicName, createdUserId, description }) => {
 	const [open, setOpen] = React.useState(false);
 
 	const handleClickOpen = () => {
@@ -21,13 +21,13 @@ const TopicsListItem = ({ id, name, creatorId, description }) => {
 	return (
 		<Paper>
 			<ListItem button>
-				<ListItemText primary={name} />
+				<ListItemText primary={topicName} />
 				<Button
 					variant="contained"
 					style={{
 						float: "right",
 						width: "2.5cm",
-						height: "0.8cm",
+						height: "0.8cm"
 					}}
 					onClick={handleClickOpen}
 				>
@@ -39,13 +39,6 @@ const TopicsListItem = ({ id, name, creatorId, description }) => {
 			</ListItem>
 		</Paper>
 	);
-};
-
-TopicsListItem.propTypes = {
-	creatorId: PropTypes.any,
-	description: PropTypes.any,
-	id: PropTypes.any.isRequired,
-	name: PropTypes.any.isRequired,
 };
 
 export default TopicsListItem;

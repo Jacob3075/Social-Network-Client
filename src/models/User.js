@@ -1,11 +1,9 @@
 class User {
-	constructor(id, name, posts, comments, createdTopics, subscribedTopics) {
+	constructor(id, userName, followedTopics, registeredEvents) {
 		this.id = id;
-		this.name = name;
-		this.posts = posts;
-		this.comments = comments;
-		this.createdTopics = createdTopics;
-		this.subscribedTopics = subscribedTopics;
+		this.userName = userName;
+		this.followedTopics = followedTopics;
+		this.registeredEvents = registeredEvents;
 	}
 }
 

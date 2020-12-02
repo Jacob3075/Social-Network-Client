@@ -1,40 +1,109 @@
 import axios from "axios";
+import User from "../models/User";
 
 const url = "http://localhost:8080/users/";
 
-export default {
-	getAllUsers: async () => {
-		return await axios
-			.get(url)
-			.then((response) => response)
-			.catch((error) => console.log(error));
-	},
+const UserService = () => {
+	let jwtToken = "";
+	let userId = "";
+	let followedTopics = [];
+	let registeredEvents = [];
+	let headerData = {};
+	let isLoggedIn = false;
 
-	signUp: async (userName, password) => {
-		return await axios
-			.post(url + "sign-up", {
-				userName,
-				password,
-			})
-			.then((response) => response)
-			.catch((error) => console.log(error));
-	},
+	return {
+		isLoggedIn: () => isLoggedIn,
 
-	login: async (userName, password) => {
-		const result = await axios
-			.post(url + "sign-in", {
-				userName,
-				password,
-			})
-			.then((response) => response)
-			.catch((error) => console.log(error));
+		getFollowedTopics: () => followedTopics,
 
-		if (!result) {
-			return false;
-		} else {
-			return result.status === 200;
+		getRegisteredEvents: () => registeredEvents,
+
+		getUserId: () => userId,
+
+		getHeaderData: () => headerData,
+
+		signUp: async (userName, password) => {
+			return await axios
+				.post(url + "sign-up", {
+					userName,
+					password
+				})
+				.then((response) => response)
+				.catch((error) => console.log(error));
+		},
+
+		login: async (userName, password) => {
+			return await axios
+				.post(url + "sign-in", {
+					userName,
+					password
+				})
+				.then((response) => {
+					if (response.status === 200) {
+						jwtToken = response.data.token;
+						userId = response.data.user.id;
+						followedTopics = response.data.user.followedTopics;
+						registeredEvents = response.data.user.registeredEvents;
+						isLoggedIn = true;
+						headerData = {
+							headers: {
+								Authorization: `Basic ${jwtToken}`
+							}
+						};
+						return response.status;
+					}
+				})
+				.catch((error) => error.response.status);
+		},
+
+		logout: () => {
+			jwtToken = "";
+			userId = "";
+			followedTopics = [];
+			registeredEvents = [];
+		},
+
+		followNewTopic: async (topicId) => {
+			return await axios
+				.post(
+					url + "follow-topic",
+					{ topicId },
+					headerData
+				)
+				.then((response) => {
+					return response.status === 200;
+				})
+				.catch((error) => error.response.status);
+		},
+
+		registerNewTopic: async (eventId) => {
+			return await axios
+				.post(
+					url + "register-event",
+					{ eventId },
+					headerData
+				)
+				.then((response) => {
+					return response.status === 200;
+				})
+				.catch((error) => error.response.status);
 		}
-	},
-
-	mockGetList: [{ id: 1 }],
+	};
 };
+
+export const getAllUsers = async () => {
+	return await axios
+		.get(url)
+		.then((response) => response)
+		.catch((error) => console.log(error));
+};
+
+export const getUserById = async (userId) => {
+	return await axios.get(url + "id/" + userId)
+		.then((response) => response.data)
+		.then((user) => new User(user._id, user.userName, user.followedTopics, user.registeredEvents))
+		.catch((error) => error.response.status);
+};
+
+
+export const userService = UserService();
