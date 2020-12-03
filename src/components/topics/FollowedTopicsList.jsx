@@ -7,29 +7,30 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
-import CreateTopicButton from "./CreateTopicButton";
 import TopicsListItem from "./TopicsListItem";
 
 const useStyles = makeStyles((theme) => ({
 	text: {
-		padding: theme.spacing(2, 2, 0)
+		padding: theme.spacing(2, 2, 0),
 	},
 	paper: {
-		paddingBottom: 50
+		paddingBottom: 5,
 	},
 	list: {
 		marginBottom: theme.spacing(2),
 		height: "50vh",
-		overflowY: "scroll"
+		overflowY: "scroll",
 	},
 	button: {
 		color: "white",
 		marginLeft: "2em",
-		marginTop: "0.5em"
-	}
+		marginTop: "0.5em",
+	},
 }));
 
 const FollowedTopicsList = ({ followedTopics }) => {
+	const classes = useStyles();
+
 	const [open, setOpen] = useState(false);
 
 	const topicListItemComponents = followedTopics.map((topic) => (
@@ -43,8 +44,6 @@ const FollowedTopicsList = ({ followedTopics }) => {
 	const handleClose = () => {
 		setOpen(false);
 	};
-
-	const classes = useStyles();
 
 	return (
 		<>
@@ -60,7 +59,6 @@ const FollowedTopicsList = ({ followedTopics }) => {
 							</Typography>
 							<List className={classes.list}>{topicListItemComponents}</List>
 						</Paper>
-						<CreateTopicButton />
 					</DialogContentText>
 				</DialogContent>
 			</Dialog>
