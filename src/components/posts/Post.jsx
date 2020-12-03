@@ -4,29 +4,29 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import postStyles from "../../styles/PostStyles";
 import Button from "@material-ui/core/Button";
-import CommentCard from "./CommentCard";
 import { InputAdornment, TextField } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 import { getTopicById } from "../../services/TopicService";
 import { getUserById, userService } from "../../services/UserService";
 import { arrayBufferToBase64 } from "../../Utils";
 import { addComment, likePost } from "../../services/PostService";
+import Collapse from "@material-ui/core/Collapse";
+import CommentCard from "./CommentCard";
 
 const Post = ({ id, userId, topicId, description, time, likedUsers, comments, image }) => {
-
 	const classes = postStyles();
 	const [expanded, setExpanded] = useState(false);
 	const [newComment, setNewComment] = useState("");
+	const [postComments, setPostComments] = useState(comments);
 	const [likedPost, setLikedPost] = useState(likedUsers.includes(userService.getUserId()));
 	const [userName, setUserName] = useState("");
 	const [topicName, setTopicName] = useState("");
-	const [processedImageString, setProcessedImageString] = useState(image);
+	const [processedImageString, setProcessedImageString] = useState("");
 	const [numberOfLikes, setNumberOfLikes] = useState(likedUsers.length);
 
 	useEffect(() => {
@@ -40,12 +40,12 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 			.then((response) => {
 				setTopicName(response.topicName);
 			})
-			.catch(error => console.log(error));
+			.catch((error) => console.log(error));
 
 		const base64Flag = `data:${image.contentType};base64,`;
 		const imageStr = arrayBufferToBase64(image.data.data);
 		setProcessedImageString(base64Flag + imageStr);
-	}, [likedPost]);
+	}, []);
 
 	const handleExpandComments = () => {
 		setExpanded(!expanded);
@@ -58,7 +58,10 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 	const handlePostNewComment = (event) => {
 		event.preventDefault();
 		addComment(id, newComment)
-			.then((response) => console.log(response))
+			.then((response) => {
+				postComments.push(response);
+				setPostComments(postComments);
+			})
 			.catch((error) => console.log(error));
 		setNewComment("");
 	};
@@ -68,14 +71,14 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 		else setNumberOfLikes(numberOfLikes + 1);
 
 		likePost(id, likedPost)
-			.then(r => setLikedPost(!likedPost))
+			.then((response) => setLikedPost(!likedPost))
 			.catch((error) => console.log(error));
 	};
 
 	// TODO: FORMAT DATE
 	const postHeaderTopicMessage = "" + time;
 
-	const commentComponents = comments.map((comment, index) => (
+	const commentComponents = postComments.map((comment, index) => (
 		<CommentCard key={index} {...comment} />
 	));
 
@@ -109,7 +112,7 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 								<InputAdornment position="end">
 									<SendIcon />
 								</InputAdornment>
-							)
+							),
 						}}
 						value={newComment}
 						onChange={handleTypeNewComment}
@@ -119,7 +122,7 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 					<Typography>Show Comments</Typography>
 				</Button>
 			</CardActions>
-			<Collapse in={expanded} timeout="auto" unmountOnExit>
+			<Collapse in={expanded} timeout="auto">
 				<CardContent>{commentComponents}</CardContent>
 			</Collapse>
 		</Card>

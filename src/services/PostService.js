@@ -1,6 +1,7 @@
 import axios from "axios";
 import { userService } from "./UserService";
 import Post from "../models/Post";
+import Comment from "../models/Comment";
 
 const url = "http://localhost:8080/posts/";
 
@@ -104,7 +105,16 @@ export const addComment = async (postId, comment) => {
 			{ comment, postId, userId: userService.getUserId() },
 			userService.getHeaderData()
 		)
-		.then((response) => response.data)
-		.then((response) => console.log(response))
+		.then((response) => response.data.newComment)
+		.then(
+			(newComment) =>
+				new Comment(
+					newComment._id,
+					newComment.userId,
+					newComment.postId,
+					newComment.comment,
+					newComment.time
+				)
+		)
 		.catch((error) => console.log(error));
 };
