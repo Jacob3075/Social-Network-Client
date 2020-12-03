@@ -27,6 +27,7 @@ const CreatePostsTab = ({ handleClose, followedTopics }) => {
 	const submitForm = ({ topic, description }, { setSubmitting }) => {
 		if (topic.length === 0 || description.length === 0 || image.length === 0) {
 			setSubmitting(false);
+			return;
 		}
 
 		setSubmitting(true);

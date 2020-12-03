@@ -11,6 +11,7 @@ import postStyles from "../../styles/PostStyles";
 import Button from "@material-ui/core/Button";
 import { InputAdornment, TextField } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
+import { useHistory } from "react-router-dom";
 import { getTopicById } from "../../services/TopicService";
 import { getUserById, userService } from "../../services/UserService";
 import { arrayBufferToBase64 } from "../../Utils";
@@ -19,6 +20,8 @@ import Collapse from "@material-ui/core/Collapse";
 import CommentCard from "./CommentCard";
 
 const Post = ({ id, userId, topicId, description, time, likedUsers, comments, image }) => {
+	const history = useHistory();
+
 	const classes = postStyles();
 	const [expanded, setExpanded] = useState(false);
 	const [newComment, setNewComment] = useState("");
@@ -75,6 +78,10 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 			.catch((error) => console.log(error));
 	};
 
+	const goToTopicPage = () => {
+		history.push(`/topic/${topicId}`);
+	};
+
 	// TODO: FORMAT DATE
 	const postHeaderTopicMessage = "" + time;
 
@@ -85,6 +92,7 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 	return (
 		<Card className={classes.root} raised>
 			<CardHeader
+				onClick={goToTopicPage}
 				title={topicName + " • " + userName}
 				subheader={postHeaderTopicMessage}
 				subheaderTypographyProps={{ variant: "subtitle2" }}
@@ -110,7 +118,9 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 						InputProps={{
 							endAdornment: (
 								<InputAdornment position="end">
-									<SendIcon />
+									<IconButton onClick={handlePostNewComment}>
+										<SendIcon />
+									</IconButton>
 								</InputAdornment>
 							),
 						}}
