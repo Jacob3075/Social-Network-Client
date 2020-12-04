@@ -13,6 +13,7 @@ import CreateButton from "./create-button/CreateButton";
 import { Button } from "@material-ui/core";
 import { userService } from "../services/UserService";
 import { useHistory } from "react-router-dom";
+import { getAllTopics, getTopicFollowedByUser } from "../services/TopicService";
 
 const useStyles = makeStyles(() => ({
 	appBar: {
@@ -23,26 +24,30 @@ const useStyles = makeStyles(() => ({
 	},
 	form: {
 		marginRight: "2em",
-		width: "30%",
+		width: "30%"
 	},
 	search: {
-		width: "120%",
+		width: "120%"
 	},
-	logoimage: {
-		width: '46px',
-		height: '46px',
-		borderradius: '50%',
-		overflow: 'hidden',
-		marginTop: '-6px',
-		marginLeft: '15px',
-	}
 }));
 
-const MyAppBar = ({ title = "Title"}) => {
+const MyAppBar = ({ title = "Title" }) => {
 	const classes = useStyles();
 	const history = useHistory();
 
 	const [searchQuery, setSearchQuery] = useState("");
+	const [topics, setTopics] = useState([]);
+	const [followedTopics, setFollowedTopics] = useState([]);
+
+	useEffect(() => {
+		getAllTopics()
+			.then((response) => setTopics(response))
+			.catch((error) => console.error(error));
+
+		getTopicFollowedByUser()
+			.then((response) => setFollowedTopics(response))
+			.catch((error) => console.error(error));
+	}, []);
 
 	const handleChange = (event) => {
 		setSearchQuery(event.target.value);
@@ -57,12 +62,16 @@ const MyAppBar = ({ title = "Title"}) => {
 	const handleLogOut = () => {
 		userService.logout();
 
-			 history.push("/login");
-	}
+		history.push("/login");
+	};
 
 	return (
 		<AppBar className={classes.appBar} position="sticky" color="inherit">
-			<img src='https://github.com/Jacob3075/Social-Network-Client/blob/master/public/PESLink%20logo.png?raw=true' style={{width:200}}/>
+			<img
+				src="https://github.com/Jacob3075/Social-Network-Client/blob/master/public/PESLink%20logo.png?raw=true"
+				style={{ width: 200 }}
+				alt=""
+			/>
 			<Toolbar>
 				<Typography variant="h5">{title}</Typography>
 				<form onSubmit={handleSubmit} className={classes.form}>
@@ -78,15 +87,15 @@ const MyAppBar = ({ title = "Title"}) => {
 								<InputAdornment position="start">
 									<SearchIcon />
 								</InputAdornment>
-							),
+							)
 						}}
 						value={searchQuery}
 						onChange={handleChange}
 					/>
 				</form>
-				<CreateButton />
+				<CreateButton followedTopics={followedTopics} />
 				<HomePageButton />
-				<FollowedTopicsList />
+				<FollowedTopicsList followedTopics={followedTopics} />
 				<Button
 					variant="text"
 					onClick={handleLogOut}
@@ -102,5 +111,5 @@ const MyAppBar = ({ title = "Title"}) => {
 export default MyAppBar;
 
 MyAppBar.propTypes = {
-	title: PropTypes.string.isRequired,
+	title: PropTypes.string.isRequired
 };

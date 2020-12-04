@@ -1,5 +1,32 @@
 import axios from "axios";
 import Event from "../models/Event";
+import { userService } from "./UserService";
+
+const url = "http://localhost:8080/events/";
+
+export const createNewEvent = async ({ userId, topicId, name, description, location, time }) => {
+	return await axios
+		.post(
+			url,
+			{ userId, topicId, name, description, location, time },
+			userService.getHeaderData()
+		)
+		.then((response) => response.data)
+		.then(
+			(responseEvent) =>
+				new Event(
+					responseEvent._id,
+					responseEvent.userId,
+					responseEvent.topicId,
+					responseEvent.time,
+					responseEvent.name,
+					responseEvent.description,
+					responseEvent.location,
+					responseEvent.registered
+				)
+		)
+		.catch((error) => error.response.status);
+};
 
 export default {
 	getEventsById: async (page) => {

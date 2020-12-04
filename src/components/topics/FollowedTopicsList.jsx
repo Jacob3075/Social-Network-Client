@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
@@ -7,46 +7,35 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
-import CreateTopicButton from "./CreateTopicButton";
 import TopicsListItem from "./TopicsListItem";
-import { getTopicFollowedByUser } from "../../services/TopicService";
-import Topic from "../../models/Topic";
 
 const useStyles = makeStyles((theme) => ({
 	text: {
-		padding: theme.spacing(2, 2, 0)
+		padding: theme.spacing(2, 2, 0),
 	},
 	paper: {
-		paddingBottom: 50
+		paddingBottom: 5,
 	},
 	list: {
 		marginBottom: theme.spacing(2),
 		height: "50vh",
-		overflowY: "scroll"
+		overflowY: "scroll",
 	},
 	button: {
 		color: "white",
 		marginLeft: "2em",
-		marginTop: "0.5em"
-	}
+		marginTop: "0.5em",
+	},
 }));
 
-const FollowedTopicsList = () => {
+const FollowedTopicsList = ({ followedTopics }) => {
+	const classes = useStyles();
+
 	const [open, setOpen] = useState(false);
-	const [topicListItemComponents, setTopicListItemComponents] = useState([]);
 
-	useEffect(() => {
-		getTopicFollowedByUser()
-			.then((response) => {
-				setTopicListItemComponents(
-					response
-						.map((topic) => (
-							<TopicsListItem key={topic.id} {...topic} />
-						)));
-			})
-			.catch((error) => console.log(error));
-	}, []);
-
+	const topicListItemComponents = followedTopics.map((topic) => (
+		<TopicsListItem key={topic.id} {...topic} />
+	));
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -55,8 +44,6 @@ const FollowedTopicsList = () => {
 	const handleClose = () => {
 		setOpen(false);
 	};
-
-	const classes = useStyles();
 
 	return (
 		<>
@@ -72,7 +59,6 @@ const FollowedTopicsList = () => {
 							</Typography>
 							<List className={classes.list}>{topicListItemComponents}</List>
 						</Paper>
-						<CreateTopicButton />
 					</DialogContentText>
 				</DialogContent>
 			</Dialog>

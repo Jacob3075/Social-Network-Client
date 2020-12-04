@@ -1,78 +1,87 @@
-import React, { useState } from "react";
+import React from "react";
 import { Field, Form, Formik } from "formik";
 import { Button, LinearProgress } from "@material-ui/core";
 import MuiTextField from "@material-ui/core/TextField";
 import { fieldToTextField } from "formik-material-ui";
-import { DatePicker, TimePicker } from "formik-material-ui-pickers";
+import { DateTimePicker } from "formik-material-ui-pickers";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import Box from "@material-ui/core/Box";
-import UploadImage from "./UploadImage";
+import { useHistory } from "react-router-dom";
+import Event from "../../models/Event";
+import { userService } from "../../services/UserService";
+import { createNewEvent } from "../../services/EventService";
 
 const UpperCasingTextField = (props) => {
 	return <MuiTextField {...fieldToTextField(props)} />;
 };
 
-const CreateEventsTab = ({ handleClose }) => {
-	const [image, setImage] = useState("");
+const CreateEventsTab = ({ handleClose, followedTopics }) => {
+	const history = useHistory();
 
-	const handleFileSelect = (event) => {
-		if (event.target.files[0]) {
-			setImage(event.target.files[0]);
-		}
+	const getTopicIdByName = (topicName) => {
+		return followedTopics.find((topic) => topic.topicName === topicName).id;
 	};
 
-	const submitForm = (values, { setSubmitting }) => {
-		setTimeout(() => {
+	const submitForm = ({ topic, name, description, location, time }, { setSubmitting }) => {
+		//Thu Dec 03 2020 22:14:08 GMT+0530 (India Standard Time)
+		// console.log(topic);
+		// console.log(name);
+		// console.log(description);
+		// console.log(location);
+		// console.log(time);
+		// setSubmitting(false);
+
+		if (topic.length === 0 || description.length === 0) {
 			setSubmitting(false);
-			alert(JSON.stringify(values, null, 2));
-		}, 500);
+			return;
+		}
 
-		// let axios;
-		// const formData = new FormData();
-		// formData.append('image',image);
-		// const config = {
-		// 	headers: {
-		// 		'content-type': 'multipart/form-data'
-		// 	}
-		// };
-		// axios.post("/upload",formData,config)
-		// 	.then((response) => {
-		// 		alert("The file is successfully uploaded");
-		// 	}).catch((error) => {
-		// });
+		setSubmitting(true);
+		const topicId = getTopicIdByName(topic);
+
+		createNewEvent(
+			new Event(null, userService.getUserId(), topicId, time, name, description, location, 0)
+		)
+			.then((response) => {
+				setSubmitting(false);
+				history.push(`/topic/${topicId}`);
+				return response;
+			})
+			.catch((error) => console.log(error));
 	};
 
-	const formValidation = ({ date, description, eventName, file, time, topic, venue }) => {
+	const formValidation = ({ topic, name, description, location, time }) => {
 		const errors = {};
 		if (!topic) {
 			errors.topic = "Required";
 		}
-		if (!eventName) {
-			errors.eventName = "Required";
+		if (!name) {
+			errors.name = "Required";
 		}
-		if (!venue) {
-			errors.venue = "Required";
+		if (!location) {
+			errors.location = "Required";
 		}
 		if (!time) {
 			errors.time = "Required";
 		}
-		if (!date) {
-			errors.date = "Required";
-		}
-		if (!description || !file) {
+		if (!description) {
+			errors.description = "Required";
 		}
 		return errors;
 	};
+
+	const options = followedTopics.map((topic) => (
+		<option key={topic.id}>{topic.topicName}</option>
+	));
 
 	return (
 		<>
 			<Formik
 				initialValues={{
-					topic: "",
-					eventName: "",
-					venue: "",
-					date: "",
+					topic: followedTopics[0].topicName,
+					name: "",
+					location: "",
 					time: "",
 					description: "",
 				}}
@@ -83,17 +92,14 @@ const CreateEventsTab = ({ handleClose }) => {
 					<MuiPickersUtilsProvider utils={DateFnsUtils}>
 						<Form>
 							<Box margin={1}>
-								<Field
-									component={UpperCasingTextField}
-									name="topic"
-									type="text"
-									label="Topic"
-								/>
+								<Field name="topic" as="select" label="Topic">
+									{options}
+								</Field>
 							</Box>
 							<Box margin={1}>
 								<Field
 									component={UpperCasingTextField}
-									name="eventName"
+									name="name"
 									type="text"
 									label="Event Name"
 								/>
@@ -101,29 +107,24 @@ const CreateEventsTab = ({ handleClose }) => {
 							<Box margin={1}>
 								<Field
 									component={UpperCasingTextField}
-									name="venue"
+									name="location"
 									type="text"
 									label="Event Venue"
 								/>
 							</Box>
 							<Box margin={1}>
-								<Field component={TimePicker} name="time" label="Time" />
-							</Box>
-							<Box margin={1}>
-								<Field component={DatePicker} name="date" label="Date" />
+								<Field component={DateTimePicker} name="time" label="Time" />
 							</Box>
 							<Box margin={1}>
 								Description:
 								<br />
-								<textarea
+								<Field
+									type="textarea"
 									name="description"
-									className="form-control"
-									id="exampleFormControlTextarea1"
-									rows="3"
+									rows="2"
 									style={{ width: "70%" }}
 								/>
 							</Box>
-							<UploadImage handleFileSelect={handleFileSelect} />
 							{isSubmitting && <LinearProgress />}
 							<Box margin={1}>
 								<Button

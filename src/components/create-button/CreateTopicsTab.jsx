@@ -6,26 +6,42 @@ import { fieldToTextField } from "formik-material-ui";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import Box from "@material-ui/core/Box";
+import { useHistory } from "react-router-dom";
+import { userService } from "../../services/UserService";
+import { createNewTopic } from "../../services/TopicService";
+import Topic from "../../models/Topic";
 
 const UpperCasingTextField = (props) => {
 	return <MuiTextField {...fieldToTextField(props)} />;
 };
 
 const CreateTopicsTab = ({ handleClose }) => {
-	const handleFormSubmit = (values, { setSubmitting }) => {
-		setTimeout(() => {
+	const history = useHistory();
+
+	const handleFormSubmit = ({ topicName, description }, { setSubmitting }) => {
+		if (topicName.length === 0 || description.length === 0) {
 			setSubmitting(false);
-			alert(JSON.stringify(values, null, 2));
-		}, 500);
+			return;
+		}
+
+		setSubmitting(true);
+
+		createNewTopic(new Topic(null, topicName, userService.getUserId(), description))
+			.then((response) => {
+				setSubmitting(false);
+				history.push(`/topic/${response.id}`);
+				return response;
+			})
+			.catch((error) => console.log(error));
 	};
 
-	const formValidation = ({ bio, topic }) => {
+	const formValidation = ({ description, topicName }) => {
 		const errors = {};
-		if (!topic) {
-			errors.topic = " ";
+		if (!topicName) {
+			errors.topicName = " ";
 		}
-		if (!bio) {
-			errors.bio = " ";
+		if (!description) {
+			errors.description = " ";
 		}
 		return errors;
 	};
@@ -34,8 +50,8 @@ const CreateTopicsTab = ({ handleClose }) => {
 		<>
 			<Formik
 				initialValues={{
-					topic: "",
-					bio: "",
+					topicName: "",
+					description: "",
 				}}
 				validate={formValidation}
 				onSubmit={handleFormSubmit}
@@ -46,7 +62,7 @@ const CreateTopicsTab = ({ handleClose }) => {
 							<Box margin={1}>
 								<Field
 									component={UpperCasingTextField}
-									name="topic"
+									name="topicName"
 									type="text"
 									label="Topic"
 								/>
@@ -54,11 +70,10 @@ const CreateTopicsTab = ({ handleClose }) => {
 							<Box margin={1}>
 								Bio:
 								<br />
-								<textarea
-									name="bio"
-									className="form-control"
-									id="exampleFormControlTextarea1"
-									rows="3"
+								<Field
+									type="textarea"
+									name="description"
+									rows="2"
 									style={{ width: "70%" }}
 								/>
 							</Box>

@@ -1,5 +1,5 @@
 import { Grid, makeStyles, Paper, Typography } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import { getUserById } from "../../services/UserService";
 
 const useStyles = makeStyles(() => ({
@@ -19,14 +19,16 @@ const useStyles = makeStyles(() => ({
 
 const CommentCard = ({ userId, comment }) => {
 	const styles = useStyles();
+	const [userName, setUserName] = useState("");
 
-	// TODO
-	// const userById = await getUserById(userId);
+	getUserById(userId)
+		.then((response) => setUserName(response.userName))
+		.catch((error) => console.log(error));
 
 	return (
 		<>
 			<Paper className={styles.root} elevation={2}>
-				<Typography variant="subtitle1">{"userById.userName"}</Typography>
+				<Typography variant="subtitle1">{userName}</Typography>
 				<Grid container>
 					<Grid item xs={6}>
 						<Typography variant="body1">{comment}</Typography>
