@@ -24,14 +24,14 @@ const useStyles = makeStyles(() => ({
 	},
 	form: {
 		marginRight: "2em",
-		width: "30%"
+		width: "30%",
 	},
 	search: {
-		width: "120%"
+		width: "120%",
 	},
 }));
 
-const MyAppBar = ({ title = "Title" }) => {
+const MyAppBar = ({ title = "Title", setReload, reload }) => {
 	const classes = useStyles();
 	const history = useHistory();
 
@@ -47,7 +47,7 @@ const MyAppBar = ({ title = "Title" }) => {
 		getTopicFollowedByUser()
 			.then((response) => setFollowedTopics(response))
 			.catch((error) => console.error(error));
-	}, []);
+	}, [reload]);
 
 	const handleChange = (event) => {
 		setSearchQuery(event.target.value);
@@ -87,15 +87,15 @@ const MyAppBar = ({ title = "Title" }) => {
 								<InputAdornment position="start">
 									<SearchIcon />
 								</InputAdornment>
-							)
+							),
 						}}
 						value={searchQuery}
 						onChange={handleChange}
 					/>
 				</form>
-				<CreateButton followedTopics={followedTopics} />
+				<CreateButton followedTopics={followedTopics} setReload={setReload} />
 				<HomePageButton />
-				<FollowedTopicsList followedTopics={followedTopics} />
+				<FollowedTopicsList followedTopics={followedTopics} setReload={setReload} reload={reload}/>
 				<Button
 					variant="text"
 					onClick={handleLogOut}

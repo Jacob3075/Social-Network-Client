@@ -1,5 +1,16 @@
 class Post {
-	constructor(id, userId, topicId, description, time, likedUsers, comments, image) {
+	constructor(
+		id,
+		userId,
+		topicId,
+		description,
+		time,
+		likedUsers,
+		comments,
+		image,
+		userName,
+		topicName
+	) {
 		this.id = id;
 		this.userId = userId;
 		this.time = time;
@@ -8,6 +19,8 @@ class Post {
 		this.description = description;
 		this.image = image;
 		this.topicId = topicId;
+		this.userName = userName;
+		this.topicName = topicName;
 	}
 }
 

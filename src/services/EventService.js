@@ -22,7 +22,8 @@ export const createNewEvent = async ({ userId, topicId, name, description, locat
 					responseEvent.name,
 					responseEvent.description,
 					responseEvent.location,
-					responseEvent.registered
+					responseEvent.registered,
+					responseEvent.userName
 				)
 		)
 		.catch((error) => error.response.status);
@@ -43,7 +44,8 @@ export const getEventsByTopic = async (topicId) => {
 						responseEvent.name,
 						responseEvent.description,
 						responseEvent.location,
-						responseEvent.registered
+						responseEvent.registered,
+						responseEvent.userName
 					)
 			)
 		)
@@ -65,7 +67,8 @@ export const getUsersRegisteredEvents = async () => {
 						responseEvent.name,
 						responseEvent.description,
 						responseEvent.location,
-						responseEvent.registered
+						responseEvent.registered,
+						responseEvent.userName
 					)
 			)
 		)
@@ -80,7 +83,7 @@ export const updateEventRegistrations = async (eventId, unRegister) => {
 		.catch((error) => console.log(error));
 
 	const userResponse = await userService
-		.registerNewEvent(eventId, queryString)
+		.registerNewEvent(eventId, unRegister)
 		.then((userResponse) => userResponse.status)
 		.catch((error) => console.log(error));
 

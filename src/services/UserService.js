@@ -6,6 +6,7 @@ const url = "http://localhost:8080/users/";
 const UserService = () => {
 	let jwtToken = "";
 	let userId = "";
+	let username = "";
 	let followedTopics = [];
 	let registeredEvents = [];
 	let headerData = {};
@@ -20,13 +21,15 @@ const UserService = () => {
 
 		getUserId: () => userId,
 
+		getUserName: () => username,
+
 		getHeaderData: () => headerData,
 
 		signUp: async (userName, password) => {
 			return await axios
 				.post(url + "sign-up", {
 					userName,
-					password
+					password,
 				})
 				.then((response) => response.status)
 				.catch((error) => error.response.status);
@@ -36,19 +39,20 @@ const UserService = () => {
 			return await axios
 				.post(url + "sign-in", {
 					userName,
-					password
+					password,
 				})
 				.then((response) => {
 					if (response.status === 200) {
 						jwtToken = response.data.token;
 						userId = response.data.user.id;
+						username = userName;
 						followedTopics = response.data.user.followedTopics;
 						registeredEvents = response.data.user.registeredEvents;
 						isLoggedIn = true;
 						headerData = {
 							headers: {
-								Authorization: `Basic ${jwtToken}`
-							}
+								Authorization: `Basic ${jwtToken}`,
+							},
 						};
 						return response.status;
 					}
@@ -63,29 +67,37 @@ const UserService = () => {
 			registeredEvents = [];
 		},
 
-		followNewTopic: async (topicId) => {
+		followNewTopic: async (topicId, unFollow) => {
+			const queryString = unFollow ? "?unFollow=true" : "";
+
 			return await axios
-				.post(
-					url + "follow-topic",
-					{ topicId },
-					headerData
-				)
-				.then((response) => response
-				)
+				.post(`${url}follow-topic${queryString}`, { topicId }, headerData)
+				.then((response) => {
+					if (unFollow) {
+						followedTopics = followedTopics.filter(value => value !== topicId);
+					} else {
+						followedTopics.push(topicId);
+					}
+					return response;
+				})
 				.catch((error) => error.response.status);
 		},
 
-		registerNewEvent: async (eventId, queryString) => {
+		registerNewEvent: async (eventId, unRegister) => {
+			const queryString = unRegister ? "?unRegister=true" : "";
+
 			return await axios
-				.post(
-					`${url}register-event${queryString}`,
-					{ eventId },
-					headerData
-				)
-				.then((response) => response
-				)
+				.post(`${url}register-event${queryString}`, { eventId }, headerData)
+				.then((response) => {
+					if (unRegister) {
+						registeredEvents = registeredEvents.filter((value) => value !== eventId);
+					} else {
+						registeredEvents.push(eventId);
+					}
+					return response;
+				})
 				.catch((error) => error.response.status);
-		}
+		},
 	};
 };
 
@@ -97,11 +109,13 @@ export const getAllUsers = async () => {
 };
 
 export const getUserById = async (userId) => {
-	return await axios.get(url + "id/" + userId)
+	return await axios
+		.get(url + "id/" + userId)
 		.then((response) => response.data)
-		.then((user) => new User(user._id, user.userName, user.followedTopics, user.registeredEvents))
+		.then(
+			(user) => new User(user._id, user.userName, user.followedTopics, user.registeredEvents)
+		)
 		.catch((error) => error.response.status);
 };
-
 
 export const userService = UserService();

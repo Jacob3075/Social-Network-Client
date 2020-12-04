@@ -4,7 +4,6 @@ import MainContent from "../MainContent";
 import { userService } from "../../services/UserService";
 import { useHistory, useParams } from "react-router-dom";
 import { getPostsFromTopic } from "../../services/PostService";
-import { getTopicByName } from "../../services/TopicService";
 import { Typography } from "@material-ui/core";
 import { getEventsByTopic } from "../../services/EventService";
 
@@ -12,53 +11,44 @@ const TopicPage = () => {
 	const history = useHistory();
 	const { topicId } = useParams();
 
-	const [eventList, setEventList] = useState([]);
-	const [postList, setPostList] = useState([]);
-	const [hasMoreItems, setHasMoreItems] = useState(true);
+	const [reload, setReload] = useState(false);
 
 	useEffect(() => {
 		if (!userService.isLoggedIn()) history.push("/login");
+	}, []);
 
-		getEventsByTopic(topicId)
+	const loadEvents = () => {
+		return getEventsByTopic(topicId)
 			.then((response) => {
 				if (Array.isArray(response)) {
-					setEventList(response);
+					return response;
 				} else {
 					console.log("ERROR:" + response);
 				}
 			})
 			.catch((error) => console.log(error));
-	}, []);
+	};
 
-	const loadMoreData = (pageNumber) => {
-		if (!userService.isLoggedIn()) {
-			setHasMoreItems(false);
-			return;
-		}
-
-		getPostsFromTopic(topicId, pageNumber, 10)
+	const loadPosts = () => {
+		return getPostsFromTopic(topicId)
 			.then((response) => {
-				if (response.length > 0) {
-					const newPosts = response;
-					setPostList(postList.concat(newPosts));
-					if (newPosts.length === 0) {
-						setHasMoreItems(false);
-					}
-				} else setHasMoreItems(false);
+				if (Array.isArray(response)) {
+					return response;
+				}
 			})
 			.catch((error) => console.log(error));
 	};
 
 	return (
 		<>
-			<MyAppBar title="" />
+			<MyAppBar title={""} setReload={setReload} reload={reload} />
 			<Typography variant="subtitle"> Topic Name : </Typography>
 			<Typography variant="body"> Topic Description </Typography>
 			<MainContent
-				postList={postList}
-				eventList={eventList}
-				loadMoreData={loadMoreData}
-				hasMoreItems={hasMoreItems}
+				loadPosts={loadPosts}
+				loadEvents={loadEvents}
+				reload={reload}
+				setReload={setReload}
 			/>
 		</>
 	);

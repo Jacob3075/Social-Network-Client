@@ -5,11 +5,10 @@ import Comment from "../models/Comment";
 
 const url = "http://localhost:8080/posts/";
 
-export const getPostsFromFollowedTopics = async (pageNumber, pageSize) => {
-	const queryString = `?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+export const getPostsFromFollowedTopics = async () => {
 	return await axios
 		.post(
-			url + "topic" + queryString,
+			url + "topic",
 			{ topicIds: userService.getFollowedTopics() },
 			userService.getHeaderData()
 		)
@@ -25,18 +24,18 @@ export const getPostsFromFollowedTopics = async (pageNumber, pageSize) => {
 						post.time,
 						post.likedUsers,
 						post.comments,
-						post.image
+						post.image,
+						post.userName,
+						post.topicName
 					)
 			)
 		)
 		.catch((error) => error.response.status);
 };
 
-export const getPostsFromTopic = async (topicId, pageNumber, pageSize) => {
-	const queryString = `?pageNumber=${pageNumber}&pageSize=${pageSize}`;
-
+export const getPostsFromTopic = async (topicId) => {
 	return await axios
-		.get(url + "topic/" + topicId + queryString, userService.getHeaderData())
+		.get(url + "topic/" + topicId, userService.getHeaderData())
 		.then((response) => response.data)
 		.then((responseTopics) =>
 			responseTopics.map(
@@ -49,14 +48,16 @@ export const getPostsFromTopic = async (topicId, pageNumber, pageSize) => {
 						post.time,
 						post.likedUsers,
 						post.comments,
-						post.image
+						post.image,
+						post.userName,
+						post.topicName
 					)
 			)
 		)
 		.catch((error) => error.response.status);
 };
 
-export const createNewPost = async ({ description, image, topicId, userId }) => {
+export const createNewPost = async ({ description, image, topicId, userId, topicName }) => {
 	const bodyFormData = new FormData();
 	const headerData = userService.getHeaderData();
 
@@ -64,6 +65,8 @@ export const createNewPost = async ({ description, image, topicId, userId }) => 
 	bodyFormData.append("topicId", topicId);
 	bodyFormData.append("description", description);
 	bodyFormData.append("image", image);
+	bodyFormData.append("userName", userService.getUserName());
+	bodyFormData.append("topicName", topicName);
 
 	headerData["Content-Type"] = "multipart/form-data";
 
@@ -79,8 +82,8 @@ export const createNewPost = async ({ description, image, topicId, userId }) => 
 					responsePost.description,
 					responsePost.time,
 					responsePost.likedUsers,
-					responsePost.comments,
-					responsePost.image
+					responsePost.userName,
+					responsePost.topicName
 				)
 		)
 		.catch((error) => console.log(error));
@@ -91,7 +94,11 @@ export const likePost = async (postId, unLike) => {
 	return await axios
 		.post(
 			url + "likes/" + queryString,
-			{ postId, userId: userService.getUserId() },
+			{
+				postId,
+				userId: userService.getUserId(),
+				userName: userService.getUserName(),
+			},
 			userService.getHeaderData()
 		)
 		.then((response) => response)
@@ -102,7 +109,12 @@ export const addComment = async (postId, comment) => {
 	return await axios
 		.post(
 			url + "comments/",
-			{ comment, postId, userId: userService.getUserId() },
+			{
+				comment,
+				postId,
+				userId: userService.getUserId(),
+				userName: userService.getUserName(),
+			},
 			userService.getHeaderData()
 		)
 		.then((response) => response.data.newComment)
@@ -113,7 +125,8 @@ export const addComment = async (postId, comment) => {
 					newComment.userId,
 					newComment.postId,
 					newComment.comment,
-					newComment.time
+					newComment.time,
+					newComment.userName
 				)
 		)
 		.catch((error) => console.log(error));
