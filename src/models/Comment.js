@@ -5,7 +5,7 @@ class Comment {
 		this.postId = postId;
 		this.comment = comment;
 		this.time = time;
-		this.username = userName;
+		this.userName = userName;
 	}
 }
 

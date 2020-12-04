@@ -42,18 +42,6 @@ const Post = ({
 	const [numberOfLikes, setNumberOfLikes] = useState(likedUsers.length);
 
 	useEffect(() => {
-		// getUserById(userId)
-		// 	.then((response) => {
-		// 		setUserName(response.userName);
-		// 	})
-		// 	.catch((error) => console.log(error));
-		//
-		// getTopicById(topicId)
-		// 	.then((response) => {
-		// 		setTopicName(response.topicName);
-		// 	})
-		// 	.catch((error) => console.log(error));
-
 		const base64Flag = `data:${image.contentType};base64,`;
 		const imageStr = arrayBufferToBase64(image.data.data);
 		setProcessedImageString(base64Flag + imageStr);
@@ -95,10 +83,9 @@ const Post = ({
 	// TODO: FORMAT DATE
 	const postHeaderTopicMessage = "" + time;
 
-	const commentComponents = postComments.map((comment, index) => {
-		console.log(comment);
-		return <CommentCard key={index} {...comment} />;
-	});
+	const commentComponents = postComments.map((comment, index) => (
+		<CommentCard key={index} {...comment} />
+	));
 
 	return (
 		<Card className={classes.root} raised>

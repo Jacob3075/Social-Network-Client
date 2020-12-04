@@ -125,7 +125,8 @@ export const addComment = async (postId, comment) => {
 					newComment.userId,
 					newComment.postId,
 					newComment.comment,
-					newComment.time
+					newComment.time,
+					newComment.userName
 				)
 		)
 		.catch((error) => console.log(error));
