@@ -52,6 +52,33 @@ export const getEventsByTopic = async (topicId) => {
 		.catch((error) => error.response.status);
 };
 
+export const getEventsFromFollowedTopics = async () => {
+	return await axios
+		.post(
+			`${url}topic/`,
+			{ topicIds: userService.getFollowedTopics() },
+			userService.getHeaderData()
+		)
+		.then((response) => response.data)
+		.then((responseEvents) =>
+			responseEvents.map(
+				(responseEvent) =>
+					new Event(
+						responseEvent._id,
+						responseEvent.userId,
+						responseEvent.topicId,
+						responseEvent.time,
+						responseEvent.name,
+						responseEvent.description,
+						responseEvent.location,
+						responseEvent.registered,
+						responseEvent.userName
+					)
+			)
+		)
+		.catch((error) => error.response.status);
+};
+
 export const getUsersRegisteredEvents = async () => {
 	return await axios
 		.post(`${url}id`, { ids: userService.getRegisteredEvents() }, userService.getHeaderData())
