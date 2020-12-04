@@ -19,6 +19,7 @@ const UpperCasingTextField = (props) => {
 const CreatePostsTab = ({ handleClose, followedTopics }) => {
 	const history = useHistory();
 	const [image, setImage] = useState("");
+	const defaultTopic = followedTopics[0].topicName || "No Topics Followed";
 
 	const getTopicIdByName = (topicName) => {
 		return followedTopics.find((topic) => topic.topicName === topicName).id;
@@ -69,7 +70,7 @@ const CreatePostsTab = ({ handleClose, followedTopics }) => {
 		<>
 			<Formik
 				initialValues={{
-					topic: followedTopics[0].topicName,
+					topic: defaultTopic,
 					description: "",
 				}}
 				validate={formValidation}
