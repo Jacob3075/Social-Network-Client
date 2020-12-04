@@ -69,8 +69,8 @@ const MyAppBar = ({ title = "Title", setReload }) => {
 		<AppBar className={classes.appBar} position="sticky" color="inherit">
 			<img
 				src="https://github.com/Jacob3075/Social-Network-Client/blob/master/public/PESLink%20logo.png?raw=true"
-				style={{ width: 200 }}
-				alt=""
+				style={{ width: 200, marginLeft: 10}}
+				alt="PESLink"
 			/>
 			<Toolbar>
 				<Typography variant="h5">{title}</Typography>

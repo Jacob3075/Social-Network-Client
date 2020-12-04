@@ -4,6 +4,7 @@ import MainContent from "../MainContent";
 import { userService } from "../../services/UserService";
 import { useHistory, useParams } from "react-router-dom";
 import { getPostsFromTopic } from "../../services/PostService";
+import { Typography } from "@material-ui/core";
 import { getEventsByTopic } from "../../services/EventService";
 
 const TopicPage = () => {
@@ -41,6 +42,8 @@ const TopicPage = () => {
 	return (
 		<>
 			<MyAppBar title={""} setReload={setReload} />
+			<Typography variant="subtitle"> Topic Name : </Typography>
+			<Typography variant="body"> Topic Description </Typography>
 			<MainContent
 				loadPosts={loadPosts}
 				loadEvents={loadEvents}
