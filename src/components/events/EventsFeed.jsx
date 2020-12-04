@@ -1,8 +1,8 @@
+import PropTypes from "prop-types";
 import React from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { List, Paper, Typography } from "@material-ui/core";
 import EventCard from "./EventCard";
-import EventService from "../../services/EventService";
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -24,14 +24,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const EventsFeed = ({ userId }) => {
+const EventsFeed = ({ eventList }) => {
 	const styles = useStyles();
 
-	const events = EventService.mockGetEventsById(userId);
-
-	const eventCards = events.map((event, index) => (
-		<EventCard key={index} {...event} />
-	));
+	const eventCards = eventList.map((event, index) => <EventCard key={index} {...event} />);
 
 	return (
 		<>
@@ -46,3 +42,7 @@ const EventsFeed = ({ userId }) => {
 };
 
 export default EventsFeed;
+
+EventsFeed.propTypes = {
+	eventList: PropTypes.array.isRequired,
+};

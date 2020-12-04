@@ -29,7 +29,7 @@ export const getPostsFromFollowedTopics = async (pageNumber, pageSize) => {
 					)
 			)
 		)
-		.catch((error) => console.log(error));
+		.catch((error) => error.response.status);
 };
 
 export const getPostsFromTopic = async (topicId, pageNumber, pageSize) => {
@@ -53,7 +53,7 @@ export const getPostsFromTopic = async (topicId, pageNumber, pageSize) => {
 					)
 			)
 		)
-		.catch((error) => console.log(error));
+		.catch((error) => error.response.status);
 };
 
 export const createNewPost = async ({ description, image, topicId, userId }) => {

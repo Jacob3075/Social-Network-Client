@@ -6,16 +6,28 @@ import { useHistory, useParams } from "react-router-dom";
 import { getPostsFromTopic } from "../../services/PostService";
 import { getTopicByName } from "../../services/TopicService";
 import { Typography } from "@material-ui/core";
+import { getEventsByTopic } from "../../services/EventService";
 
 const TopicPage = () => {
 	const history = useHistory();
 	const { topicId } = useParams();
 
+	const [eventList, setEventList] = useState([]);
 	const [postList, setPostList] = useState([]);
 	const [hasMoreItems, setHasMoreItems] = useState(true);
 
 	useEffect(() => {
 		if (!userService.isLoggedIn()) history.push("/login");
+
+		getEventsByTopic(topicId)
+			.then((response) => {
+				if (Array.isArray(response)) {
+					setEventList(response);
+				} else {
+					console.log("ERROR:" + response);
+				}
+			})
+			.catch((error) => console.log(error));
 	}, []);
 
 	const loadMoreData = (pageNumber) => {
@@ -44,6 +56,7 @@ const TopicPage = () => {
 			<Typography variant="body"> Topic Description </Typography>
 			<MainContent
 				postList={postList}
+				eventList={eventList}
 				loadMoreData={loadMoreData}
 				hasMoreItems={hasMoreItems}
 			/>

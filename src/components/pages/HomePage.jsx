@@ -4,16 +4,27 @@ import MainContent from "../MainContent";
 import { userService } from "../../services/UserService";
 import { useHistory } from "react-router-dom";
 import { getPostsFromFollowedTopics } from "../../services/PostService";
+import { getUsersRegisteredEvents } from "../../services/EventService";
 
 const HomePage = () => {
-	let imageSource = "/public/logo.png";
 	const history = useHistory();
 
 	const [postList, setPostList] = useState([]);
+	const [eventList, setEventList] = useState([]);
 	const [hasMoreItems, setHasMoreItems] = useState(true);
 
 	useEffect(() => {
 		if (!userService.isLoggedIn()) history.push("/login");
+
+		getUsersRegisteredEvents()
+			.then((response) => {
+				if (Array.isArray(response)) {
+					setEventList(response);
+				} else {
+					console.log("ERROR:" + response);
+				}
+			})
+			.catch((error) => console.log(error));
 	}, []);
 
 	const loadMoreData = (pageNumber) => {
@@ -40,6 +51,7 @@ const HomePage = () => {
 			<MyAppBar title="" />
 			<MainContent
 				postList={postList}
+				eventList={eventList}
 				loadMoreData={loadMoreData}
 				hasMoreItems={hasMoreItems}
 			/>
