@@ -19,14 +19,29 @@ const UpperCasingTextField = (props) => {
 const CreatePostsTab = ({ handleClose, followedTopics }) => {
 	const history = useHistory();
 	const [image, setImage] = useState("");
+	let defaultTopic;
+
+	if (followedTopics.length === 0) {
+		defaultTopic = "No Followed Topics";
+	} else {
+		defaultTopic = followedTopics[0].topicName;
+	}
 
 	const getTopicIdByName = (topicName) => {
 		return followedTopics.find((topic) => topic.topicName === topicName).id;
 	};
 
 	const submitForm = ({ topic, description }, { setSubmitting }) => {
-		if (topic.length === 0 || description.length === 0 || image.length === 0) {
+		if (
+			topic.length === 0 ||
+			topic === "No Followed Topics" ||
+			description.length === 0 ||
+			image.length === 0
+		) {
 			setSubmitting(false);
+			if (topic === "No Followed Topics") {
+				alert("You have no followed topics");
+			}
 			return;
 		}
 
@@ -44,14 +59,15 @@ const CreatePostsTab = ({ handleClose, followedTopics }) => {
 			.catch((error) => console.log(error));
 	};
 
-	const formValidation = ({ description, file, topic }) => {
+	const formValidation = ({ description, topic }) => {
 		const errors = {};
 		if (!topic) {
-			errors.topic = " ";
+			errors.topic = "Topic";
 		}
-		if (!(description || file)) {
-			errors.description = " ";
+		if (!description) {
+			errors.description = "Description Required";
 		}
+		console.log(errors);
 		return errors;
 	};
 
@@ -69,6 +85,7 @@ const CreatePostsTab = ({ handleClose, followedTopics }) => {
 		<>
 			<Formik
 				initialValues={{
+					topic: defaultTopic,
 					description: "",
 				}}
 				validate={formValidation}

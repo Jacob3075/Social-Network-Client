@@ -6,7 +6,7 @@ const url = "http://localhost:8080/topics/";
 
 export const getAllTopics = async () => {
 	return await axios
-		.get(url)
+		.get(url, userService.getHeaderData())
 		.then((response) => response.data)
 		.then((responseTopics) =>
 			responseTopics.map(
@@ -19,7 +19,7 @@ export const getAllTopics = async () => {
 
 export const getTopicById = async (topicId) => {
 	return await axios
-		.get(url + "id/" + topicId)
+		.get(url + "id/" + topicId, userService.getHeaderData())
 		.then((response) => response.data)
 		.then(
 			(responseTopic) =>
@@ -35,7 +35,7 @@ export const getTopicById = async (topicId) => {
 
 export const getTopicByName = async (topicName) => {
 	return await axios
-		.get(url + "name/" + topicName)
+		.get(url + "name/" + topicName, userService.getHeaderData())
 		.then((response) => response.data)
 		.then(
 			(responseTopic) =>
