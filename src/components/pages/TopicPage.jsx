@@ -14,6 +14,7 @@ const TopicPage = () => {
 
 	const [reload, setReload] = useState(false);
 	const [topicName, setTopicName] = useState("");
+	const [description, setDescription] = useState("");
 
 	useEffect(() => {
 		if (!userService.isLoggedIn()) history.push("/login");
@@ -21,7 +22,15 @@ const TopicPage = () => {
 		getTopicById(topicId)
 			.then((topic) => setTopicName(topic.topicName))
 			.catch((error) => console.log(error));
-	}, []);
+		}, []);
+	
+		useEffect(() => {
+		if (!userService.isLoggedIn()) history.push("/login");
+
+		getTopicById(topicId)
+			.then((topic) => setDescription(topic.description))
+			.catch((error) => console.log(error));
+		}, []);
 
 	const loadEvents = () => {
 		return getEventsByTopic(topicId)
@@ -48,8 +57,10 @@ const TopicPage = () => {
 	return (
 		<>
 			<MyAppBar title={""} setReload={setReload} reload={reload} />
-			<Typography variant="subtitle"> Topic Name : </Typography>
-			<Typography variant="body"> Topic Description </Typography>
+			<Typography variant="body2">
+				{topicName} : {description} 
+			</Typography>
+			
 			<MainContent
 				loadPosts={loadPosts}
 				loadEvents={loadEvents}
