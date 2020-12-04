@@ -29,7 +29,14 @@ const CreateTopicsTab = ({ handleClose }) => {
 		createNewTopic(new Topic(null, topicName, userService.getUserId(), description))
 			.then((response) => {
 				setSubmitting(false);
-				history.push(`/topic/${response.id}`);
+				if (response instanceof Topic) {
+					return history.push(`/topic/${response.id}`);
+				}
+				if (response === 409) {
+					alert("Topic already exists");
+				} else if (response === 500) {
+					alert("ERROR");
+				}
 				return response;
 			})
 			.catch((error) => console.log(error));
