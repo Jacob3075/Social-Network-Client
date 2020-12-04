@@ -14,6 +14,7 @@ import { Button } from "@material-ui/core";
 import { userService } from "../services/UserService";
 import { useHistory } from "react-router-dom";
 import { getAllTopics, getTopicFollowedByUser } from "../services/TopicService";
+import Fuse from 'fuse.js';
 
 const useStyles = makeStyles(() => ({
 	appBar: {
@@ -38,6 +39,12 @@ const MyAppBar = ({ title = "Title", setReload, reload }) => {
 	const [searchQuery, setSearchQuery] = useState("");
 	const [topics, setTopics] = useState([]);
 	const [followedTopics, setFollowedTopics] = useState([]);
+	const fuse = new Fuse(topics, {
+		keys: ['getAllTopics'],
+	})
+	const results = fuse.search('searchQuery');
+	const topicResults = results.map(result => result.item);
+	
 
 	useEffect(() => {
 		getAllTopics()
@@ -49,9 +56,11 @@ const MyAppBar = ({ title = "Title", setReload, reload }) => {
 			.catch((error) => console.error(error));
 	}, [reload]);
 
-	const handleChange = (event) => {
-		setSearchQuery(event.target.value);
-	};
+	function handleChange({ currentTarget = {}}) {
+		const {value} = currentTarget;
+		setSearchQuery(value);
+
+	}
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
