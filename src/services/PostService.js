@@ -24,7 +24,9 @@ export const getPostsFromFollowedTopics = async () => {
 						post.time,
 						post.likedUsers,
 						post.comments,
-						post.image
+						post.image,
+						post.userName,
+						post.topicName
 					)
 			)
 		)
@@ -46,14 +48,16 @@ export const getPostsFromTopic = async (topicId) => {
 						post.time,
 						post.likedUsers,
 						post.comments,
-						post.image
+						post.image,
+						post.userName,
+						post.topicName
 					)
 			)
 		)
 		.catch((error) => error.response.status);
 };
 
-export const createNewPost = async ({ description, image, topicId, userId }) => {
+export const createNewPost = async ({ description, image, topicId, userId, topicName }) => {
 	const bodyFormData = new FormData();
 	const headerData = userService.getHeaderData();
 
@@ -61,6 +65,8 @@ export const createNewPost = async ({ description, image, topicId, userId }) => 
 	bodyFormData.append("topicId", topicId);
 	bodyFormData.append("description", description);
 	bodyFormData.append("image", image);
+	bodyFormData.append("userName", userService.getUserName());
+	bodyFormData.append("topicName", topicName);
 
 	headerData["Content-Type"] = "multipart/form-data";
 
@@ -76,8 +82,8 @@ export const createNewPost = async ({ description, image, topicId, userId }) => 
 					responsePost.description,
 					responsePost.time,
 					responsePost.likedUsers,
-					responsePost.comments,
-					responsePost.image
+					responsePost.userName,
+					responsePost.topicName
 				)
 		)
 		.catch((error) => console.log(error));
@@ -88,7 +94,11 @@ export const likePost = async (postId, unLike) => {
 	return await axios
 		.post(
 			url + "likes/" + queryString,
-			{ postId, userId: userService.getUserId() },
+			{
+				postId,
+				userId: userService.getUserId(),
+				userName: userService.getUserName(),
+			},
 			userService.getHeaderData()
 		)
 		.then((response) => response)
@@ -99,7 +109,12 @@ export const addComment = async (postId, comment) => {
 	return await axios
 		.post(
 			url + "comments/",
-			{ comment, postId, userId: userService.getUserId() },
+			{
+				comment,
+				postId,
+				userId: userService.getUserId(),
+				userName: userService.getUserName(),
+			},
 			userService.getHeaderData()
 		)
 		.then((response) => response.data.newComment)

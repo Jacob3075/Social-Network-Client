@@ -49,7 +49,18 @@ const CreatePostsTab = ({ handleClose, followedTopics, setReload }) => {
 		const topicId = getTopicIdByName(topic);
 
 		createNewPost(
-			new Post(null, userService.getUserId(), topicId, description, null, 0, [], image)
+			new Post(
+				null,
+				userService.getUserId(),
+				topicId,
+				description,
+				null,
+				0,
+				[],
+				image,
+				userService.getUserName(),
+				topic
+			)
 		)
 			.then((response) => {
 				setSubmitting(false);

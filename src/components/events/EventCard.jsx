@@ -30,6 +30,8 @@ const EventCard = ({
 	description,
 	location,
 	registered,
+	userName,
+	topicName,
 	setReload,
 }) => {
 	const styles = useStyles();

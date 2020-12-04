@@ -6,6 +6,7 @@ const url = "http://localhost:8080/users/";
 const UserService = () => {
 	let jwtToken = "";
 	let userId = "";
+	let username = "";
 	let followedTopics = [];
 	let registeredEvents = [];
 	let headerData = {};
@@ -19,6 +20,8 @@ const UserService = () => {
 		getRegisteredEvents: () => registeredEvents,
 
 		getUserId: () => userId,
+
+		getUserName: () => username,
 
 		getHeaderData: () => headerData,
 
@@ -42,6 +45,7 @@ const UserService = () => {
 					if (response.status === 200) {
 						jwtToken = response.data.token;
 						userId = response.data.user.id;
+						username = userName;
 						followedTopics = response.data.user.followedTopics;
 						registeredEvents = response.data.user.registeredEvents;
 						isLoggedIn = true;

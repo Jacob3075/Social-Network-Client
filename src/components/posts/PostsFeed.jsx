@@ -9,9 +9,10 @@ const PostsFeed = ({ loadPosts, reload, setReload }) => {
 
 	useEffect(() => {
 		loadPosts()
-			.then((posts) => posts.map((post) => <Post key={post.id} {...post} />))
+			.then((posts) =>
+				posts.map((post) => <Post key={post.id} {...post} setReload={setReload} />)
+			)
 			.then((posts) => {
-				console.log("SET STATE");
 				setPostListComponents(posts);
 				setReload(false);
 			})
