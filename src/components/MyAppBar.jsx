@@ -24,14 +24,14 @@ const useStyles = makeStyles(() => ({
 	},
 	form: {
 		marginRight: "2em",
-		width: "30%"
+		width: "30%",
 	},
 	search: {
-		width: "120%"
+		width: "120%",
 	},
 }));
 
-const MyAppBar = ({ title = "Title" }) => {
+const MyAppBar = ({ title = "Title", setReload }) => {
 	const classes = useStyles();
 	const history = useHistory();
 
@@ -95,7 +95,7 @@ const MyAppBar = ({ title = "Title" }) => {
 				</form>
 				<CreateButton followedTopics={followedTopics} />
 				<HomePageButton />
-				<FollowedTopicsList followedTopics={followedTopics} />
+				<FollowedTopicsList followedTopics={followedTopics} setReload={setReload} />
 				<Button
 					variant="text"
 					onClick={handleLogOut}

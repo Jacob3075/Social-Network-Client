@@ -28,13 +28,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const FollowedTopicsList = ({ followedTopics }) => {
+const FollowedTopicsList = ({ followedTopics, setReload }) => {
 	const classes = useStyles();
 
 	const [open, setOpen] = useState(false);
 
 	const topicListItemComponents = followedTopics.map((topic) => (
-		<TopicsListItem key={topic.id} {...topic} />
+		<TopicsListItem key={topic.id} {...topic} setReload={setReload}/>
 	));
 
 	const handleClickOpen = () => {

@@ -1,5 +1,4 @@
-import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { List, Paper, Typography } from "@material-ui/core";
 import EventCard from "./EventCard";
@@ -24,10 +23,22 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const EventsFeed = ({ eventList }) => {
+const EventsFeed = ({ loadEvents, reload, setReload }) => {
 	const styles = useStyles();
+	const [eventCards, setEventCards] = useState([]);
 
-	const eventCards = eventList.map((event, index) => <EventCard key={index} {...event} />);
+	useEffect(() => {
+		loadEvents()
+			.then((response) => {
+				if (Array.isArray(response)) {
+					setEventCards(
+						response.map((event, index) => <EventCard key={index} {...event} />)
+					);
+					setReload(false);
+				}
+			})
+			.catch((error) => console.log(error));
+	}, [reload]);
 
 	return (
 		<>
@@ -44,5 +55,5 @@ const EventsFeed = ({ eventList }) => {
 export default EventsFeed;
 
 EventsFeed.propTypes = {
-	eventList: PropTypes.array.isRequired,
+	// eventList: PropTypes.array.isRequired,
 };

@@ -7,7 +7,7 @@ import UnfollowTopicConfirmation from "./UnfollowTopicConfirmation";
 import Paper from "@material-ui/core/Paper";
 import { useHistory } from "react-router-dom";
 
-const TopicsListItem = ({ id, topicName, createdUserId, description }) => {
+const TopicsListItem = ({ id, topicName, createdUserId, description, setReload }) => {
 	const history = useHistory();
 
 	const [open, setOpen] = React.useState(false);
@@ -21,6 +21,7 @@ const TopicsListItem = ({ id, topicName, createdUserId, description }) => {
 	};
 
 	const goToTopicPage = () => {
+		setReload(true);
 		history.push(`/topic/${id}`);
 	};
 

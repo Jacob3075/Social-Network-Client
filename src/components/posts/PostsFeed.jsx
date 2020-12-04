@@ -1,22 +1,24 @@
-import React from "react";
-import InfiniteScroll from "react-infinite-scroller";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
 import Post from "./Post";
 
-const PostsFeed = ({ postList, loadMoreData, hasMoreItems }) => {
-	const postComponents = postList.map((post, index) => <Post key={index} {...post} />);
+const PostsFeed = ({ loadPosts, reload, setReload }) => {
+	const { topicId } = useParams();
+	const [postListComponents, setPostListComponents] = useState([]);
 
-	return (
-		<>
-			<InfiniteScroll
-				pageStart={0}
-				loadMore={loadMoreData}
-				hasMore={hasMoreItems}
-				loader={<div key={0}>LOADING</div>}
-			>
-				{postComponents}
-			</InfiniteScroll>
-		</>
-	);
+	useEffect(() => {
+		loadPosts()
+			.then((posts) => posts.map((post) => <Post key={post.id} {...post} />))
+			.then((posts) => {
+				console.log("SET STATE");
+				setPostListComponents(posts);
+				setReload(false);
+			})
+			.catch((error) => console.log(error));
+	}, [reload]);
+
+	return <>{postListComponents}</>;
 };
 
 export default PostsFeed;

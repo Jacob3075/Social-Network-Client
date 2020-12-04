@@ -5,11 +5,10 @@ import Comment from "../models/Comment";
 
 const url = "http://localhost:8080/posts/";
 
-export const getPostsFromFollowedTopics = async (pageNumber, pageSize) => {
-	const queryString = `?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+export const getPostsFromFollowedTopics = async () => {
 	return await axios
 		.post(
-			url + "topic" + queryString,
+			url + "topic",
 			{ topicIds: userService.getFollowedTopics() },
 			userService.getHeaderData()
 		)
@@ -32,11 +31,9 @@ export const getPostsFromFollowedTopics = async (pageNumber, pageSize) => {
 		.catch((error) => error.response.status);
 };
 
-export const getPostsFromTopic = async (topicId, pageNumber, pageSize) => {
-	const queryString = `?pageNumber=${pageNumber}&pageSize=${pageSize}`;
-
+export const getPostsFromTopic = async (topicId) => {
 	return await axios
-		.get(url + "topic/" + topicId + queryString, userService.getHeaderData())
+		.get(url + "topic/" + topicId, userService.getHeaderData())
 		.then((response) => response.data)
 		.then((responseTopics) =>
 			responseTopics.map(
