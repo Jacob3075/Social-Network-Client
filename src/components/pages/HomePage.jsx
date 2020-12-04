@@ -38,7 +38,7 @@ const HomePage = () => {
 
 	return (
 		<>
-			<MyAppBar title="" setReload={setReload} />
+			<MyAppBar title="" setReload={setReload} reload={reload} />
 			<MainContent
 				loadPosts={loadPosts}
 				loadEvents={loadEvents}

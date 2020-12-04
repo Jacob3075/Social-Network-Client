@@ -41,7 +41,7 @@ const TopicPage = () => {
 
 	return (
 		<>
-			<MyAppBar title={""} setReload={setReload} />
+			<MyAppBar title={""} setReload={setReload} reload={reload} />
 			<Typography variant="subtitle"> Topic Name : </Typography>
 			<Typography variant="body"> Topic Description </Typography>
 			<MainContent

@@ -28,13 +28,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const FollowedTopicsList = ({ followedTopics, setReload }) => {
+const FollowedTopicsList = ({ followedTopics, setReload, reload }) => {
 	const classes = useStyles();
 
 	const [open, setOpen] = useState(false);
 
-	const topicListItemComponents = followedTopics.map((topic) => (
-		<TopicsListItem key={topic.id} {...topic} setReload={setReload}/>
+	const followedTopicsComponents = followedTopics.map((topic) => (
+		<TopicsListItem key={topic.id} {...topic} setReload={setReload} />
 	));
 
 	const handleClickOpen = () => {
@@ -57,7 +57,7 @@ const FollowedTopicsList = ({ followedTopics, setReload }) => {
 							<Typography className={classes.text} variant="h5" gutterBottom>
 								Topics
 							</Typography>
-							<List className={classes.list}>{topicListItemComponents}</List>
+							<List className={classes.list}>{followedTopicsComponents}</List>
 						</Paper>
 					</DialogContentText>
 				</DialogContent>

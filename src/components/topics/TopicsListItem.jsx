@@ -41,7 +41,12 @@ const TopicsListItem = ({ id, topicName, createdUserId, description, setReload }
 					Following
 				</Button>
 				<Dialog onClose={handleClose} open={open}>
-					<UnfollowTopicConfirmation handleClose2={handleClose} />
+					<UnfollowTopicConfirmation
+						handleClose={handleClose}
+						topicName={topicName}
+						topicId={id}
+						setReload={setReload}
+					/>
 				</Dialog>
 			</ListItem>
 		</Paper>

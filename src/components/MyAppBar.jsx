@@ -31,7 +31,7 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const MyAppBar = ({ title = "Title", setReload }) => {
+const MyAppBar = ({ title = "Title", setReload, reload }) => {
 	const classes = useStyles();
 	const history = useHistory();
 
@@ -47,7 +47,7 @@ const MyAppBar = ({ title = "Title", setReload }) => {
 		getTopicFollowedByUser()
 			.then((response) => setFollowedTopics(response))
 			.catch((error) => console.error(error));
-	}, []);
+	}, [reload]);
 
 	const handleChange = (event) => {
 		setSearchQuery(event.target.value);
@@ -95,7 +95,7 @@ const MyAppBar = ({ title = "Title", setReload }) => {
 				</form>
 				<CreateButton followedTopics={followedTopics} setReload={setReload} />
 				<HomePageButton />
-				<FollowedTopicsList followedTopics={followedTopics} setReload={setReload} />
+				<FollowedTopicsList followedTopics={followedTopics} setReload={setReload} reload={reload}/>
 				<Button
 					variant="text"
 					onClick={handleLogOut}
