@@ -28,6 +28,14 @@ const useStyles = makeStyles(() => ({
 	search: {
 		width: "120%",
 	},
+	logoimage: {
+		width: '46px',
+		height: '46px',
+		borderradius: '50%',
+		overflow: 'hidden',
+		marginTop: '-6px',
+		marginLeft: '15px',
+	}
 }));
 
 const MyAppBar = ({ title = "Title"}) => {
@@ -53,7 +61,6 @@ const MyAppBar = ({ title = "Title"}) => {
 	}
 
 	return (
-		
 		<AppBar className={classes.appBar} position="sticky" color="inherit">
 			<img src='https://github.com/Jacob3075/Social-Network-Client/blob/master/public/PESLink%20logo.png?raw=true' style={{width:200}}/>
 			<Toolbar>

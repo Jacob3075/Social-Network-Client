@@ -11,14 +11,14 @@ import Typography from "@material-ui/core/Typography";
 import signInPageStyles from "../../styles/SignInPageStyles";
 import { userService } from "../../services/UserService";
 
-const SignInPage = () => {
+const SignUpPage = () => {
 	const classes = signInPageStyles();
 	const [userName, setUserName] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const history = useHistory();
 
-	const handleSignUpSubmit = async (event) => {
+	const handleSignUpSubmit = (event) => {
 		event.preventDefault();
 		if (password !== confirmPassword) {
 			alert("Password mismatch");
@@ -26,22 +26,18 @@ const SignInPage = () => {
 			return;
 		}
 
-		const statusCode = await userService.signUp(userName, password);
-
-		if (statusCode === 201) {
-			userService
-				.login(userName, password)
-				.then((statusCode) => {
-					if (statusCode === 200) {
-						history.push("/");
-					} else {
-						alert("Login Failed, Code: " + statusCode);
-						setUserName("");
-						setPassword("");
-					}
-				})
-				.catch((error) => console.error(error));
-		}
+		userService.signUp(userName, password)
+			.then(responseStatus => {
+				if (responseStatus === 201) {
+					history.push("/login");
+				} else if (responseStatus === 409) {
+					alert("User already exists");
+					history.push("/login");
+				} else {
+					alert("Sign Up failed");
+				}
+			})
+			.catch((error) => console.log(error));
 	};
 
 	return (
@@ -115,4 +111,4 @@ const SignInPage = () => {
 	);
 };
 
-export default SignInPage;
+export default SignUpPage;

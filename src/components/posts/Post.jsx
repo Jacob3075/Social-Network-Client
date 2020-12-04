@@ -12,29 +12,41 @@ import postStyles from "../../styles/PostStyles";
 import Button from "@material-ui/core/Button";
 import CommentService from "../../services/CommentService";
 import CommentCard from "./CommentCard";
-import { mockGetTopicById } from "../../services/TopicService";
 import { InputAdornment, TextField } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
-import PostService from "../../services/PostService";
-import { getUserById } from "../../services/UserService";
+import { getTopicById } from "../../services/TopicService";
+import { getUserById, userService } from "../../services/UserService";
+import { arrayBufferToBase64 } from "../../Utils";
+import { likePost } from "../../services/PostService";
 
 const Post = ({ id, userId, topicId, description, time, likedUsers, comments, image }) => {
 
 	const classes = postStyles();
 	const [expanded, setExpanded] = useState(false);
 	const [newComment, setNewComment] = useState("");
-	const [likeIconColor, setLikeIconColor] = useState("");
+	const [likedPost, setLikedPost] = useState(likedUsers.includes(userService.getUserId()));
 	const [userName, setUserName] = useState("");
+	const [topicName, setTopicName] = useState("");
+	const [processedImageString, setProcessedImageString] = useState(image);
+	const [numberOfLikes, setNumberOfLikes] = useState(likedUsers.length);
 
 	useEffect(() => {
 		getUserById(userId)
 			.then((response) => {
 				setUserName(response.userName);
 			})
-			.catch((error) => {
-			});
+			.catch((error) => console.log(error));
 
-	}, []);
+		getTopicById(topicId)
+			.then((response) => {
+				setTopicName(response.topicName);
+			})
+			.catch(error => console.log(error));
+
+		const base64Flag = `data:${image.contentType};base64,`;
+		const imageStr = arrayBufferToBase64(image.data.data);
+		setProcessedImageString(base64Flag + imageStr);
+	}, [likedPost]);
 
 	const handleExpandComments = () => {
 		setExpanded(!expanded);
@@ -51,12 +63,13 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 	};
 
 	const handleLikedPost = () => {
-		setLikeIconColor("error");
-		PostService.likedPost(id);
-	};
+		if (likedPost) setNumberOfLikes(numberOfLikes - 1);
+		else setNumberOfLikes(numberOfLikes + 1);
 
-	// comments = CommentService.mockGetCommentsById();
-	const topic = mockGetTopicById(topicId);
+		likePost(id, likedPost)
+			.then(r => setLikedPost(!likedPost))
+			.catch((error) => console.log(error));
+	};
 
 	// TODO: FORMAT DATE
 
@@ -69,11 +82,11 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 	return (
 		<Card className={classes.root} raised>
 			<CardHeader
-				title={topic.topicName + " • userById.userName"}
+				title={topicName + " • userById.userName"}
 				subheader={postHeaderTopicMessage}
 				subheaderTypographyProps={{ variant: "subtitle2" }}
 			/>
-			<CardMedia className={classes.media} image={image} />
+			<CardMedia className={classes.media} image={processedImageString} />
 			<CardContent>
 				<Typography variant="body2" component="p">
 					{description}
@@ -81,8 +94,9 @@ const Post = ({ id, userId, topicId, description, time, likedUsers, comments, im
 			</CardContent>
 			<CardActions>
 				<IconButton onClick={handleLikedPost}>
-					<FavoriteIcon color={likeIconColor} />
+					<FavoriteIcon color={likedPost ? "error" : ""} />
 				</IconButton>
+				{numberOfLikes}
 				<form onSubmit={handlePostNewComment} className={classes.form}>
 					<TextField
 						className={classes.textField}
