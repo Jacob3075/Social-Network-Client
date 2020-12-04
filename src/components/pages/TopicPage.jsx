@@ -4,16 +4,28 @@ import MainContent from "../MainContent";
 import { userService } from "../../services/UserService";
 import { useHistory, useParams } from "react-router-dom";
 import { getPostsFromTopic } from "../../services/PostService";
+import { getEventsByTopic } from "../../services/EventService";
 
 const TopicPage = () => {
 	const history = useHistory();
 	const { topicId } = useParams();
 
+	const [eventList, setEventList] = useState([]);
 	const [postList, setPostList] = useState([]);
 	const [hasMoreItems, setHasMoreItems] = useState(true);
 
 	useEffect(() => {
 		if (!userService.isLoggedIn()) history.push("/login");
+
+		getEventsByTopic(topicId)
+			.then((response) => {
+				if (Array.isArray(response)) {
+					setEventList(response);
+				} else {
+					console.log("ERROR:" + response);
+				}
+			})
+			.catch((error) => console.log(error));
 	}, []);
 
 	const loadMoreData = (pageNumber) => {
@@ -40,6 +52,7 @@ const TopicPage = () => {
 			<MyAppBar title={""} />
 			<MainContent
 				postList={postList}
+				eventList={eventList}
 				loadMoreData={loadMoreData}
 				hasMoreItems={hasMoreItems}
 			/>

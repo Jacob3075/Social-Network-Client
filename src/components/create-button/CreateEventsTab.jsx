@@ -18,6 +18,13 @@ const UpperCasingTextField = (props) => {
 
 const CreateEventsTab = ({ handleClose, followedTopics }) => {
 	const history = useHistory();
+	let defaultTopic;
+
+	if (followedTopics.length === 0) {
+		defaultTopic = "No Followed Topics";
+	} else {
+		defaultTopic = followedTopics[0].topicName;
+	}
 
 	const getTopicIdByName = (topicName) => {
 		return followedTopics.find((topic) => topic.topicName === topicName).id;
@@ -26,8 +33,11 @@ const CreateEventsTab = ({ handleClose, followedTopics }) => {
 	const submitForm = ({ topic, name, description, location, time }, { setSubmitting }) => {
 		//Thu Dec 03 2020 22:14:08 GMT+0530 (India Standard Time)
 
-		if (topic.length === 0 || description.length === 0) {
+		if (topic.length === 0 || topic === "No Followed Topics" || description.length === 0) {
 			setSubmitting(false);
+			if (topic === "No Followed Topics") {
+				alert("You have no followed topics");
+			}
 			return;
 		}
 
@@ -73,6 +83,7 @@ const CreateEventsTab = ({ handleClose, followedTopics }) => {
 		<>
 			<Formik
 				initialValues={{
+					topic: defaultTopic,
 					name: "",
 					location: "",
 					time: "",
