@@ -2,6 +2,7 @@ import { Checkbox, Grid, makeStyles, Paper, Typography } from "@material-ui/core
 import React, { useState } from "react";
 import { userService } from "../../services/UserService";
 import { updateEventRegistrations } from "../../services/EventService";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -52,6 +53,11 @@ const EventCard = ({
 			.catch((error) => console.log(error));
 	};
 
+	const history = useHistory();
+	const goToTopicPage = () => {
+		history.push(`/topic/${topicId}`);
+	};
+
 	let hr = parseInt(time.substring(11,13)) + 5;
 	let mi = parseInt(time.substring(14,16)) + 30;
 	if(mi > 59) {
@@ -84,7 +90,7 @@ const EventCard = ({
 						<Typography variant="body2">Place: {location} </Typography>
 					</Grid>
 					<Grid item xs={6}>
-						<Typography variant="body1" fontSize="small">
+						<Typography variant="body1" fontSize="small" onClick={goToTopicPage}>
 							{description}
 						</Typography>
 					</Grid>
