@@ -1,6 +1,5 @@
 import { Grid, makeStyles, Paper, Typography } from "@material-ui/core";
-import React, { useState } from "react";
-import { getUserById } from "../../services/UserService";
+import React from "react";
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -8,22 +7,22 @@ const useStyles = makeStyles(() => ({
 		padding: "0.5em",
 		margin: "0.5em",
 		textAlign: "left",
-		borderRadius: 15
+		borderRadius: 15,
 	},
 	content: {
 		boxSizing: "border-box",
-		padding: "0.8em"
+		padding: "0.8em",
 	},
-	description: {}
+	description: {},
 }));
 
-const CommentCard = ({ userId, comment }) => {
+const CommentCard = ({ userId, comment, userName }) => {
 	const styles = useStyles();
-	const [userName, setUserName] = useState("");
+	// const [userName, setUserName] = useState("");
 
-	getUserById(userId)
-		.then((response) => setUserName(response.userName))
-		.catch((error) => console.log(error));
+	// getUserById(userId)
+	// 	.then((response) => setUserName(response.userName))
+	// 	.catch((error) => console.log(error));
 
 	return (
 		<>

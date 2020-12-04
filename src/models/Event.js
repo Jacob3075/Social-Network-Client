@@ -1,5 +1,16 @@
 class Event {
-	constructor(id, userId, topicId, time, name, description, location, registered) {
+	constructor(
+		id,
+		userId,
+		topicId,
+		time,
+		name,
+		description,
+		location,
+		registered,
+		userName,
+		topicName
+	) {
 		this.id = id;
 		this.userId = userId;
 		this.topicId = topicId;
@@ -8,6 +19,8 @@ class Event {
 		this.description = description;
 		this.location = location;
 		this.registered = registered;
+		this.userName = userName;
+		this.topicName = topicName;
 	}
 }
 
