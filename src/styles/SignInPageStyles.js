@@ -6,10 +6,10 @@ const signInPageStyles = makeStyles((theme) => ({
 		height: "100vh",
 	},
 	image: {
-		backgroundImage: "url(https://github.com/Jacob3075/Social-Network-Client/blob/master/public/PESLinklogo%20(LightBlue).png?raw=true)",
+		backgroundImage: "url(https://github.com/Jacob3075/Social-Network-Client/blob/master/public/PESLinklogo.png?raw=true)",
 		backgroundRepeat: "no-repeat",
-		backgroundColor: "#f3efcc",
-		backgroundSize: "750px",
+		backgroundColor: "#f7d8ba",
+		backgroundSize: "730px",
 		backgroundPosition: "center",
 	},
 	paper: {
