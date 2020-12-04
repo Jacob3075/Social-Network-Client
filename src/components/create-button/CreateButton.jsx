@@ -17,11 +17,11 @@ import TopicTabCreate from "./CreateTopicsTab";
 const useStyles = makeStyles((theme) => ({
 	root: {
 		backgroundColor: theme.palette.background.paper,
-		width: 500
-	}
+		width: 500,
+	},
 }));
 
-const CreateButton = ({ followedTopics }) => {
+const CreateButton = ({ followedTopics, setReload }) => {
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(false);
 
@@ -56,11 +56,11 @@ const CreateButton = ({ followedTopics }) => {
 	TabPanel.propTypes = {
 		children: PropTypes.node,
 		index: PropTypes.any.isRequired,
-		value: PropTypes.any.isRequired
+		value: PropTypes.any.isRequired,
 	};
 
 	const a11yProps = (index) => ({
-		id: `full-width-tab-${index}`
+		id: `full-width-tab-${index}`,
 	});
 
 	return (
@@ -100,13 +100,21 @@ const CreateButton = ({ followedTopics }) => {
 						onChangeIndex={handleChangeIndex}
 					>
 						<TabPanel value={value} index={0} dir={theme.direction}>
-							<CreatePostsTab handleClose={handleClose} followedTopics={followedTopics} />
+							<CreatePostsTab
+								handleClose={handleClose}
+								followedTopics={followedTopics}
+								setReload={setReload}
+							/>
 						</TabPanel>
 						<TabPanel value={value} index={1} dir={theme.direction}>
-							<TopicTabCreate handleClose={handleClose} />
+							<TopicTabCreate handleClose={handleClose} setReload={setReload} />
 						</TabPanel>
 						<TabPanel value={value} index={2} dir={theme.direction}>
-							<CreateEventsTab handleClose={handleClose} followedTopics={followedTopics} />
+							<CreateEventsTab
+								handleClose={handleClose}
+								followedTopics={followedTopics}
+								setReload={setReload}
+							/>
 						</TabPanel>
 					</SwipeableViews>
 				</div>

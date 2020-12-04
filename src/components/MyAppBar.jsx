@@ -24,14 +24,14 @@ const useStyles = makeStyles(() => ({
 	},
 	form: {
 		marginRight: "2em",
-		width: "30%"
+		width: "30%",
 	},
 	search: {
-		width: "120%"
+		width: "120%",
 	},
 }));
 
-const MyAppBar = ({ title = "Title" }) => {
+const MyAppBar = ({ title = "Title", setReload, reload }) => {
 	const classes = useStyles();
 	const history = useHistory();
 
@@ -47,7 +47,7 @@ const MyAppBar = ({ title = "Title" }) => {
 		getTopicFollowedByUser()
 			.then((response) => setFollowedTopics(response))
 			.catch((error) => console.error(error));
-	}, []);
+	}, [reload]);
 
 	const handleChange = (event) => {
 		setSearchQuery(event.target.value);
@@ -69,8 +69,8 @@ const MyAppBar = ({ title = "Title" }) => {
 		<AppBar className={classes.appBar} position="sticky" color="inherit">
 			<img
 				src="https://github.com/Jacob3075/Social-Network-Client/blob/master/public/PESLink%20logo.png?raw=true"
-				style={{ width: 200 }}
-				alt=""
+				style={{ width: 200, marginLeft: 10}}
+				alt="PESLink"
 			/>
 			<Toolbar>
 				<Typography variant="h5">{title}</Typography>
@@ -87,15 +87,15 @@ const MyAppBar = ({ title = "Title" }) => {
 								<InputAdornment position="start">
 									<SearchIcon />
 								</InputAdornment>
-							)
+							),
 						}}
 						value={searchQuery}
 						onChange={handleChange}
 					/>
 				</form>
-				<CreateButton followedTopics={followedTopics} />
+				<CreateButton followedTopics={followedTopics} setReload={setReload} />
 				<HomePageButton />
-				<FollowedTopicsList followedTopics={followedTopics} />
+				<FollowedTopicsList followedTopics={followedTopics} setReload={setReload} reload={reload}/>
 				<Button
 					variant="text"
 					onClick={handleLogOut}

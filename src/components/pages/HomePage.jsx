@@ -4,44 +4,46 @@ import MainContent from "../MainContent";
 import { userService } from "../../services/UserService";
 import { useHistory } from "react-router-dom";
 import { getPostsFromFollowedTopics } from "../../services/PostService";
+import { getUsersRegisteredEvents } from "../../services/EventService";
 
 const HomePage = () => {
-	let imageSource = "/public/logo.png";
 	const history = useHistory();
-
-	const [postList, setPostList] = useState([]);
-	const [hasMoreItems, setHasMoreItems] = useState(true);
+	const [reload, setReload] = useState(false);
 
 	useEffect(() => {
 		if (!userService.isLoggedIn()) history.push("/login");
 	}, []);
 
-	const loadMoreData = (pageNumber) => {
-		if (!userService.isLoggedIn()) {
-			setHasMoreItems(false);
-			return;
-		}
-
-		getPostsFromFollowedTopics(pageNumber, 10)
+	const loadEvents = () => {
+		return getUsersRegisteredEvents()
 			.then((response) => {
-				if (response.length > 0) {
-					const newPosts = response;
-					setPostList(postList.concat(newPosts));
-					if (newPosts.length === 0) {
-						setHasMoreItems(false);
-					}
-				} else setHasMoreItems(false);
+				if (Array.isArray(response)) {
+					return response;
+				} else {
+					console.log("ERROR:" + response);
+				}
+			})
+			.catch((error) => console.log(error));
+	};
+
+	const loadPosts = () => {
+		return getPostsFromFollowedTopics()
+			.then((response) => {
+				if (Array.isArray(response)) {
+					return response;
+				}
 			})
 			.catch((error) => console.log(error));
 	};
 
 	return (
 		<>
-			<MyAppBar title="" />
+			<MyAppBar title="" setReload={setReload} reload={reload} />
 			<MainContent
-				postList={postList}
-				loadMoreData={loadMoreData}
-				hasMoreItems={hasMoreItems}
+				loadPosts={loadPosts}
+				loadEvents={loadEvents}
+				reload={reload}
+				setReload={setReload}
 			/>
 		</>
 	);
