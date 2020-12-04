@@ -67,10 +67,19 @@ const UserService = () => {
 			registeredEvents = [];
 		},
 
-		followNewTopic: async (topicId) => {
+		followNewTopic: async (topicId, unFollow) => {
+			const queryString = unFollow ? "?unFollow=true" : "";
+
 			return await axios
-				.post(url + "follow-topic", { topicId }, headerData)
-				.then((response) => response)
+				.post(`${url}follow-topic${queryString}`, { topicId }, headerData)
+				.then((response) => {
+					if (unFollow) {
+						followedTopics = followedTopics.filter(value => value !== topicId);
+					} else {
+						followedTopics.push(topicId);
+					}
+					return response;
+				})
 				.catch((error) => error.response.status);
 		},
 
