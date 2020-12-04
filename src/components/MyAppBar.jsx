@@ -68,7 +68,7 @@ const MyAppBar = ({ title = "Title", setReload, reload }) => {
 	return (
 		<AppBar className={classes.appBar} position="sticky" color="inherit">
 			<img
-				src="https://github.com/Jacob3075/Social-Network-Client/blob/master/public/PESLink%20logo.png?raw=true"
+				src="https://github.com/Jacob3075/Social-Network-Client/blob/master/public/PESLinklogo.png?raw=true"
 				style={{ width: 200, marginLeft: 10}}
 				alt="PESLink"
 			/>

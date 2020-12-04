@@ -65,8 +65,8 @@ const EventCard = ({
 							inputProps={{ "aria-label": "secondary checkbox" }}
 						/>
 						{numberOfRegistrations}
-						<Typography variant="body2">Time: {time}</Typography>
-						<Typography variant="body2">Place: {location} </Typography>
+						<Typography variant="body2">When: {time}</Typography>
+						<Typography variant="body2">Where: {location} </Typography>
 					</Grid>
 					<Grid item xs={6}>
 						<Typography variant="body1" fontSize="small">
