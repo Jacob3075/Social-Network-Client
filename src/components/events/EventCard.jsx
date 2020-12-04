@@ -21,7 +21,17 @@ const useStyles = makeStyles(() => ({
 	description: {},
 }));
 
-const EventCard = ({ id, userId, topicId, time, name, description, location, registered }) => {
+const EventCard = ({
+	id,
+	userId,
+	topicId,
+	time,
+	name,
+	description,
+	location,
+	registered,
+	setReload,
+}) => {
 	const styles = useStyles();
 	const [registeredEvent, setRegisteredEvent] = useState(
 		userService.getRegisteredEvents().includes(id)
@@ -33,7 +43,10 @@ const EventCard = ({ id, userId, topicId, time, name, description, location, reg
 		else setNumberOfRegistrations(numberOfRegistrations + 1);
 
 		updateEventRegistrations(id, registeredEvent)
-			.then((response) => setRegisteredEvent(!registeredEvent))
+			.then((response) => {
+				setRegisteredEvent(!registeredEvent);
+				setReload(true);
+			})
 			.catch((error) => console.log(error));
 	};
 

@@ -80,7 +80,7 @@ export const updateEventRegistrations = async (eventId, unRegister) => {
 		.catch((error) => console.log(error));
 
 	const userResponse = await userService
-		.registerNewEvent(eventId, queryString)
+		.registerNewEvent(eventId, unRegister)
 		.then((userResponse) => userResponse.status)
 		.catch((error) => console.log(error));
 

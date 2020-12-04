@@ -29,13 +29,12 @@ const EventsFeed = ({ loadEvents, reload, setReload }) => {
 
 	useEffect(() => {
 		loadEvents()
+			.then((events) =>
+				events.map((event) => <EventCard key={event.id} {...event} setReload={setReload} />)
+			)
 			.then((response) => {
-				if (Array.isArray(response)) {
-					setEventCards(
-						response.map((event, index) => <EventCard key={index} {...event} />)
-					);
-					setReload(false);
-				}
+				setEventCards(response);
+				setReload(false);
 			})
 			.catch((error) => console.log(error));
 	}, [reload]);
