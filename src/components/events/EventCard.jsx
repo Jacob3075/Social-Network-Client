@@ -1,4 +1,4 @@
-import { Grid, makeStyles, Paper, Typography } from "@material-ui/core";
+import { colors, Grid, makeStyles, Paper, Typography, Checkbox } from "@material-ui/core";
 import React from "react";
 
 const useStyles = makeStyles(() => ({
@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
 	description: {}
 }));
 
-const EventCard = ({ time, name, description, location }) => {
+const EventCard = ({ id, userId, topicId, time, name, description, location, registered, image }) => {
 	const styles = useStyles();
 
 	return (
@@ -28,11 +28,15 @@ const EventCard = ({ time, name, description, location }) => {
 				<Typography variant="subtitle1">{name}</Typography>
 				<Grid container>
 					<Grid item className={styles.content} xs={6}>
-						<Typography variant="body2">{location}</Typography>
-						<Typography variant="caption">@{time}</Typography>
+						<Checkbox
+							color="primary"
+							inputProps={{ 'aria-label': 'secondary checkbox' }}
+						/>
+						<Typography variant="body2">Time: {time}</Typography>
+						<Typography variant="body2">Place: {location} </Typography>
 					</Grid>
 					<Grid item xs={6}>
-						<Typography variant="body1">{description}</Typography>
+						<Typography variant="body1" fontSize="small">{description}</Typography>
 					</Grid>
 				</Grid>
 			</Paper>

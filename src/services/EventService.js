@@ -18,15 +18,13 @@ export default {
 	},
 
 	mockGetEventsById: (userId) => [
-		new Event(1, 1, "Name 1", "Place 1", "Time 1", "Description 1"),
-		new Event(2, 2, "Name 2", "Place 2", "Time 2", "Description 2"),
-		new Event(3, 3, "Name 3", "Place 3", "Time 3", "Description 3"),
-		new Event(4, 4, "Name 4", "Place 4", "Time 4", "Description 4"),
-		new Event(5, 5, "Name 5", "Place 5", "Time 5", "Description 5"),
-		new Event(6, 6, "Name 6", "Place 6", "Time 6", "Description 6"),
-		new Event(7, 7, "Name 7", "Place 7", "Time 7", "Description 7"),
-		new Event(8, 8, "Name 8", "Place 8", "Time 8", "Description 8"),
-		new Event(9, 9, "Name 9", "Place 9", "Time 9", "Description 9"),
-		new Event(10, 10, "Name 10", "Place 10", "Time 10", "Description 10"),
+		new Event(1, 1, "Topic1", "time1", "name1", "description1", "location1", "registered1", "image1"),
+		new Event(1, 1, "Topic2", "time2", "name2", "description2", "location2", "registered2", "image2"),
+		new Event(1, 1, "Topic3", "time3", "name3", "description3", "location3", "registered3", "image3"),
+		new Event(1, 1, "Topic4", "time4", "name4", "description4", "location4", "registered4", "image4"),
+		new Event(1, 1, "Topic5", "time5", "name5", "description5", "location5", "registered5", "image5"),
+		new Event(1, 1, "Topic6", "time6", "name6", "description6", "location6", "registered6", "image6"),
+		new Event(1, 1, "Topic7", "time7", "name7", "description7", "location7", "registered7", "image7"),
+		new Event(1, 1, "Topic8", "time8", "name8", "description8", "location8", "registered8", "image8"),
 	],
 };
