@@ -87,13 +87,13 @@ const MyAppBar = ({ title = "Title", setReload }) => {
 								<InputAdornment position="start">
 									<SearchIcon />
 								</InputAdornment>
-							)
+							),
 						}}
 						value={searchQuery}
 						onChange={handleChange}
 					/>
 				</form>
-				<CreateButton followedTopics={followedTopics} />
+				<CreateButton followedTopics={followedTopics} setReload={setReload} />
 				<HomePageButton />
 				<FollowedTopicsList followedTopics={followedTopics} setReload={setReload} />
 				<Button

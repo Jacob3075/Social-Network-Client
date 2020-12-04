@@ -16,7 +16,7 @@ const UpperCasingTextField = (props) => {
 	return <MuiTextField {...fieldToTextField(props)} />;
 };
 
-const CreateEventsTab = ({ handleClose, followedTopics }) => {
+const CreateEventsTab = ({ handleClose, followedTopics, setReload }) => {
 	const history = useHistory();
 	let defaultTopic;
 
@@ -49,6 +49,7 @@ const CreateEventsTab = ({ handleClose, followedTopics }) => {
 		)
 			.then((response) => {
 				setSubmitting(false);
+				setReload(true);
 				history.push(`/topic/${topicId}`);
 				return response;
 			})
