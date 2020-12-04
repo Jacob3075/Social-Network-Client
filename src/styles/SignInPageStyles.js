@@ -1,17 +1,15 @@
 import { makeStyles } from "@material-ui/core/styles";
 
+// https://source.unsplash.com/random Social-Network-Client\public\PESLink logo.png
 const signInPageStyles = makeStyles((theme) => ({
 	root: {
 		height: "100vh",
 	},
 	image: {
-		backgroundImage: "url(https://source.unsplash.com/random)",
+		backgroundImage: "url(https://github.com/Jacob3075/Social-Network-Client/blob/master/public/PESLink%20logo.png?raw=true)",
 		backgroundRepeat: "no-repeat",
-		backgroundColor:
-			theme.palette.type === "light"
-				? theme.palette.grey[50]
-				: theme.palette.grey[900],
-		backgroundSize: "cover",
+		backgroundColor: "#f3efcc",
+		backgroundSize: "750px",
 		backgroundPosition: "center",
 	},
 	paper: {
