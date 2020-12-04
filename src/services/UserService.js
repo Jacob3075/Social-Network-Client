@@ -70,22 +70,20 @@ const UserService = () => {
 					{ topicId },
 					headerData
 				)
-				.then((response) => {
-					return response.status === 200;
-				})
+				.then((response) => response
+				)
 				.catch((error) => error.response.status);
 		},
 
-		registerNewTopic: async (eventId) => {
+		registerNewEvent: async (eventId, queryString) => {
 			return await axios
 				.post(
-					url + "register-event",
+					`${url}register-event${queryString}`,
 					{ eventId },
 					headerData
 				)
-				.then((response) => {
-					return response.status === 200;
-				})
+				.then((response) => response
+				)
 				.catch((error) => error.response.status);
 		}
 	};

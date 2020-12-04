@@ -71,3 +71,18 @@ export const getUsersRegisteredEvents = async () => {
 		)
 		.catch((error) => error.response.status);
 };
+
+export const updateEventRegistrations = async (eventId, unRegister) => {
+	const queryString = unRegister ? "?unRegister=true" : "";
+	const eventResponse = await axios
+		.post(url + "register/" + queryString, { eventId }, userService.getHeaderData())
+		.then((eventResponse) => eventResponse.status)
+		.catch((error) => console.log(error));
+
+	const userResponse = await userService
+		.registerNewEvent(eventId, queryString)
+		.then((userResponse) => userResponse.status)
+		.catch((error) => console.log(error));
+
+	return { userResponse, eventResponse };
+};
