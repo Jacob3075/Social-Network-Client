@@ -81,7 +81,7 @@ const Post = ({
 	};
 
 	// TODO: FORMAT DATE
-	const postHeaderTopicMessage = "" + time;
+	const postHeaderTopicMessage = time;
 
 	const commentComponents = postComments.map((comment, index) => (
 		<CommentCard key={index} {...comment} />
