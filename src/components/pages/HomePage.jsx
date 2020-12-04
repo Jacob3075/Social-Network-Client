@@ -4,7 +4,7 @@ import MainContent from "../MainContent";
 import { userService } from "../../services/UserService";
 import { useHistory } from "react-router-dom";
 import { getPostsFromFollowedTopics } from "../../services/PostService";
-import { getUsersRegisteredEvents } from "../../services/EventService";
+import { getEventsFromFollowedTopics } from "../../services/EventService";
 
 const HomePage = () => {
 	const history = useHistory();
@@ -15,7 +15,7 @@ const HomePage = () => {
 	}, []);
 
 	const loadEvents = () => {
-		return getUsersRegisteredEvents()
+		return getEventsFromFollowedTopics()
 			.then((response) => {
 				if (Array.isArray(response)) {
 					return response;
