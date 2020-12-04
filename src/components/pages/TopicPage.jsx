@@ -4,6 +4,8 @@ import MainContent from "../MainContent";
 import { userService } from "../../services/UserService";
 import { useHistory, useParams } from "react-router-dom";
 import { getPostsFromTopic } from "../../services/PostService";
+import { getTopicByName } from "../../services/TopicService";
+import { Typography } from "@material-ui/core";
 
 const TopicPage = () => {
 	const history = useHistory();
@@ -37,7 +39,9 @@ const TopicPage = () => {
 
 	return (
 		<>
-			<MyAppBar title={""} />
+			<MyAppBar title="" />
+			<Typography variant="subtitle"> Topic Name : </Typography>
+			<Typography variant="body"> Topic Description </Typography>
 			<MainContent
 				postList={postList}
 				loadMoreData={loadMoreData}
