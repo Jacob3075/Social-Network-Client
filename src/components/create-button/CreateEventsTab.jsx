@@ -18,7 +18,6 @@ const UpperCasingTextField = (props) => {
 
 const CreateEventsTab = ({ handleClose, followedTopics }) => {
 	const history = useHistory();
-	const defaultTopic = followedTopics[0].topicName || "No Topics Followed";
 
 	const getTopicIdByName = (topicName) => {
 		return followedTopics.find((topic) => topic.topicName === topicName).id;
@@ -74,7 +73,6 @@ const CreateEventsTab = ({ handleClose, followedTopics }) => {
 		<>
 			<Formik
 				initialValues={{
-					topic: defaultTopic,
 					name: "",
 					location: "",
 					time: "",
