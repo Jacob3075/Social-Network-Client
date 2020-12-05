@@ -11,7 +11,7 @@ import { Button } from "@material-ui/core";
 import { userService } from "../services/UserService";
 import { useHistory } from "react-router-dom";
 import { getAllTopics, getTopicFollowedByUser } from "../services/TopicService";
-import Fuse from 'fuse.js';
+import Fuse from "fuse.js";
 import SearchResults from "./topics/SearchResults";
 
 const useStyles = makeStyles(() => ({
@@ -65,15 +65,15 @@ const MyAppBar = ({ title = "Title", setReload, reload }) => {
 		<AppBar className={classes.appBar} position="sticky" color="inherit">
 			<img
 				src="https://github.com/Jacob3075/Social-Network-Client/blob/master/public/PESLink%20logo.png?raw=true"
-				style={{ width: 200, marginLeft: 10}}
+				style={{ width: 200, marginLeft: 10 }}
 				alt="PESLink"
 			/>
 			<Toolbar>
 				<Typography variant="h5">{title}</Typography>
 				<CreateButton followedTopics={followedTopics} setReload={setReload} />
 				<HomePageButton />
-				<FollowedTopicsList followedTopics={followedTopics} setReload={setReload} reload={reload}/>
-				<SearchResults results={results} setReload={setReload} reload={reload}/>
+				<FollowedTopicsList followedTopics={followedTopics} setReload={setReload} reload={reload} />
+				<SearchResults results={results} setReload={setReload} reload={reload} topics={topics} />
 				<Button
 					variant="text"
 					onClick={handleLogOut}
