@@ -5,7 +5,6 @@ import EventCard from "./EventCard";
 
 const useStyles = makeStyles((theme) => ({
 	container: {
-		position: "fixed",
 		height: "75vh",
 		width: "55vh",
 		marginLeft: "3em",
