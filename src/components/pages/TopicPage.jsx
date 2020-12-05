@@ -4,12 +4,11 @@ import MainContent from "../MainContent";
 import { userService } from "../../services/UserService";
 import { useHistory, useParams } from "react-router-dom";
 import { getPostsFromTopic } from "../../services/PostService";
-import { Typography } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 import { getEventsByTopic } from "../../services/EventService";
 import { getTopicById } from "../../services/TopicService";
-import { Button } from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
-import UnfollowTopicConfirmation from "C:/Users/vedan/OneDrive/Desktop/College/Semester 3/(UE19CS204) Web Technologies I/Project/Main Project files/Social-Network-Client/src/components/topics/UnfollowTopicConfirmation.jsx";
+import UnfollowTopicConfirmation from "../topics/UnfollowTopicConfirmation";
 
 const TopicPage = () => {
 	const history = useHistory();
