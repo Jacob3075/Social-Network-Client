@@ -34,24 +34,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const SearchResults = ({ results, setReload, reload, topics }) => {
+const SearchResults = ({ setReload, reload, topics }) => {
 	const classes = useStyles();
 
-    const [open, setOpen] = useState(false);
-    const [searchQuery, setSearchQuery] = useState("");
-    const topicResults = results.map(result => result.item);
-	//const topicResults = results.map((topic) => (
-	//	<TopicsListItem key={topic.id} {...topic} setReload={setReload} />
-	//));
+	const [searchQuery, setSearchQuery] = useState("");
+	const [open, setOpen] = useState(false);
 
 	const fuse = new Fuse(topics, {
-        keys: [
-            "topicName",
-            "description"
-        ],
-        includeScore: true
-    });
-    console.log('results', results)
+		keys: ["topicName"]
+	});
+	const results = fuse.search(searchQuery);
+
+	const topicResults = searchQuery ?
+		results.map(({ item }) => (
+			<TopicsListItem key={item.id} {...(item)} setReload={setReload} reload={reload} />
+		)) :
+		topics.map((topic) => (
+			<TopicsListItem key={topic.id} {...topic} setReload={setReload} reload={reload} />
+		));
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -61,19 +61,10 @@ const SearchResults = ({ results, setReload, reload, topics }) => {
 		setOpen(false);
 	};
 
-	function handleChange({ currentTarget = {} }) {
-        const { value } = currentTarget;
+	const handleChange = ({ currentTarget = {} }) => {
+		const { value } = currentTarget;
 		setSearchQuery(value);
-
-    }
-
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		console.log(fuse.search(searchQuery));
-		setSearchQuery("");
 	};
-
-	//const [topics, setTopics] = useState([]);
 
 	return (
 		<>
@@ -84,7 +75,7 @@ const SearchResults = ({ results, setReload, reload, topics }) => {
 				<DialogContent>
 					<DialogContentText>
 						<Paper square className={classes.paper}>
-							<form onSubmit={handleSubmit} className={classes.form}>
+							<form className={classes.form}>
 								<TextField
 									className={classes.search}
 									size="small"
