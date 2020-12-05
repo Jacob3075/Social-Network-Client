@@ -7,6 +7,9 @@ import { getPostsFromTopic } from "../../services/PostService";
 import { Typography } from "@material-ui/core";
 import { getEventsByTopic } from "../../services/EventService";
 import { getTopicById } from "../../services/TopicService";
+import { Button } from "@material-ui/core";
+import Dialog from "@material-ui/core/Dialog";
+import UnfollowTopicConfirmation from "C:/Users/vedan/OneDrive/Desktop/College/Semester 3/(UE19CS204) Web Technologies I/Project/Main Project files/Social-Network-Client/src/components/topics/UnfollowTopicConfirmation.jsx";
 
 const TopicPage = () => {
 	const history = useHistory();
@@ -54,11 +57,49 @@ const TopicPage = () => {
 			.catch((error) => console.log(error));
 	};
 
+	const [open, setOpen] = React.useState(false);
+
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
+
+	const goToTopicPage = () => {
+		setReload(true);
+		history.push(`/topic/${topicId}`);
+	};
+
 	return (
 		<>
 			<MyAppBar title={""} setReload={setReload} reload={reload} />
-			<Typography variant="body2">
-				{topicName} : {description} 
+			<Typography variant="h4" color="textPrimary">
+				{topicName + "\xa0\xa0"}   
+				<Button
+					variant="contained"
+					style={{
+						width: "2.5cm",
+						height: "0.7cm",
+					}}
+					onClick={handleClickOpen}
+				>
+					Following
+				</Button>
+				<Dialog onClose={handleClose} open={open}>
+					<UnfollowTopicConfirmation
+						handleClose={handleClose}
+						topicName={topicName}
+						topicId={topicId}
+						setReload={setReload}
+					/>
+				</Dialog>
+			</Typography>
+
+
+			<Typography variant="h6">
+				{description} 
 			</Typography>
 			
 			<MainContent
