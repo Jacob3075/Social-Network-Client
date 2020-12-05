@@ -95,7 +95,7 @@ const SearchResults = ({ setReload, reload, topics }) => {
 								/>
 							</form>
 							<Typography className={classes.text} variant="h5" gutterBottom>
-								Results
+								All Topics
 							</Typography>
 							<List className={classes.list}>{topicResults}</List>
 						</Paper>
