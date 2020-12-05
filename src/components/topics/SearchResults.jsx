@@ -47,10 +47,10 @@ const SearchResults = ({ setReload, reload, topics }) => {
 
 	const topicResults = searchQuery ?
 		results.map(({ item }) => (
-			<TopicsListItem key={item.id} {...(item)} setReload={setReload} />
+			<TopicsListItem key={item.id} {...(item)} setReload={setReload} reload={reload} />
 		)) :
 		topics.map((topic) => (
-			<TopicsListItem key={topic.id} {...topic} setReload={setReload} />
+			<TopicsListItem key={topic.id} {...topic} setReload={setReload} reload={reload} />
 		));
 
 	const handleClickOpen = () => {

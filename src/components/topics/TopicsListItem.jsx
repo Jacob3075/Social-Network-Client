@@ -8,7 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import { useHistory } from "react-router-dom";
 import { userService } from "../../services/UserService";
 
-const TopicsListItem = ({ id, topicName, createdUserId, description, setReload }) => {
+const TopicsListItem = ({ id, topicName, createdUserId, description, setReload, reload }) => {
 	const history = useHistory();
 
 	const [open, setOpen] = useState(false);
@@ -16,7 +16,7 @@ const TopicsListItem = ({ id, topicName, createdUserId, description, setReload }
 
 	useEffect(() => {
 		setIsFollowedTopic(userService.getFollowedTopics().includes(id));
-	}, []);
+	}, [reload]);
 
 
 	const handleButtonClick = () => {
@@ -25,6 +25,7 @@ const TopicsListItem = ({ id, topicName, createdUserId, description, setReload }
 		} else {
 			userService.followNewTopic(id, false)
 				.then((response) => {
+					setReload(true);
 				})
 				.catch((error) => {
 				});
