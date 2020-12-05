@@ -3,10 +3,7 @@ import PropTypes from "prop-types";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import SearchIcon from "@material-ui/icons/Search";
-import InputAdornment from "@material-ui/core/InputAdornment";
 import FollowedTopicsList from "./topics/FollowedTopicsList";
 import HomePageButton from "./HomePageButton";
 import CreateButton from "./create-button/CreateButton";
@@ -15,6 +12,7 @@ import { userService } from "../services/UserService";
 import { useHistory } from "react-router-dom";
 import { getAllTopics, getTopicFollowedByUser } from "../services/TopicService";
 import Fuse from 'fuse.js';
+import SearchResults from "./topics/SearchResults";
 
 const useStyles = makeStyles(() => ({
 	appBar: {
@@ -56,17 +54,6 @@ const MyAppBar = ({ title = "Title", setReload, reload }) => {
 			.catch((error) => console.error(error));
 	}, [reload]);
 
-	function handleChange({ currentTarget = {}}) {
-		const {value} = currentTarget;
-		setSearchQuery(value);
-
-	}
-
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		console.log(searchQuery);
-		setSearchQuery("");
-	};
 
 	const handleLogOut = () => {
 		userService.logout();
@@ -83,28 +70,10 @@ const MyAppBar = ({ title = "Title", setReload, reload }) => {
 			/>
 			<Toolbar>
 				<Typography variant="h5">{title}</Typography>
-				<form onSubmit={handleSubmit} className={classes.form}>
-					<TextField
-						className={classes.search}
-						size="small"
-						id="outlined-basic"
-						label="Search"
-						variant="outlined"
-						style={{ marginLeft: "5cm" }}
-						InputProps={{
-							startAdornment: (
-								<InputAdornment position="start">
-									<SearchIcon />
-								</InputAdornment>
-							),
-						}}
-						value={searchQuery}
-						onChange={handleChange}
-					/>
-				</form>
 				<CreateButton followedTopics={followedTopics} setReload={setReload} />
 				<HomePageButton />
 				<FollowedTopicsList followedTopics={followedTopics} setReload={setReload} reload={reload}/>
+				<SearchResults results={results} setReload={setReload} reload={reload}/>
 				<Button
 					variant="text"
 					onClick={handleLogOut}
