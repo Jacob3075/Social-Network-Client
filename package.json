@@ -14,6 +14,7 @@
     "formik": "^2.2.5",
     "formik-material-ui": "^3.0.0",
     "formik-material-ui-pickers": "0.0.11",
+    "fuse.js": "^6.4.3",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
