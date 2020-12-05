@@ -44,7 +44,6 @@ const TopicFollowButton = ({ isFollowedTopic, setReload, topicId, topicName }) =
 				variant="contained"
 				color={isFollowedTopic ? "primary" : "secondary"}
 				style={{
-					float: "right",
 					width: "2.5cm",
 					height: "0.8cm"
 				}}

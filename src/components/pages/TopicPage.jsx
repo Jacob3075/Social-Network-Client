@@ -51,13 +51,16 @@ const TopicPage = () => {
 
 	return (
 		<>
-			<MyAppBar title={""} setReload={setReload} reload={reload} />
-			<TopicHeaderSection topicName={topicName}
-			                    topicId={topicId}
-			                    description={description}
-			                    setReload={setReload}
-			                    reload={reload}
-			/>
+			<MyAppBar title="" setReload={setReload} reload={reload} />
+			<div style={{padding: 15}}>
+				<TopicHeaderSection 
+					topicName = {topicName}
+					topicId={topicId}
+					description={description}
+					setReload={setReload}
+					reload={reload}
+				/>
+			</div>
 			<MainContent
 				loadPosts={loadPosts}
 				loadEvents={loadEvents}
