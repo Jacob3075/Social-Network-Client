@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -23,11 +24,20 @@ const TopicsListItem = ({ id, topicName, createdUserId, description, setReload, 
 	return (
 		<Paper>
 			<ListItem button>
-				<ListItemText primary={topicName} secondaryText={description} onClick={goToTopicPage} />
+				<ListItemText primary={topicName} secondary={description} onClick={goToTopicPage} />
 				<TopicFollowButton isFollowedTopic={isFollowedTopic} setReload={setReload} topicId={id} topicName={topicName} />
 			</ListItem>
 		</Paper>
 	);
+};
+
+TopicsListItem.propTypes = {
+	createdUserId: PropTypes.string,
+	description: PropTypes.string.isRequired,
+	id: PropTypes.string.isRequired,
+	reload: PropTypes.bool.isRequired,
+	setReload: PropTypes.func.isRequired,
+	topicName: PropTypes.string.isRequired
 };
 
 export default TopicsListItem;

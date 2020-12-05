@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import EventsFeed from "./events/EventsFeed";
@@ -14,11 +15,11 @@ const MainContent = ({ loadPosts, loadEvents, reload, setReload }) => (
 	</Grid>
 );
 
-export default MainContent;
-
 MainContent.propTypes = {
-	// eventList: PropTypes.array.isRequired,
-	// hasMoreItems: PropTypes.bool.isRequired,
-	// loadMoreData: PropTypes.func.isRequired,
-	// postList: PropTypes.array.isRequired,
+	loadEvents: PropTypes.func.isRequired,
+	loadPosts: PropTypes.func.isRequired,
+	reload: PropTypes.bool.isRequired,
+	setReload: PropTypes.func.isRequired
 };
+
+export default MainContent;

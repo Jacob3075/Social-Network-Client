@@ -1,10 +1,9 @@
+import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 
 import Post from "./Post";
 
 const PostsFeed = ({ loadPosts, reload, setReload }) => {
-	const { topicId } = useParams();
 	const [postListComponents, setPostListComponents] = useState([]);
 
 	useEffect(() => {
@@ -20,6 +19,12 @@ const PostsFeed = ({ loadPosts, reload, setReload }) => {
 	}, [reload]);
 
 	return <>{postListComponents}</>;
+};
+
+PostsFeed.propTypes = {
+	loadPosts: PropTypes.func.isRequired,
+	reload: PropTypes.bool.isRequired,
+	setReload: PropTypes.func.isRequired
 };
 
 export default PostsFeed;

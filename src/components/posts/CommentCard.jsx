@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Grid, makeStyles, Paper, Typography } from "@material-ui/core";
 import React from "react";
 
@@ -18,11 +19,6 @@ const useStyles = makeStyles(() => ({
 
 const CommentCard = ({ userId, comment, userName }) => {
 	const styles = useStyles();
-	// const [userName, setUserName] = useState("");
-
-	// getUserById(userId)
-	// 	.then((response) => setUserName(response.userName))
-	// 	.catch((error) => console.log(error));
 
 	return (
 		<>
@@ -36,6 +32,12 @@ const CommentCard = ({ userId, comment, userName }) => {
 			</Paper>
 		</>
 	);
+};
+
+CommentCard.propTypes = {
+	comment: PropTypes.string.isRequired,
+	userId: PropTypes.string,
+	userName: PropTypes.string.isRequired
 };
 
 export default CommentCard;

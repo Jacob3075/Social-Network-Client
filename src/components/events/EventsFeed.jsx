@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { List, Paper, Typography } from "@material-ui/core";
@@ -40,7 +41,7 @@ const EventsFeed = ({ loadEvents, reload, setReload }) => {
 
 	return (
 		<>
-			<Paper className={styles.container} elevation={4}>
+			<Paper className={styles.container} elevation={6}>
 				<Typography className={styles.header} variant="h4">
 					Events:
 				</Typography>
@@ -50,8 +51,10 @@ const EventsFeed = ({ loadEvents, reload, setReload }) => {
 	);
 };
 
-export default EventsFeed;
-
 EventsFeed.propTypes = {
-	// eventList: PropTypes.array.isRequired,
+	loadEvents: PropTypes.func.isRequired,
+	reload: PropTypes.bool.isRequired,
+	setReload: PropTypes.func.isRequired
 };
+
+export default EventsFeed;

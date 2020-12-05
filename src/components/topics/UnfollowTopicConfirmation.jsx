@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
@@ -33,6 +34,13 @@ const UnfollowTopicConfirmation = ({ handleClose, topicId, topicName, setReload 
 			</DialogActions>
 		</>
 	);
+};
+
+UnfollowTopicConfirmation.propTypes = {
+	handleClose: PropTypes.func.isRequired,
+	setReload: PropTypes.func.isRequired,
+	topicId: PropTypes.string.isRequired,
+	topicName: PropTypes.string
 };
 
 export default UnfollowTopicConfirmation;

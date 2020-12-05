@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -106,6 +107,10 @@ const SearchResults = ({ setReload, reload, topics }) => {
 	);
 };
 
+SearchResults.propTypes = {
+	reload: PropTypes.bool.isRequired,
+	setReload: PropTypes.func.isRequired,
+	topics: PropTypes.array.isRequired
+};
+
 export default SearchResults;
-
-

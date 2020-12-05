@@ -1,6 +1,7 @@
+import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { Typography } from "@material-ui/core";
-import TopicFollowButton from "../topics/TopicFollowButton";
+import TopicFollowButton from "./TopicFollowButton";
 import { userService } from "../../services/UserService";
 
 const TopicHeaderSection = ({ topicName, description, topicId, reload, setReload }) => {
@@ -27,6 +28,14 @@ const TopicHeaderSection = ({ topicName, description, topicId, reload, setReload
 			</Typography>
 		</>
 	);
+};
+
+TopicHeaderSection.propTypes = {
+	description: PropTypes.string.isRequired,
+	reload: PropTypes.bool.isRequired,
+	setReload: PropTypes.func.isRequired,
+	topicId: PropTypes.string.isRequired,
+	topicName: PropTypes.string.isRequired
 };
 
 export default TopicHeaderSection;

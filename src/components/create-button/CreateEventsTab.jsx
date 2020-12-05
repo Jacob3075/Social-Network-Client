@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { Field, Form, Formik } from "formik";
 import { Button, LinearProgress } from "@material-ui/core";
@@ -156,6 +157,12 @@ const CreateEventsTab = ({ handleClose, followedTopics, setReload }) => {
 			</Formik>
 		</>
 	);
+};
+
+CreateEventsTab.propTypes = {
+	followedTopics: PropTypes.array.isRequired,
+	handleClose: PropTypes.func.isRequired,
+	setReload: PropTypes.func.isRequired
 };
 
 export default CreateEventsTab;

@@ -111,4 +111,6 @@ const SignUpPage = () => {
 	);
 };
 
+SignUpPage.propTypes = {};
+
 export default SignUpPage;

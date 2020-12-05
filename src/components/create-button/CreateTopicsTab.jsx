@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { Field, Form, Formik } from "formik";
 import { Button } from "@material-ui/core";
@@ -110,6 +111,11 @@ const CreateTopicsTab = ({ handleClose, setReload }) => {
 			</Formik>
 		</>
 	);
+};
+
+CreateTopicsTab.propTypes = {
+	handleClose: PropTypes.func.isRequired,
+	setReload: PropTypes.func.isRequired
 };
 
 export default CreateTopicsTab;

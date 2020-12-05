@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import FollowedTopicsList from "./topics/FollowedTopicsList";
 import HomePageButton from "./HomePageButton";
 import CreateButton from "./create-button/CreateButton";
@@ -29,7 +28,7 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const MyAppBar = ({ title = "Title", setReload, reload }) => {
+const MyAppBar = ({ setReload, reload }) => {
 	const classes = useStyles();
 	const history = useHistory();
 
@@ -61,7 +60,6 @@ const MyAppBar = ({ title = "Title", setReload, reload }) => {
 				alt="PESLink"
 			/>
 			<Toolbar>
-				<Typography variant="h5">{title}</Typography>
 				<CreateButton followedTopics={followedTopics} setReload={setReload} />
 				<HomePageButton />
 				<FollowedTopicsList followedTopics={followedTopics} setReload={setReload} reload={reload} />
@@ -78,8 +76,9 @@ const MyAppBar = ({ title = "Title", setReload, reload }) => {
 	);
 };
 
-export default MyAppBar;
-
 MyAppBar.propTypes = {
-	title: PropTypes.string.isRequired
+	reload: PropTypes.bool.isRequired,
+	setReload: PropTypes.func.isRequired
 };
+
+export default MyAppBar;

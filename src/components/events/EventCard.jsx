@@ -1,8 +1,10 @@
+import PropTypes from "prop-types";
 import { Checkbox, Grid, makeStyles, Paper, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import { userService } from "../../services/UserService";
 import { updateEventRegistrations } from "../../services/EventService";
 import { useHistory } from "react-router-dom";
+import { parseTimeString } from "../../Utils";
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -10,31 +12,31 @@ const useStyles = makeStyles(() => ({
 		padding: "0.5em",
 		margin: "0.5em",
 		textAlign: "left",
-		borderRadius: 15,
+		borderRadius: 15
 	},
 	content: {
 		boxSizing: "border-box",
-		padding: "0.8em",
+		padding: "0.8em"
 	},
 	title: {},
 	place: {},
 	time: {},
-	description: {},
+	description: {}
 }));
 
 const EventCard = ({
-	id,
-	userId,
-	topicId,
-	time,
-	name,
-	description,
-	location,
-	registered,
-	userName,
-	topicName,
-	setReload,
-}) => {
+	                   id,
+	                   userId,
+	                   topicId,
+	                   time,
+	                   name,
+	                   description,
+	                   location,
+	                   registered,
+	                   userName,
+	                   topicName,
+	                   setReload
+                   }) => {
 	const styles = useStyles();
 	const [registeredEvent, setRegisteredEvent] = useState(
 		userService.getRegisteredEvents().includes(id)
@@ -58,23 +60,10 @@ const EventCard = ({
 		history.push(`/topic/${topicId}`);
 	};
 
-	let hr = parseInt(time.substring(11,13)) + 5;
-	let mi = parseInt(time.substring(14,16)) + 30;
-	if(mi > 59) {
-		mi = mi - 60;
-		hr++;
-	}
-	if(hr > 23) hr -= 24;
-	if(hr<10) hr = "0" + hr;
-	if(mi < 10) mi = "0" + mi;
-	
-	let yr = time.substring(2,4);
-	let mo = time.substring(5,7);
-	let da = time.substring(8,10);
-
+	const { day, hour, minute, month, year } = parseTimeString(time);
 	return (
 		<>
-			<Paper className={styles.root} elevation={2}>
+			<Paper className={styles.root} elevation={4}>
 				<Typography variant="subtitle1">{name}</Typography>
 				<Grid container>
 					<Grid item className={styles.content} xs={6}>
@@ -82,12 +71,17 @@ const EventCard = ({
 							checked={registeredEvent}
 							onChange={handleRegisterForEvent}
 							color="primary"
-							inputProps={{ "aria-label": "secondary checkbox" }}
 						/>
 						{numberOfRegistrations}
-						<Typography variant="body2">Date: {da+"/"+mo+"/"+yr}</Typography>
-						<Typography variant="body2">Time: {hr+":"+mi}</Typography>
-						<Typography variant="body2">Place: {location} </Typography>
+						<Typography variant="body2">
+							Date: {`${day}/${month}/${year}`}
+						</Typography>
+						<Typography variant="body2">
+							Time: {`${hour}:${minute}`}
+						</Typography>
+						<Typography variant="body2">
+							Place: {location}
+						</Typography>
 					</Grid>
 					<Grid item xs={6}>
 						<Typography variant="body1" fontSize="small" onClick={goToTopicPage}>
@@ -98,6 +92,20 @@ const EventCard = ({
 			</Paper>
 		</>
 	);
+};
+
+EventCard.propTypes = {
+	description: PropTypes.string.isRequired,
+	id: PropTypes.string.isRequired,
+	location: PropTypes.string.isRequired,
+	name: PropTypes.string.isRequired,
+	registered: PropTypes.number.isRequired,
+	setReload: PropTypes.func.isRequired,
+	time: PropTypes.string.isRequired,
+	topicId: PropTypes.string.isRequired,
+	topicName: PropTypes.any,
+	userId: PropTypes.any,
+	userName: PropTypes.any
 };
 
 export default EventCard;

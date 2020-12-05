@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { Field, Form, Formik } from "formik";
 import { Button, LinearProgress } from "@material-ui/core";
@@ -146,6 +147,12 @@ const CreatePostsTab = ({ handleClose, followedTopics, setReload }) => {
 			</Formik>
 		</>
 	);
+};
+
+CreatePostsTab.propTypes = {
+	followedTopics: PropTypes.array.isRequired,
+	handleClose: PropTypes.func.isRequired,
+	setReload: PropTypes.func.isRequired
 };
 
 export default CreatePostsTab;

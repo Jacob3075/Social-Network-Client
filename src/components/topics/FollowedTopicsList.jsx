@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -64,6 +65,12 @@ const FollowedTopicsList = ({ followedTopics, setReload, reload }) => {
 			</Dialog>
 		</>
 	);
+};
+
+FollowedTopicsList.propTypes = {
+	followedTopics: PropTypes.array.isRequired,
+	reload: PropTypes.bool,
+	setReload: PropTypes.func.isRequired
 };
 
 export default FollowedTopicsList;

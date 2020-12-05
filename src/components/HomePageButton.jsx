@@ -28,4 +28,6 @@ const HomePageButton = () => {
 	);
 };
 
+HomePageButton.propTypes = {};
+
 export default HomePageButton;

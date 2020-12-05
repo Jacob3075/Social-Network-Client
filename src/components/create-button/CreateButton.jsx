@@ -17,8 +17,8 @@ import TopicTabCreate from "./CreateTopicsTab";
 const useStyles = makeStyles((theme) => ({
 	root: {
 		backgroundColor: theme.palette.background.paper,
-		width: 500,
-	},
+		width: 500
+	}
 }));
 
 const CreateButton = ({ followedTopics, setReload }) => {
@@ -56,11 +56,11 @@ const CreateButton = ({ followedTopics, setReload }) => {
 	TabPanel.propTypes = {
 		children: PropTypes.node,
 		index: PropTypes.any.isRequired,
-		value: PropTypes.any.isRequired,
+		value: PropTypes.any.isRequired
 	};
 
 	const a11yProps = (index) => ({
-		id: `full-width-tab-${index}`,
+		id: `full-width-tab-${index}`
 	});
 
 	return (
@@ -68,7 +68,7 @@ const CreateButton = ({ followedTopics, setReload }) => {
 			<Fab
 				size="small"
 				color="secondary"
-				className={classes}
+				// className={classes.root}
 				onClick={handleClickOpen}
 				style={{ marginLeft: "10cm" }}
 			>
@@ -121,6 +121,11 @@ const CreateButton = ({ followedTopics, setReload }) => {
 			</Dialog>
 		</>
 	);
+};
+
+CreateButton.propTypes = {
+	followedTopics: PropTypes.array.isRequired,
+	setReload: PropTypes.func.isRequired
 };
 
 export default CreateButton;

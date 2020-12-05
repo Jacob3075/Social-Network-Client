@@ -6,7 +6,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { getPostsFromTopic } from "../../services/PostService";
 import { getEventsByTopic } from "../../services/EventService";
 import { getTopicById } from "../../services/TopicService";
-import TopicHeaderSection from "./TopicHeaderSection";
+import TopicHeaderSection from "../topics/TopicHeaderSection";
 
 const TopicPage = () => {
 	const history = useHistory();
@@ -70,5 +70,7 @@ const TopicPage = () => {
 		</>
 	);
 };
+
+TopicPage.propTypes = {};
 
 export default TopicPage;

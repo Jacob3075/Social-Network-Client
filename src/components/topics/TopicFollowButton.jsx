@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { Button } from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
@@ -55,6 +56,13 @@ const TopicFollowButton = ({ isFollowedTopic, setReload, topicId, topicName }) =
 		</>
 
 	);
+};
+
+TopicFollowButton.propTypes = {
+	isFollowedTopic: PropTypes.bool.isRequired,
+	setReload: PropTypes.func.isRequired,
+	topicId: PropTypes.string.isRequired,
+	topicName: PropTypes.string.isRequired
 };
 
 export default TopicFollowButton;

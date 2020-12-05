@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -13,24 +14,24 @@ import { InputAdornment, TextField } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 import { useHistory } from "react-router-dom";
 import { userService } from "../../services/UserService";
-import { arrayBufferToBase64 } from "../../Utils";
+import { arrayBufferToBase64, parseTimeString } from "../../Utils";
 import { addComment, likePost } from "../../services/PostService";
 import Collapse from "@material-ui/core/Collapse";
 import CommentCard from "./CommentCard";
 
 const Post = ({
-	id,
-	userId,
-	topicId,
-	description,
-	time,
-	likedUsers,
-	comments,
-	image,
-	userName,
-	topicName,
-	setReload,
-}) => {
+	              id,
+	              userId,
+	              topicId,
+	              description,
+	              time,
+	              likedUsers,
+	              comments,
+	              image,
+	              userName,
+	              topicName,
+	              setReload
+              }) => {
 	const history = useHistory();
 
 	const classes = postStyles();
@@ -80,21 +81,8 @@ const Post = ({
 		history.push(`/topic/${topicId}`);
 	};
 
-	// TODO: FORMAT DATE
-	let hr = parseInt(time.substring(11,13)) + 5;
-	let mi = parseInt(time.substring(14,16)) + 30;
-	if(mi > 59) {
-		mi = mi - 60;
-		hr++;
-	}
-	if(hr > 23) hr -= 24;
-	if(hr<10) hr = "0" + hr;
-	if(mi < 10) mi = "0" + mi;
-	
-	let yr = time.substring(0,4);
-	let mo = time.substring(5,7);
-	let da = time.substring(8,10);
-	const postHeaderTopicMessage = hr + ":" + mi + "\xa0\xa0\xa0\xa0\xa0\xa0\xa0" + da + "/" + mo + "/" + yr;
+	const parsedTime = parseTimeString(time);
+
 	const commentComponents = postComments.map((comment, index) => (
 		<CommentCard key={index} {...comment} />
 	));
@@ -104,7 +92,7 @@ const Post = ({
 			<CardHeader
 				onClick={goToTopicPage}
 				title={topicName + " • " + userName}
-				subheader={postHeaderTopicMessage}
+				subheader={parsedTime.fullDateString}
 				subheaderTypographyProps={{ variant: "subtitle2" }}
 			/>
 			<CardMedia className={classes.media} image={processedImageString} />
@@ -115,14 +103,13 @@ const Post = ({
 			</CardContent>
 			<CardActions>
 				<IconButton onClick={handleLikedPost}>
-					<FavoriteIcon color={likedPost ? "error" : ""} />
+					<FavoriteIcon color={likedPost ? "error" : "inherit"} />
 				</IconButton>
 				{numberOfLikes}
 				<form onSubmit={handlePostNewComment} className={classes.form}>
 					<TextField
 						className={classes.textField}
 						size={"small"}
-						id="outlined-basic"
 						label="New Comment"
 						variant="outlined"
 						InputProps={{
@@ -147,6 +134,20 @@ const Post = ({
 			</Collapse>
 		</Card>
 	);
+};
+
+Post.propTypes = {
+	comments: PropTypes.array.isRequired,
+	description: PropTypes.string.isRequired,
+	id: PropTypes.string.isRequired,
+	image: PropTypes.object.isRequired,
+	likedUsers: PropTypes.array.isRequired,
+	setReload: PropTypes.func.isRequired,
+	time: PropTypes.string.isRequired,
+	topicId: PropTypes.string.isRequired,
+	topicName: PropTypes.string.isRequired,
+	userId: PropTypes.string,
+	userName: PropTypes.string.isRequired
 };
 
 export default Post;
