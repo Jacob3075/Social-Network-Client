@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Button } from "@material-ui/core";
@@ -6,14 +6,30 @@ import Dialog from "@material-ui/core/Dialog";
 import UnfollowTopicConfirmation from "./UnfollowTopicConfirmation";
 import Paper from "@material-ui/core/Paper";
 import { useHistory } from "react-router-dom";
+import { userService } from "../../services/UserService";
 
-const TopicsListItem = ({ id, topicName, createdUserId, description, setReload }) => {
+const TopicsListItem = ({ id, topicName, createdUserId, description, setReload, reload }) => {
 	const history = useHistory();
 
-	const [open, setOpen] = React.useState(false);
+	const [open, setOpen] = useState(false);
+	const [isFollowedTopic, setIsFollowedTopic] = useState(false);
 
-	const handleClickOpen = () => {
-		setOpen(true);
+	useEffect(() => {
+		setIsFollowedTopic(userService.getFollowedTopics().includes(id));
+	}, [reload]);
+
+
+	const handleButtonClick = () => {
+		if (isFollowedTopic) {
+			setOpen(true);
+		} else {
+			userService.followNewTopic(id, false)
+				.then((response) => {
+					setReload(true);
+				})
+				.catch((error) => {
+				});
+		}
 	};
 
 	const handleClose = () => {
@@ -25,29 +41,36 @@ const TopicsListItem = ({ id, topicName, createdUserId, description, setReload }
 		history.push(`/topic/${id}`);
 	};
 
+	const buttonText = isFollowedTopic ? "Following" : "Follow";
+
+	const unFollowDialog = isFollowedTopic && (
+		<Dialog onClose={handleClose} open={open}>
+			<UnfollowTopicConfirmation
+				handleClose={handleClose}
+				topicName={topicName}
+				topicId={id}
+				setReload={setReload}
+			/>
+		</Dialog>
+	);
+
 	return (
 		<Paper>
 			<ListItem button>
-				<ListItemText primary={topicName} onClick={goToTopicPage} />
+				<ListItemText primary={topicName} secondaryText={description} onClick={goToTopicPage} />
 				<Button
 					variant="contained"
+					color={isFollowedTopic ? "primary" : "secondary"}
 					style={{
 						float: "right",
 						width: "2.5cm",
-						height: "0.8cm",
+						height: "0.8cm"
 					}}
-					onClick={handleClickOpen}
+					onClick={handleButtonClick}
 				>
-					Following
+					{buttonText}
 				</Button>
-				<Dialog onClose={handleClose} open={open}>
-					<UnfollowTopicConfirmation
-						handleClose={handleClose}
-						topicName={topicName}
-						topicId={id}
-						setReload={setReload}
-					/>
-				</Dialog>
+				{unFollowDialog}
 			</ListItem>
 		</Paper>
 	);
