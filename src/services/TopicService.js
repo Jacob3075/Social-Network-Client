@@ -63,7 +63,7 @@ export const getTopicFollowedByUser = async () => {
 };
 
 export const createNewTopic = async ({ topicName, description, createdUserId }) => {
-	return await axios
+	const topicResponse = await axios
 		.post(url, { topicName, description, createdUserId }, userService.getHeaderData())
 		.then((response) => response.data)
 		.then(
@@ -76,4 +76,7 @@ export const createNewTopic = async ({ topicName, description, createdUserId }) 
 				)
 		)
 		.catch((error) => error.response.status);
+
+	await userService.followNewTopic(topicResponse.id);
+	return topicResponse;
 };
