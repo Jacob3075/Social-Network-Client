@@ -37,15 +37,21 @@ const useStyles = makeStyles((theme) => ({
 const SearchResults = ({ results, setReload, reload, topics }) => {
 	const classes = useStyles();
 
-	const [open, setOpen] = useState(false);
-	//const topicResults = results.map(result => result.item);
-	const topicResults = results.map((topic) => (
-		<TopicsListItem key={topic.id} {...topic} setReload={setReload} />
-	));
+    const [open, setOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+    const topicResults = results.map(result => result.item);
+	//const topicResults = results.map((topic) => (
+	//	<TopicsListItem key={topic.id} {...topic} setReload={setReload} />
+	//));
 
 	const fuse = new Fuse(topics, {
-		keys: ["topicName", "description"]
-	});
+        keys: [
+            "topicName",
+            "description"
+        ],
+        includeScore: true
+    });
+    console.log('results', results)
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -56,10 +62,10 @@ const SearchResults = ({ results, setReload, reload, topics }) => {
 	};
 
 	function handleChange({ currentTarget = {} }) {
-		const { value } = currentTarget;
+        const { value } = currentTarget;
 		setSearchQuery(value);
 
-	}
+    }
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -67,7 +73,6 @@ const SearchResults = ({ results, setReload, reload, topics }) => {
 		setSearchQuery("");
 	};
 
-	const [searchQuery, setSearchQuery] = useState("");
 	//const [topics, setTopics] = useState([]);
 
 	return (
@@ -101,7 +106,17 @@ const SearchResults = ({ results, setReload, reload, topics }) => {
 							<Typography className={classes.text} variant="h5" gutterBottom>
 								Results
 							</Typography>
-							<List className={classes.list}>{topicResults}</List>
+							<List className={classes.list}>
+                                {
+                                    topicResults.map[result => {
+                                        const { topicName, description } = result;
+                                        return (
+                                            { topicResults }
+                                        )
+                                    }
+                                ]
+                                }
+                            </List>
 						</Paper>
 					</DialogContentText>
 				</DialogContent>
