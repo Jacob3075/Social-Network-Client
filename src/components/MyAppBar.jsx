@@ -11,7 +11,6 @@ import { Button } from "@material-ui/core";
 import { userService } from "../services/UserService";
 import { useHistory } from "react-router-dom";
 import { getAllTopics, getTopicFollowedByUser } from "../services/TopicService";
-import Fuse from "fuse.js";
 import SearchResults from "./topics/SearchResults";
 
 const useStyles = makeStyles(() => ({
@@ -34,15 +33,8 @@ const MyAppBar = ({ title = "Title", setReload, reload }) => {
 	const classes = useStyles();
 	const history = useHistory();
 
-	const [searchQuery, setSearchQuery] = useState("");
 	const [topics, setTopics] = useState([]);
 	const [followedTopics, setFollowedTopics] = useState([]);
-	const fuse = new Fuse(topics, {
-		keys: ['getAllTopics'],
-	})
-	const results = fuse.search('searchQuery');
-	const topicResults = results.map(result => result.item);
-	
 
 	useEffect(() => {
 		getAllTopics()
@@ -73,7 +65,7 @@ const MyAppBar = ({ title = "Title", setReload, reload }) => {
 				<CreateButton followedTopics={followedTopics} setReload={setReload} />
 				<HomePageButton />
 				<FollowedTopicsList followedTopics={followedTopics} setReload={setReload} reload={reload} />
-				<SearchResults results={results} setReload={setReload} reload={reload} topics={topics} />
+				<SearchResults setReload={setReload} reload={reload} topics={topics} />
 				<Button
 					variant="text"
 					onClick={handleLogOut}
