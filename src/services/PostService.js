@@ -67,6 +67,7 @@ export const createNewPost = async ({ description, image, topicId, userId, topic
 	bodyFormData.append("image", image);
 	bodyFormData.append("userName", userService.getUserName());
 	bodyFormData.append("topicName", topicName);
+	bodyFormData.append("time", new Date());
 
 	headerData["Content-Type"] = "multipart/form-data";
 
