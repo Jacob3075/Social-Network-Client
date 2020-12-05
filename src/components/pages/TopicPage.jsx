@@ -7,6 +7,7 @@ import { getPostsFromTopic } from "../../services/PostService";
 import { Typography } from "@material-ui/core";
 import { getEventsByTopic } from "../../services/EventService";
 import { getTopicById } from "../../services/TopicService";
+import TopicFollowButton from "../topics/TopicFollowButton";
 
 const TopicPage = () => {
 	const history = useHistory();
@@ -14,6 +15,12 @@ const TopicPage = () => {
 
 	const [reload, setReload] = useState(false);
 	const [topicName, setTopicName] = useState("");
+	const [description, setDescription] = useState("");
+	const [isFollowedTopic, setIsFollowedTopic] = useState(false);
+
+	useEffect(() => {
+		setIsFollowedTopic(userService.getFollowedTopics().includes(topicId));
+	}, [reload]);
 
 	useEffect(() => {
 		if (!userService.isLoggedIn()) history.push("/login");
@@ -22,6 +29,14 @@ const TopicPage = () => {
 			.then((topic) => setTopicName(topic.topicName))
 			.catch((error) => console.log(error));
 	}, []);
+
+	useEffect(() => {
+		if (!userService.isLoggedIn()) history.push("/login");
+
+		getTopicById(topicId)
+			.then((topic) => setDescription(topic.description))
+			.catch((error) => console.log(error));
+		}, []);
 
 	const loadEvents = () => {
 		return getEventsByTopic(topicId)
@@ -48,8 +63,17 @@ const TopicPage = () => {
 	return (
 		<>
 			<MyAppBar title={""} setReload={setReload} reload={reload} />
-			<Typography variant="subtitle"> Topic Name : </Typography>
-			<Typography variant="body"> Topic Description </Typography>
+			<Typography variant="h4" color="textPrimary">
+				{topicName + "\xa0\xa0"}
+				<TopicFollowButton isFollowedTopic={isFollowedTopic} setReload={setReload} topicId={topicId}
+				                   topicName={topicName} />
+			</Typography>
+
+
+			<Typography variant="h6">
+				{description} 
+			</Typography>
+			
 			<MainContent
 				loadPosts={loadPosts}
 				loadEvents={loadEvents}

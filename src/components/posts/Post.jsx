@@ -81,8 +81,20 @@ const Post = ({
 	};
 
 	// TODO: FORMAT DATE
-	const postHeaderTopicMessage = time;
-
+	let hr = parseInt(time.substring(11,13)) + 5;
+	let mi = parseInt(time.substring(14,16)) + 30;
+	if(mi > 59) {
+		mi = mi - 60;
+		hr++;
+	}
+	if(hr > 23) hr -= 24;
+	if(hr<10) hr = "0" + hr;
+	if(mi < 10) mi = "0" + mi;
+	
+	let yr = time.substring(0,4);
+	let mo = time.substring(5,7);
+	let da = time.substring(8,10);
+	const postHeaderTopicMessage = hr + ":" + mi + "\xa0\xa0\xa0\xa0\xa0\xa0\xa0" + da + "/" + mo + "/" + yr;
 	const commentComponents = postComments.map((comment, index) => (
 		<CommentCard key={index} {...comment} />
 	));

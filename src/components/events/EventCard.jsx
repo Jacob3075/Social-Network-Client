@@ -2,6 +2,7 @@ import { Checkbox, Grid, makeStyles, Paper, Typography } from "@material-ui/core
 import React, { useState } from "react";
 import { userService } from "../../services/UserService";
 import { updateEventRegistrations } from "../../services/EventService";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -52,6 +53,25 @@ const EventCard = ({
 			.catch((error) => console.log(error));
 	};
 
+	const history = useHistory();
+	const goToTopicPage = () => {
+		history.push(`/topic/${topicId}`);
+	};
+
+	let hr = parseInt(time.substring(11,13)) + 5;
+	let mi = parseInt(time.substring(14,16)) + 30;
+	if(mi > 59) {
+		mi = mi - 60;
+		hr++;
+	}
+	if(hr > 23) hr -= 24;
+	if(hr<10) hr = "0" + hr;
+	if(mi < 10) mi = "0" + mi;
+	
+	let yr = time.substring(2,4);
+	let mo = time.substring(5,7);
+	let da = time.substring(8,10);
+
 	return (
 		<>
 			<Paper className={styles.root} elevation={2}>
@@ -65,11 +85,12 @@ const EventCard = ({
 							inputProps={{ "aria-label": "secondary checkbox" }}
 						/>
 						{numberOfRegistrations}
-						<Typography variant="body2">Time: {time}</Typography>
+						<Typography variant="body2">Date: {da+"/"+mo+"/"+yr}</Typography>
+						<Typography variant="body2">Time: {hr+":"+mi}</Typography>
 						<Typography variant="body2">Place: {location} </Typography>
 					</Grid>
 					<Grid item xs={6}>
-						<Typography variant="body1" fontSize="small">
+						<Typography variant="body1" fontSize="small" onClick={goToTopicPage}>
 							{description}
 						</Typography>
 					</Grid>
