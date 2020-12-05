@@ -97,17 +97,7 @@ const SearchResults = ({ setReload, reload, topics }) => {
 							<Typography className={classes.text} variant="h5" gutterBottom>
 								Results
 							</Typography>
-							<List className={classes.list}>
-                                {
-                                    topicResults.map[result => {
-                                        const { topicName, description } = result;
-                                        return (
-                                            { topicResults }
-                                        )
-                                    }
-                                ]
-                                }
-                            </List>
+							<List className={classes.list}>{topicResults}</List>
 						</Paper>
 					</DialogContentText>
 				</DialogContent>
