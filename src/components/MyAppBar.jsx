@@ -10,7 +10,7 @@ import { Button } from "@material-ui/core";
 import { userService } from "../services/UserService";
 import { useHistory } from "react-router-dom";
 import { getAllTopics, getTopicFollowedByUser } from "../services/TopicService";
-import SearchResults from "./topics/SearchResults";
+import SearchButton from "./topics/SearchButton";
 
 const useStyles = makeStyles(() => ({
 	appBar: {
@@ -63,7 +63,7 @@ const MyAppBar = ({ setReload, reload }) => {
 				<CreateButton followedTopics={followedTopics} setReload={setReload} />
 				<HomePageButton />
 				<FollowedTopicsList followedTopics={followedTopics} setReload={setReload} reload={reload} />
-				<SearchResults setReload={setReload} reload={reload} topics={topics} />
+				<SearchButton setReload={setReload} reload={reload} topics={topics} />
 				<Button
 					variant="text"
 					onClick={handleLogOut}

@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const SearchResults = ({ setReload, reload, topics }) => {
+const SearchButton = ({ setReload, reload, topics }) => {
 	const classes = useStyles();
 
 	const [searchQuery, setSearchQuery] = useState("");
@@ -76,7 +76,7 @@ const SearchResults = ({ setReload, reload, topics }) => {
 				<DialogContent>
 					<DialogContentText>
 						<Paper square className={classes.paper}>
-							<form className={classes.form}>
+							<form className={classes.form} onSubmit={event => event.preventDefault()}>
 								<TextField
 									className={classes.search}
 									size="small"
@@ -107,10 +107,10 @@ const SearchResults = ({ setReload, reload, topics }) => {
 	);
 };
 
-SearchResults.propTypes = {
+SearchButton.propTypes = {
 	reload: PropTypes.bool.isRequired,
 	setReload: PropTypes.func.isRequired,
 	topics: PropTypes.array.isRequired
 };
 
-export default SearchResults;
+export default SearchButton;

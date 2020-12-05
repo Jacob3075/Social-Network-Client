@@ -12,7 +12,7 @@ const HomePage = () => {
 
 	useEffect(() => {
 		if (!userService.isLoggedIn()) history.push("/login");
-	}, []);
+	});
 
 	const loadEvents = () => {
 		return getEventsFromFollowedTopics()
