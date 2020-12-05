@@ -12,7 +12,6 @@ const UnfollowTopicConfirmation = ({ handleClose, topicId, topicName, setReload 
 			.then((response) => {
 				handleClose();
 				setReload(true);
-				console.log(response);
 			})
 			.catch((error) => console.log(error));
 	};
