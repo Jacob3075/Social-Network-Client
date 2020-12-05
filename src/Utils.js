@@ -5,12 +5,17 @@ export const arrayBufferToBase64 = (buffer) => {
 	return window.btoa(binary);
 };
 
-export const parseTimeString = time => {
+export const parseTimeString = (time) => {
 	let hour = parseInt(time.substring(11, 13)) + 5;
 	let minute = parseInt(time.substring(14, 16)) + 30;
 
-	if (hour < 10) hour = `0${hour}`;
-	if (minute < 10) minute = `0${minute}`;
+	if (minute > 59) {
+		minute = minute - 60;
+		hour++;
+	}
+	if (hour > 23) hour -= 24;
+	if (hour < 10) hour = "0" + hour;
+	if (hour < 10) minute = "0" + minute;
 
 	let year = time.substring(0, 4);
 	let month = time.substring(5, 7);
