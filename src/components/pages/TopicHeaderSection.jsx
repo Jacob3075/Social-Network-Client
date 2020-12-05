@@ -14,14 +14,14 @@ const TopicHeaderSection = ({ topicName, description, topicId, reload, setReload
 		<>
 			<Typography variant="h4" color="textPrimary">
 				{topicName + "\xa0\xa0"}
+				<TopicFollowButton
+					isFollowedTopic={isFollowedTopic}
+					setReload={setReload}
+					topicId={topicId}
+					topicName={topicName}
+				/>
 			</Typography>
 
-			<TopicFollowButton
-				isFollowedTopic={isFollowedTopic}
-				setReload={setReload}
-				topicId={topicId}
-				topicName={topicName}
-			/>
 			<Typography variant="h6">
 				{description}
 			</Typography>
